@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+
 import './App.css';
+
+// react guardedRoute 
+import {GuardedRoute} from 'react-router-guards';
+
+
+// route component 
+import Test from './Test';
+import Test2 from './Test2';
+import Login from './containers/Login/Login';
+
+import {Switch} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+          <GuardedRoute path="/1" exact component={Test} meta={{auth : true}}/>
+          <GuardedRoute path="/2" exact component={Test2} meta={{auth : false}}/>
+          <GuardedRoute path="/login" exact component={Login} meta={{auth : true}}/>
+      </Switch>
+      
     </div>
   );
 }
