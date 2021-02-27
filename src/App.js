@@ -6,8 +6,8 @@ import {GuardedRoute} from 'react-router-guards';
 
 
 // route component 
-import Test from './Test';
-import Test2 from './Test2';
+import Test from './components/Test';
+import Test2 from './components/Test2';
 import Login from './containers/Login/Login';
 
 import {Switch} from 'react-router-dom'
