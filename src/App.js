@@ -10,6 +10,9 @@ import Test from './components/Test';
 import Test2 from './components/Test2';
 import Login from './containers/Login/Login';
 
+//ck editor 
+import CKEditorCustom from './components/CKEditorCustom/CKEditorCustom';
+
 import {Switch} from 'react-router-dom'
 
 function App() {
@@ -19,6 +22,8 @@ function App() {
           <GuardedRoute path="/1" exact component={Test} meta={{auth : true}}/>
           <GuardedRoute path="/2" exact component={Test2} meta={{auth : false}}/>
           <GuardedRoute path="/login" exact component={Login} meta={{auth : true}}/>
+          <GuardedRoute path="/editor" exact component={CKEditorCustom} meta={{auth : true}}/>
+          
       </Switch>
       
     </div>
