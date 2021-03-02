@@ -12,7 +12,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 
 //user service
-//import {getUserInfor} from './services/user.service';
+import {getUserInfor} from './services/user.service';
 
 
 //redux 
@@ -47,13 +47,14 @@ const reducer = combineReducers(
 )
 
 // create redux store 
-const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
+export const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
+
 
 const requireLogin = async (to,from,next) => {
   if(to.meta.auth){
     try {
       // goi api 
-        //const res = await getUserInfor();
+        const res = await getUserInfor();
         //console.log(res);
 
         console.log('login middleware')

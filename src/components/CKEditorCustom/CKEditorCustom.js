@@ -6,10 +6,13 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 // custom build editor 
 
 
+
 // classic editor 
 //import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 
+import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 
 
 
@@ -27,6 +30,10 @@ import parse from 'html-react-parser';
 
 
 // configuration of editor 
+const config = {
+    plugins: [ Autoformat ],
+    toolbar: [  ]
+};
 
 
 
@@ -46,6 +53,7 @@ const CKEditorCustom = props => {
                     editor={ClassicEditor}
                     data={data}
                     disabled={false}
+                    config={config}
                     onBlur={ ( event, editor ) => {
                         console.log(editor.getData());
                         setData(editor.getData());
