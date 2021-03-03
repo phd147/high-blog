@@ -1,4 +1,4 @@
-import axios_config from '../axios/axios-config';
+import axios_config from '../axios/axios-interceptors-config';
 
 import { checkToken } from "../../services/user.service";
 

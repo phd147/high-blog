@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+//import reportWebVitals from './reportWebVitals';
 
 //react-router-guards 
 import {GuardProvider} from 'react-router-guards';
@@ -12,7 +12,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 
 //user service
-import {getUserInfor} from './services/user.service';
+//import {getUserInfor} from './services/user.service';
 
 
 //redux 
@@ -47,17 +47,16 @@ const reducer = combineReducers(
 )
 
 // create redux store 
-export const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
 
 
 const requireLogin = async (to,from,next) => {
   if(to.meta.auth){
     try {
-      // goi api 
-        const res = await getUserInfor();
+      // goi api to get user role
+        //const res = await getUserInfor();
         //console.log(res);
 
-        console.log('login middleware')
         if(localStorage.getItem('dut-accessToken')){
 
           store.dispatch({type : actionTypes.INIT_USER_INFOR, name : 'phd',userName : 'phan huynh duc',role : ['admin','user'] })
@@ -105,4 +104,4 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+

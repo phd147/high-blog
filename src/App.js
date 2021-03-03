@@ -13,11 +13,28 @@ import Login from './containers/Login/Login';
 //ck editor 
 import CKEditorCustom from './components/CKEditorCustom/CKEditorCustom';
 
-import {Switch} from 'react-router-dom'
+import {Switch,Link} from 'react-router-dom';
+
+
+import {Button,Grid} from '@material-ui/core'
 
 function App() {
   return (
     <div className="App">
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4}>
+
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Link to="/1">
+          <Button>Home</Button>
+          </Link>
+        </Grid>
+        <Grid item xs={12} md={4}>
+
+        </Grid>
+
+      </Grid>
       <Switch>
 
           <GuardedRoute path="/1" exact component={Test} meta={{auth : true}}/>
