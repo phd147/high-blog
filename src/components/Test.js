@@ -9,6 +9,11 @@ import {Grid,Container,Button} from '@material-ui/core';
 // aciton import 
 import {changeCount} from '../store/action/thunks/thunkExample';
 
+// import react  toasify 
+//import  'react-toastify/dist/ReactToastify.css';
+
+//import { ToastContainer } from 'react-toastify';
+
 const Test = props => {
 
     const dispatch = useDispatch();
@@ -22,6 +27,17 @@ const Test = props => {
     return (
         <div>
             <Container>
+            {/* <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            /> */}
                 <Grid container spacing={3}>
                     <Grid item md={4} xs={12}>
                             <Button onClick={() => dispatch(changeCount())} >

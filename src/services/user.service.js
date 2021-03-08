@@ -5,6 +5,12 @@ export function getUserInfor() {
     return new Api().get(url);
 }
 
+export function removeToken(){
+    localStorage.removeItem('dut-accessToken');
+    sessionStorage.removeItem('dut-accessToken');
+}
+
+
 export const checkToken = () => {
     return localStorage.getItem('dut-accessToken') || sessionStorage.getItem('dut-accessToken');
 }
