@@ -1,0 +1,26 @@
+.editor-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin: 0 auto;
+}
+
+.editor-title > .ck.ck-editor__editable_inline {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid hsl(0, 0%, 77%);
+  margin-bottom: 20px;
+}
+.editor-content > .ck.ck-editor__editable_inline {
+  width: 100%;
+  min-height: 300px;
+  border: 1px solid hsl(0, 0%, 77%);
+  margin-bottom: 20px;
+}
+.editor-container > label {
+  font-size: 20px;
+  margin-left: 0;
+  margin-bottom: 20px;
+}
