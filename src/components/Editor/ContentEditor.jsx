@@ -9,17 +9,16 @@ ContentEditor.propTypes = {
   onContentChange: PropTypes.func,
 };
 ContentEditor.defaultProps = {
-  contentData: '',
+  data: '',
   onContentChange: null,
 }
 function ContentEditor(props) {
-  const {contentData, onContentChange} = props;
+  const {data, onContentChange} = props;
   return (
     <div className="editor-container editor-content">
-      <label htmlFor="">Content</label>
       <CKEditor
         editor={CKEDITOR.ContentEditor}
-        data={contentData}
+        data={data}
         onReady={(editor) => {
           console.log("Editor is ready to use!", editor);
         }}

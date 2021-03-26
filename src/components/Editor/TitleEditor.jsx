@@ -5,22 +5,21 @@ import PropTypes from "prop-types";
 import "./Editor.css";
 
 TitleEditor.propTypes = {
-  titleData: PropTypes.string,
+  data: PropTypes.string,
   onTitleChange: PropTypes.func,
 };
 TitleEditor.defaultProps = {
-  titleData: "",
+  data: "",
   onTitleChange: null,
 };
 
 function TitleEditor(props) {
-  const { titleData, onTitleChange } = props;
+  const { data, onTitleChange } = props;
   return (
     <div className="editor-container editor-title">
-      <label htmlFor="">Title</label>
       <CKEditor
         editor={CKEDITOR.TitleEditor}
-        data={titleData}
+        data={data}
         onReady={(editor) => {
           console.log("Editor is ready to use!", editor);
         }}
