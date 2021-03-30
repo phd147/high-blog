@@ -25,6 +25,7 @@ function ContentEditor(props) {
         onChange={(event, editor) => {
           const data = editor.getData();
           if(onContentChange) {
+            console.log(data);
             onContentChange(data);
           }
           // console.log({ event, editor, data });

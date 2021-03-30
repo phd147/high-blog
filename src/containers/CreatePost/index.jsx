@@ -239,10 +239,23 @@ function CreatePost(props) {
               </Row>
               <Row>
                 <Col>
-                  <Form.Group controlId="post-title">
+                  {/* <Form.Group controlId="post-title">
                     <TitleEditor
                       data={title}
                       onTitleChange={handleTitleChange}
+                    />
+                  </Form.Group>
+                   */}
+                  <Form.Group controlId="post-title">
+                    <Form.Control
+                      className="title-editor"
+                      as="textarea"
+                      placeholder="Type the title"
+                      rows={2}
+                      onChange={(e) =>
+                        handleTitleChange(e.target.value)
+                      }
+                      value={title}
                     />
                   </Form.Group>
                 </Col>

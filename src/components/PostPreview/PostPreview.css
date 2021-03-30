@@ -1,0 +1,49 @@
+figure[class*="image"] > img {
+  width: 100%;
+}
+figure[class*="image"] {
+  margin: 0 auto;
+}
+figure[class*="table"] {
+  margin: 0 auto;
+}
+figure > table {
+  width: 100%;
+}
+blockquote {
+  overflow: hidden;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  border-left: 5px solid #ccc;
+}
+pre {
+  padding: 1em;
+  color: #353535;
+  background: hsla(0, 0%, 78%, 0.3);
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
+  text-align: left;
+  direction: ltr;
+  tab-size: 4;
+  white-space: pre-wrap;
+  font-style: normal;
+  min-width: 200px;
+
+  position: relative;
+}
+pre[data-language]:after {
+  content: attr(data-language);
+  position: absolute;
+  top: -1px;
+  right: 10px;
+  background: var(--ck-color-code-block-label-background);
+  font-size: 10px;
+  font-family: var(--ck-font-face);
+  line-height: 16px;
+  padding: var(--ck-spacing-tiny) var(--ck-spacing-medium);
+  color: #fff;
+  white-space: nowrap;
+}
