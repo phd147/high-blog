@@ -2,20 +2,22 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Multiselect } from "multiselect-react-dropdown";
-import "./TagList.css";
+import "./TagSelect.css";
 
-TagList.propTypes = {
+TagSelect.propTypes = {
   listTag: PropTypes.array,
+  value: PropTypes.array,
   onSelectTag: PropTypes.func,
 };
 
-TagList.defaultProps = {
+TagSelect.defaultProps = {
   listTag: [],
+  value: [],
   OnSelectTag: null,
 };
 
-export default function TagList(props) {
-  const { listTag, onSelectTag } = props;
+export default function TagSelect(props) {
+  const { listTag, onSelectTag, value } = props;
   const [selected, setSelected] = useState([]);
   const handleTagSelectChange = (selectedList) => {
     if (onSelectTag) {
@@ -28,7 +30,7 @@ export default function TagList(props) {
       <Multiselect
         className="tag-inner"
         options={listTag}
-        selectedValues={[]}
+        selectedValues={value}
         onSelect={handleTagSelectChange}
         onRemove={() => {}}
         displayValue="name"

@@ -1,33 +1,28 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import TitleEditor from "../../components/Editor/TitleEditor";
-import ContentEditor from "../../components/Editor/ContentEditor";
-import CKEDITOR from "ckeditor-blog";
-import TagList from "../../components/TagList/index";
-import "./CreatePost.css";
+import { Card } from "@material-ui/core";
 import axios from "axios";
+import CKEDITOR from "ckeditor-blog";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Col,
   Container,
   Form,
-  FormGroup,
   Image,
   Row,
   ToggleButton,
   ToggleButtonGroup,
 } from "react-bootstrap";
-import { Card } from "@material-ui/core";
+import ContentEditor from "../../components/Editor/ContentEditor";
 import PostPreview from "../../components/PostPreview";
+import TagSelect from "../../components/TagSelect/index";
+import "./CreatePost.css";
+import { header, headerCK } from "./headerHelper.js";
 
 CreatePost.propTypes = {};
 CKEDITOR.ContentEditor.defaultConfig.simpleUpload = {
-  uploadUrl: "http://35.240.173.198/api/v1/files/ck/images",
+  uploadUrl: "http://35.240.173.198/api/v1/user/files/ck/images",
   withCredentials: true,
-  headers: {
-    "X-CSRF-TOKEN": "CSRF-Token",
-    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTY3NzM2OTkxODQiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTY3NzM2OTksInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTY3ODIzMzl9.YzfuEHPWi9b7S-B1kf-4bAyqu9cDJt0kPpE2CPuxXFjn-To7G6KpJh-rrOiCQSxMvxWrPQeMDyitOCwgfnmjGw`,
-  },
+  headers: headerCK,
 };
 function CreatePost(props) {
   console.log("RE_RENDER");
@@ -37,91 +32,70 @@ function CreatePost(props) {
   const [tags, setTags] = useState([]);
   const [listTag, setListTag] = useState([]);
   const [category, setCategory] = useState(1);
+  const [listCategory, setListCategory] = useState([]);
   const [coverImagePath, setCoverImagePath] = useState("");
-
   const [isPreview, setIsPreview] = useState(false);
-
   const coverImageRef = useRef(null);
-  const handlePostClick = (postType) => {
-    console.log("Post submitted");
-    const header = {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTY3NzM2OTkxODQiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTY3NzM2OTksInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTY3ODIzMzl9.YzfuEHPWi9b7S-B1kf-4bAyqu9cDJt0kPpE2CPuxXFjn-To7G6KpJh-rrOiCQSxMvxWrPQeMDyitOCwgfnmjGw",
-    };
-    axios
-      .post(
-        "http://35.240.173.198/api/v1/user/posts",
-        {
-          category_id: 0,
-          content: content,
-          cover_image_path: coverImagePath,
-          post_type: postType,
-          summary: summary,
-          tags: tags,
-          title: title,
-        },
-        { headers: header }
-      )
-      .then(function (response) {
-        console.log(response);
-      });
-  };
-  const handleTitleChange = (data) => {
-    setTitle(data);
-  };
-  // const handleTitleChange = useMemo(() => {
 
-  // }, [])
+  useEffect(() => {
+    try {
+      axios
+        .get("http://35.240.173.198/api/v1/tags", { headers: header })
+        .then(function (response) {
+          setListTag(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      axios
+        .get("http://35.240.173.198/api/v1/user/categories", {
+          headers: header,
+        })
+        .then(function (response) {
+          setListCategory(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const draft = JSON.parse(localStorage.getItem("highblog/new"));
+    setTitle(draft.title);
+    setSummary(draft.summary);
+    setContent(draft.content);
+    setTags(draft.tags);
+    setCategory(draft.category);
+    setCoverImagePath(draft.coverImagePath);
+  }, []);
+
+  useEffect(() => {
+    let draft = {
+      title: title,
+      summary: summary,
+      content: content,
+      tags: tags,
+      category: category,
+      coverImagePath: coverImagePath,
+    };
+    localStorage.setItem("highblog/new", JSON.stringify(draft));
+  }, [title, summary, content, tags, category, coverImagePath]);
+
   const handleContentChange = (data) => {
     setContent(data);
   };
+
   const handleSelectTag = (selectedList) => {
-    console.log("TAGS: ", selectedList);
     setTags(selectedList);
   };
-  useEffect(() => {
-    const header = {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTY3NzM2OTkxODQiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTY3NzM2OTksInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTY3ODIzMzl9.YzfuEHPWi9b7S-B1kf-4bAyqu9cDJt0kPpE2CPuxXFjn-To7G6KpJh-rrOiCQSxMvxWrPQeMDyitOCwgfnmjGw",
-    };
-    try {
-      axios
-        .get("http://35.240.173.198/api/v1/tags", { headers: header })
-        .then(function (response) {
-          setListTag(response.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
-  useEffect(() => {
-    const header = {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTY3NzM2OTkxODQiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTY3NzM2OTksInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTY3ODIzMzl9.YzfuEHPWi9b7S-B1kf-4bAyqu9cDJt0kPpE2CPuxXFjn-To7G6KpJh-rrOiCQSxMvxWrPQeMDyitOCwgfnmjGw",
-    };
-    try {
-      axios
-        .get("http://35.240.173.198/api/v1/tags", { headers: header })
-        .then(function (response) {
-          setListTag(response.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
   const handleFileUpload = (event) => {
     const data = new FormData();
     data.append("image", event.target.files[0]);
-    console.log(event.target.files[0]);
-    const header = {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTY3NzM2OTkxODQiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTY3NzM2OTksInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTY3ODIzMzl9.YzfuEHPWi9b7S-B1kf-4bAyqu9cDJt0kPpE2CPuxXFjn-To7G6KpJh-rrOiCQSxMvxWrPQeMDyitOCwgfnmjGw",
-    };
     let url = "http://35.240.173.198/api/v1/user/files/images";
 
     axios
@@ -133,9 +107,27 @@ function CreatePost(props) {
         setCoverImagePath(res.data.path);
       });
   };
-  const handleRemoveCoverImage = () => {
-    setCoverImagePath("");
+
+  const handlePostClick = (postType) => {
+    const postObj = {
+      categoryId: category,
+      content: content,
+      coverImagePath: coverImagePath,
+      postType: postType,
+      summary: summary,
+      tags: tags,
+      title: title,
+    };
+    //localStorage.removeItem("highblog/new") ??
+    axios
+      .post("http://35.240.173.198/api/v1/user/posts", postObj, {
+        headers: header,
+      })
+      .then(function (response) {
+        console.log(response);
+      });
   };
+
   return (
     <Container className="create-post-container">
       <Row style={{ marginBottom: "20px" }}>
@@ -164,7 +156,13 @@ function CreatePost(props) {
       <Card className="create-post-card">
         <div className="scroll">
           {isPreview ? (
-            <PostPreview postTitle={title} postContent={content} />
+            <PostPreview
+              postTitle={title !== "" ? title : "No title"}
+              postContent={
+                content !== "" ? content : "No content for displaying"
+              }
+              postTags={tags}
+            />
           ) : (
             <div>
               <Row>
@@ -187,7 +185,7 @@ function CreatePost(props) {
                     <Button
                       variant="outline-danger"
                       style={{ marginLeft: "10px" }}
-                      onClick={handleRemoveCoverImage}
+                      onClick={() => setCoverImagePath("")}
                     >
                       Remove
                     </Button>
@@ -211,17 +209,25 @@ function CreatePost(props) {
                     defaultValue={1}
                     onChange={(selected) => setCategory(selected)}
                   >
-                    <ToggleButton size="sm" variant="outline-info" value={1}>
-                      Posts
-                    </ToggleButton>
-                    <ToggleButton size="sm" variant="outline-info" value={2}>
-                      Question
-                    </ToggleButton>
+                    {listCategory.map((item) => (
+                      <ToggleButton
+                        key={item.id}
+                        size="sm"
+                        variant="outline-info"
+                        value={item.id}
+                      >
+                        {item.title}
+                      </ToggleButton>
+                    ))}
                   </ToggleButtonGroup>
                 </Col>
                 <Col xs={12} sm={6}>
                   {" "}
-                  <TagList listTag={listTag} onSelectTag={handleSelectTag} />
+                  <TagSelect
+                    listTag={listTag}
+                    onSelectTag={handleSelectTag}
+                    value={tags}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -252,9 +258,7 @@ function CreatePost(props) {
                       as="textarea"
                       placeholder="Type the title"
                       rows={2}
-                      onChange={(e) =>
-                        handleTitleChange(e.target.value)
-                      }
+                      onChange={(e) => setTitle(e.target.value)}
                       value={title}
                     />
                   </Form.Group>
@@ -278,10 +282,13 @@ function CreatePost(props) {
       <Row>
         <Col>
           <Form.Group className="post-btn">
-            <Button variant="success" onClick={handlePostClick}>
+            <Button variant="success" onClick={() => handlePostClick("NORMAL")}>
               Publish
             </Button>
-            <Button variant="secondary" onClick={handlePostClick}>
+            <Button
+              variant="secondary"
+              onClick={() => handlePostClick("DRAFT")}
+            >
               Save
             </Button>
           </Form.Group>

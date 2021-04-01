@@ -2,32 +2,33 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import "./PostPreview.css";
+import CSSHelper from "./helper.js";
+import TagsView from "../TagsView";
 
 PostPreview.propTypes = {
   postTitle: PropTypes.string,
   postContent: PropTypes.string,
+  postTags: PropTypes.array,
 };
 
 PostPreview.defaultProps = {
   postTitle: "",
   postContent: "",
+  postTags: [],
 };
-function addCodeLabel() {
-  var langClasses = document.getElementsByTagName("code");
-  for (let i = 0; i < langClasses.length; i++) {
-    var lang = langClasses[i].className.toString().split("-")[1].toUpperCase();
-    document.getElementsByTagName("pre")[i].setAttribute("data-language", lang);
-  }
-}
 
 function PostPreview(props) {
-  const { postTitle, postContent } = props;
+  const { postTitle, postContent, postTags } = props;
+  console.log(postTags);
   useEffect(() => {
-    addCodeLabel();
+    CSSHelper.addCodeLabel();
   }, []);
   return (
     <div>
       <div dangerouslySetInnerHTML={{ __html: `<h2>${postTitle}</h2>` }} />
+      <div>
+        <TagsView tagList = {postTags} />
+      </div>
       <div dangerouslySetInnerHTML={{ __html: postContent }} />
     </div>
   );

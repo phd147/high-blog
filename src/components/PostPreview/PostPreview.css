@@ -47,3 +47,8 @@ pre[data-language]:after {
   color: #fff;
   white-space: nowrap;
 }
+.raw-html-embed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
