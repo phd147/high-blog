@@ -6,6 +6,7 @@ import * as actionTypes from '../actionTypes';
 
 export const changeBool = () => {
     return dispatch => {
+        // goi api
         dispatch({type : actionTypes.CHANGE_BOOL});
         // const notify = () => toast('test some thing');
         // notify();
