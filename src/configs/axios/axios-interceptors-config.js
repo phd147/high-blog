@@ -8,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.response.use(response => response, async err => {
     const originalRequest = err.config ;
-    if(err.response.status === 403){
+    if(err.response.status === 403 && err.response.mess === "expired token"){
         try {
             // call api get new access token from refresh token
             const newAccessToken = await getTokenFromRefreshToken();

@@ -18,6 +18,18 @@ export default class ApiHelper {
         };
         return axios_config(config);
     }
+    customLogin(method,url,headers =null,data,params=null){
+        const config = {
+            method ,
+            url ,
+            headers : {
+                ...headers
+            },
+            data,
+            params
+        }
+        return axios_config(config)
+    }
 
     get(url, headers = null, data =null, params = null){
         return this.custom('get',url,headers,data,params);
@@ -35,6 +47,8 @@ export default class ApiHelper {
         return this.custom('delete',url,headers,data,params);
     }
 
-
+    postLogin(url,headers =null,data =null, params= null){
+        return this.customLogin('post',url,headers,data,params);
+    }
     
 }
