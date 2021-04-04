@@ -64,13 +64,15 @@ function CreatePost(props) {
   }, []);
 
   useEffect(() => {
-    const draft = JSON.parse(localStorage.getItem("highblog/new"));
-    setTitle(draft.title);
-    setSummary(draft.summary);
-    setContent(draft.content);
-    setTags(draft.tags);
-    setCategory(draft.category);
-    setCoverImagePath(draft.coverImagePath);
+    if (localStorage.getItem("highblog/new")) {
+      const draft = JSON.parse(localStorage.getItem("highblog/new"));
+      setTitle(draft.title);
+      setSummary(draft.summary);
+      setContent(draft.content);
+      setTags(draft.tags);
+      setCategory(draft.category);
+      setCoverImagePath(draft.coverImagePath);
+    }
   }, []);
 
   useEffect(() => {
