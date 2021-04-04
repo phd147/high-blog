@@ -1,4 +1,8 @@
 import React, {useRef,useCallback,useState} from 'react';
+
+import {toast} from 'react-toastify';
+import {useHistory} from 'react-router-dom'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +18,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import LoginService from './login.service';
+import ToastContainerConfig from '../../hoc/ToastContainerConfig';
+
+// action toast 
+
 
 
 
@@ -66,6 +74,9 @@ export default function SignInSide() {
 
   const username = useRef();
   const password = useRef();
+
+  const history = useHistory();
+
   
 
   const [checked,setCheck] = useState(false);
@@ -77,13 +88,25 @@ export default function SignInSide() {
         console.log(checked);
 
         const loginService = new LoginService();
-        const res = await loginService.loginHandle(username.current.value,password.current.value);
-        console.log(res);   
+        try {
+          const res = await loginService.loginHandle(username.current.value,password.current.value);
+          console.log(res);  
+          console.log(res.accessToken);
+          localStorage.setItem('dut-accessToken',res.accessToken);
+          history.replace('/home');
+          
+        }catch(err){
+          console.log(err);
+          toast(err.response.message);
+        }
+
+
 
   },[])
 
   return (
     <Grid container component="main" className={classes.root}>
+      <ToastContainerConfig/>
       <CssBaseline />
       <Grid item xs={12} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
