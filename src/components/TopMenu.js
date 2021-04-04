@@ -9,11 +9,11 @@ class TopMenu extends Component {
                 <div className="main-navbar__container container px-md-0">
                     <div className="main-navbar__left">
                     <a href="#" className="main-navbar__logo d-block mr-lg-5">
-                        <img src="./img/hightblog.png" alt="ko hien thi" />
+                        <img src="./img/highblog.png" alt="ko hien thi" />
                     </a>
                     <ul className="main-menu list-unstyled hidden-md-down">
                         <li className="main-menu__item">
-                        <NavLink to="/newsfeed" className="link">
+                        <NavLink to="/post" className="link">
                             News Feed
                         </NavLink>
                         </li>

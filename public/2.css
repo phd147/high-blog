@@ -161,18 +161,7 @@ color: #ccc;
 margin-top:0;
 margin-bottom: 20px;
 }
-.sidebar a.navbar{
-color: rgb(0, 0, 0);
-display: block;
-width: 100%;
-line-height: 30px;
-text-decoration: none;
-padding-left: 45px;
-box-sizing: border-box;
-transition: 0.5s;
-transition-property: background;
-/* border-radius: 5% 10%; */
-}
+.sidebar a.navbar{color: rgb(0, 0, 0);display: block;width: 100%;line-height: 30px;text-decoration: none;padding-left: 100px;box-sizing: border-box;transition: 0.5s;transition-property: background;text-align: left;/* border-radius: 5% 10%; */}
 .sidebar a:hover{
 background: #19B3D3;
 
@@ -188,4 +177,7 @@ height: auto;
 }
 .news-feed-text,.text {
 text-align: initial;
+}
+.img_avatar{
+  height: 30px;
 }

@@ -10,7 +10,7 @@ class URLRouter extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path="/newsfeed">
+                    <Route path="/post">
                         <div className="container d-flex">
                             <NewsDashboard/>
                             <News />

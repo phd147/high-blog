@@ -32,7 +32,7 @@ class Feed extends Component {
                         </nav>
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-center mb-2 pl-3">
-                        <div className="d-flex creator-profile"><img className="rounded-circle" src="img/hightblog.png" width={50} height={50} />
+                        <div className="d-flex creator-profile"><img className="rounded-circle" src="img/highblog.png" width={50} height={50} />
                         <div className="d-flex flex-column ml-2">
                             <h6 className="username">Alexendor patriot</h6>
                             <span className="date">Jan 20,2020</span>
