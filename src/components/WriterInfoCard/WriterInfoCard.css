@@ -1,0 +1,33 @@
+.writer-info__container {
+  width: 100%;
+  margin: 0 auto;
+}
+.writer-info__inner {
+  padding: 10px 16px !important
+}
+.follow-btn {
+  width: 100%;
+}
+.user-intro {
+  color: rgb(119, 119, 119);
+  margin: 20px 0;
+  position: relative;
+}
+.user-intro::before {
+  content: "";
+  height: 3px;
+  width: 90%;
+  background-color: rgb(194, 194, 194);
+  position: absolute;
+  top: -12px;
+}
+.user-meta {
+  margin-top: 20px;
+  text-align: justify;
+}
+.user-meta h5 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: rgb(151, 151, 151);
+  margin-bottom: 0;
+}

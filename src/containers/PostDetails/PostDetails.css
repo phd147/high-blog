@@ -1,0 +1,22 @@
+.post-details__container {
+  width: 95%;
+  margin: 0 auto;
+}
+.post-details__content {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 20px 20px;
+  border-radius: 10px;
+}
+.post-details__cover-image {
+  width: 100%;
+}
+.post-details__reaction {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.post-details__discussion {
+  margin-top: 10px;
+}
