@@ -1,0 +1,59 @@
+.file__image-item {
+  height: 180px;
+  width: 180px;
+  position: relative;
+}
+.file__image-item > img {
+  object-fit: cover;
+}
+.file__check-icon {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  cursor: pointer;
+
+  color: rgb(136, 136, 136);
+
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+  /* z-index: 999; */
+}
+.file__check-icon:hover {
+  color: rgb(245, 245, 245);
+}
+.file__image-item > img {
+  cursor: pointer;
+}
+.file__image-item:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+.file__image-item:hover .file__check-icon {
+  visibility: visible;
+  opacity: 1;
+}
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked ~ label > .file__check-icon {
+  color: rgb(21, 126, 0);
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+input[type="checkbox"]:checked ~ img {
+  -ms-transform: scale(0.9); /* IE 9 */
+  -webkit-transform: scale(0.9); /* Safari 3-8 */
+  transform: scale(0.9);
+}
+input[type="checkbox"]:checked .file__image-item::before {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.file__add-btn {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
