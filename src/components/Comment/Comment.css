@@ -1,0 +1,135 @@
+.comment__container {
+  width: 90%;
+  margin: 30px auto 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.comment__inner {
+  width: 100%;
+}
+.comment__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.comment__card {
+  margin-left: 10px;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+.comment__card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.comment__owner {
+  margin-right: 10px;
+  font-weight: 500;
+  color: rgb(95, 95, 95);
+}
+
+.comment__date {
+  margin-left: 10px;
+}
+.comment__reaction {
+  margin-top: 5px;
+  margin-left: 20px;
+  display: flex;
+}
+.comment__reaction button {
+  border-radius: 5px;
+  margin-right: 15px;
+  padding: 5px;
+}
+.comment__reaction-count {
+  font-size: 16px;
+}
+
+/* REPLY */
+
+.reply__container {
+  width: 100%;
+  margin: 30px auto 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.reply__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.reply__inner {
+  width: 100%;
+}
+.reply__card {
+  margin-left: 10px;
+  /* border: 1px solid rgb(206, 206, 206);
+  border-radius: 8px; */
+  padding: 0;
+  position: relative;
+}
+.reply__textfield {
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 8px;
+  padding: 10px;
+  padding-bottom: 25px;
+  position: static;
+
+  resize: none;
+
+  background-color: rgb(242, 242, 242);
+}
+
+.reply__toolbar {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-11px);
+
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgb(162, 162, 162);
+  border-top: none;
+  border-radius: 0px 0px 8px 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reply__textfield:focus {
+  outline: none !important;
+  border-radius: 8px 8px 0px 0px;
+  border: 2px solid rgb(112, 96, 255);
+  border-bottom: none;
+  background-color: white;
+}
+
+.reply__textfield:focus ~ .reply__toolbar {
+  border: 2px solid rgb(112, 96, 255);
+  border-top: none;
+}
+
+.edit__textfield {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  padding-bottom: 25px;
+  position: static;
+
+  resize: none;
+
+  background-color: rgb(242, 242, 242);
+}
+.edit__textfield:focus {
+  outline: none !important;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: none;
+  background-color: white;
+}

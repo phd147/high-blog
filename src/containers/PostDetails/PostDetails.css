@@ -1,0 +1,54 @@
+.post-details__container {
+  width: 95%;
+  margin: 0 auto;
+}
+.post-details__content {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 20px 20px;
+  border-radius: 10px;
+}
+.post-details__cover-image {
+  width: 100%;
+}
+.post-details__reaction {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.post-details__discussion {
+  width: 100%;
+  margin-top: 10px;
+}
+.fixed {
+  position: fixed;
+  overflow: hidden;
+}
+.post-details__writer-info {
+  margin-right: 30px;
+}
+@media only screen and (max-width: 600px) {
+  .writer-info {
+    display: none;
+  }
+  .post-details__reaction {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4rem;
+    background-color: rgb(237, 237, 237);
+
+    z-index: 999;
+  }
+  .fixed {
+    width: 70%;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

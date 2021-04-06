@@ -18,7 +18,6 @@ TagSelect.defaultProps = {
 
 export default function TagSelect(props) {
   const { listTag, onSelectTag, value } = props;
-  const [selected, setSelected] = useState([]);
   const handleTagSelectChange = (selectedList) => {
     if (onSelectTag) {
       onSelectTag(selectedList);
@@ -32,7 +31,7 @@ export default function TagSelect(props) {
         options={listTag}
         selectedValues={value}
         onSelect={handleTagSelectChange}
-        onRemove={() => {}}
+        onRemove={handleTagSelectChange}
         displayValue="name"
         placeholder="Add tags..."
         hidePlaceholder="true"
