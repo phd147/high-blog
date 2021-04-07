@@ -19,8 +19,10 @@ function PostDetails(props) {
     <div className="post-details__container">
       <Grid container spacing={2}>
         <Grid className="post-details__reaction" item xs={1} sm={1} md={1}>
-          <Vote onVoteChange={handleVoteChange} />
-          <BookmarkButton />
+          <div className="fixed">
+            <Vote onVoteChange={handleVoteChange} />
+            <BookmarkButton />
+          </div>
         </Grid>
         <Grid item xs={9} sm={7} md={8}>
           <div className="post-details__content">
@@ -40,7 +42,9 @@ function PostDetails(props) {
           </div>
         </Grid>
         <Grid item xs={2} sm={3} md={3}>
-          <WriterInfoCard />
+          <div className="fixed">
+            <WriterInfoCard />
+          </div>
         </Grid>
       </Grid>
     </div>

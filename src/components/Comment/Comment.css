@@ -1,0 +1,43 @@
+.comment__container {
+  width: 90%;
+  margin: 30px auto 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.comment__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.comment__card {
+  margin-left: 10px;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+.comment__card-header {
+  margin-bottom: 10px;
+}
+.comment__owner {
+  margin-right: 10px;
+  font-weight: 500;
+  color: rgb(95, 95, 95);
+}
+
+.comment__date {
+  margin-left: 10px;
+}
+.comment__reaction {
+  margin-top: 5px;
+  margin-left: 20px;
+  display: flex;
+}
+.comment__reaction button {
+  border-radius: 5px;
+  margin-right: 15px;
+  padding: 5px;
+}
+.comment__reaction-count {
+  font-size: 16px;
+}

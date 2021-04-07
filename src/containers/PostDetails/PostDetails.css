@@ -20,3 +20,6 @@
 .post-details__discussion {
   margin-top: 10px;
 }
+.fixed {
+  position: fixed;
+}
