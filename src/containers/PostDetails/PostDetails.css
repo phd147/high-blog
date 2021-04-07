@@ -22,4 +22,8 @@
 }
 .fixed {
   position: fixed;
+  overflow: hidden;
+}
+.post-details__writer-info {
+  margin-right: 30px;
 }

@@ -41,8 +41,8 @@ function PostDetails(props) {
             <Discussion />
           </div>
         </Grid>
-        <Grid item xs={2} sm={3} md={3}>
-          <div className="fixed">
+        <Grid item xs={2} sm={3} md={3} style={{ overflow: "hidden "}}>
+          <div className="fixed post-details__writer-info">
             <WriterInfoCard />
           </div>
         </Grid>

@@ -7,6 +7,7 @@ import { Button, IconButton } from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import useScript from "../../hook/useScript";
 import cssAction from "./MyCommentHelper.js";
+import axios from "axios";
 
 MyComment.propTypes = {
   currentUser: PropTypes.object,
@@ -20,21 +21,20 @@ MyComment.defaultProps = {
 };
 
 function MyComment(props) {
-  
   const { currentUser } = props;
   const [numRow, setNumRow] = useState(2);
 
-  const textAreaRef = React.createRef();
+  const commentImgRef = React.createRef();
 
   const handleTextField = () => {
     setNumRow(5);
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     console.log("CSS ACTION");
     cssAction();
-  },[])
- 
+  }, []);
+
   return (
     <div>
       <div className="mycomment__container">
@@ -42,7 +42,6 @@ function MyComment(props) {
         <div className="mycomment__inner">
           <div className="mycomment__card">
             <TextareaAutosize
-              ref={textAreaRef}
               onFocus={handleTextField}
               rowsMax={9}
               id="textfield"
@@ -52,9 +51,7 @@ function MyComment(props) {
               placeholder="Add to the discussion"
             />
             <div className="buffer"></div>
-            <div
-              className="mycomment__toolbar"
-            >
+            <div className="mycomment__toolbar">
               <IconButton className="img-upload-btn" aria-label="image">
                 <ImageRoundedIcon />
               </IconButton>

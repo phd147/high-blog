@@ -15,6 +15,7 @@ import {
 import ContentEditor from "../../components/Editor/ContentEditor";
 import PostPreview from "../../components/PostPreview";
 import TagSelect from "../../components/TagSelect/index";
+import ImageModal from "../../components/ImageModal";
 import "./CreatePost.css";
 import { header, headerCK } from "./headerHelper.js";
 
@@ -201,6 +202,11 @@ function CreatePost(props) {
                       thumbnail
                     />
                   )}
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={6}>
+                  <ImageModal />
                 </Col>
               </Row>
               <Row>
