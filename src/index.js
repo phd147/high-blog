@@ -32,6 +32,7 @@ import thunk from "redux-thunk";
 
 // provider
 import { Provider } from "react-redux";
+import { postCreateReducer, postDetailsReducer } from "./store/reducers/postReducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -40,6 +41,8 @@ const reducer = combineReducers({
   one: oneReducer,
   two: twoReducer,
   user: userReducer,
+  postDetails: postDetailsReducer,
+  postCreate: postCreateReducer,
 });
 
 // create redux store

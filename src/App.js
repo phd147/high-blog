@@ -68,7 +68,7 @@ function App() {
               meta={{ auth: true }}
             />
             <GuardedRoute
-              path="/post"
+              path="/post/:id"
               exact
               component={PostDetails}
             />

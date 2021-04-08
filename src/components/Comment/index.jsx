@@ -34,9 +34,11 @@ function Comment(props) {
         <div className="comment__card">
           <div className="comment__card-header">
             <Link to="#">
-              <span className="comment__owner">{commentOwner.username}</span>
+              <span className="comment__owner">
+                {commentOwner.firstName} {commentOwner.lastName}
+              </span>
             </Link>
-            {"\u2022"}
+            {/* {"\u2022"} */}
             <span className="comment__date">{commentMeta.createAt}</span>
           </div>
           <p>{commentMeta.content}</p>
@@ -46,13 +48,15 @@ function Comment(props) {
           <div className="comment__reaction-favorite">
             <IconButton>
               <FavoriteBorderOutlinedIcon />
-              <span className="comment__reaction-count">3</span>
+              <span className="comment__reaction-count">
+                {commentMeta.numberOfVotes}
+              </span>
             </IconButton>
           </div>
           <div className="comment__reaction-reply">
             <IconButton>
               <ModeCommentOutlinedIcon />
-              <span className="comment__reaction-count">1</span>
+              <span className="comment__reaction-count">0</span>
             </IconButton>
           </div>
         </div>

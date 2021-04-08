@@ -26,7 +26,7 @@ PostPreview.defaultProps = {
 
 function PostPreview(props) {
   const { postTitle, postContent, postTags, postOwner } = props;
-  console.log(postTags);
+
   useEffect(() => {
     CSSHelper.addCodeLabel();
   }, []);
