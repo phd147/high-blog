@@ -55,16 +55,20 @@ class NumberColumn extends Component {
 }
 Vote.propTypes = {
   onVoteChange: PropTypes.func,
+  vote: PropTypes.number,
 };
 Vote.defaultProps = {
   onVoteChange: null,
+  vote: 0,
 };
+
 export default function Vote(props) {
-  const [count, setCount] = useState(15);
+  const { onVoteChange, vote } = props;
+  const [count, setCount] = useState(vote);
   const [upVoted, setUpVoted] = useState(false);
   const [downVoted, setDownVoted] = useState(false);
 
-  const { onVoteChange } = props;
+  console.log("QTY vote: ", count);
 
   function _getCount() {
     const counts = count.toString().split("");

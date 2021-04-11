@@ -1,19 +1,12 @@
-import axios from "axios";
+import ApiHelper from "../../configs/api/api-helper";
 import * as actionTypes from "../action/actionTypes";
+
 export const detailsPost = (postId) => async (dispatch) => {
   dispatch({ type: actionTypes.POST_DETAILS_REQUEST, payload: postId });
+  const apiHelper = new ApiHelper();
   try {
-    const header = {
-      "X-CSRF-TOKEN": "CSRF-Token",
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTc4ODkzMjIzMjkiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTc4ODkzMjIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTc4OTc5NjJ9.g88Yu1egUhu85zlIXmM5AFOUMPSdlfqJVg8WOh_iXPNeKO8T7KpS9QSxmBV7fsrSgQE86HZZqCAW3rer6ZKp2g",
-    };
-    const { data } = await axios.get(
-      `http://35.240.173.198/api/v1/posts/${postId}`,
-      {
-        headers: header,
-      }
+    const { data } = await apiHelper.get(
+      `http://35.240.173.198/api/v1/posts/${postId}`
     );
     dispatch({ type: actionTypes.POST_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -29,19 +22,12 @@ export const detailsPost = (postId) => async (dispatch) => {
 
 export const createPost = (postObj) => async (dispatch) => {
   dispatch({ type: actionTypes.POST_CREATE_REQUEST, payload: postObj });
+  const apiHelper = new ApiHelper();
   try {
-    const header = {
-      "X-CSRF-TOKEN": "CSRF-Token",
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwic3ViIjoiMTE2MTc4ODkzMjIzMjkiLCJpc3MiOiJoaWdoYmxvZy5jb20iLCJpYXQiOjE2MTc4ODkzMjIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2MTc4OTc5NjJ9.g88Yu1egUhu85zlIXmM5AFOUMPSdlfqJVg8WOh_iXPNeKO8T7KpS9QSxmBV7fsrSgQE86HZZqCAW3rer6ZKp2g",
-    };
-    const response = await axios.post(
-      "http://35.240.173.198/api/v1/user/posts",
-      postObj,
-      {
-        headers: header,
-      }
+    const { response } = await apiHelper.post(
+      `http://35.240.173.198/api/v1/user/posts`,
+      null,
+      postObj
     );
     dispatch({
       type: actionTypes.POST_CREATE_SUCCESS,

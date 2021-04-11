@@ -6,8 +6,6 @@ export default function cssAction() {
     document
       .getElementsByClassName("mycomment__toolbar")[0]
       .classList.add("visible");
-      document
-        .getElementsByClassName("buffer")[0]
-        .classList.add("visible");
+    document.getElementsByClassName("buffer")[0].classList.add("visible");
   });
 }

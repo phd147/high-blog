@@ -17,12 +17,35 @@ function PostDetails(props) {
   const postId = props.match.params.id;
 
   const [listComment, setListComment] = useState([]);
+  const [sendReq, setSendReq] = useState(false);
 
   const postDetails = useSelector((state) => state.postDetails);
   const { payload, isLoading, error } = postDetails;
 
   const dispatch = useDispatch();
 
+  const handleCommentSubmit = async (data) => {
+    const postDetailsService = new PostDetailsService();
+    try {
+      const response = await postDetailsService.postComment(postId, data);
+      setSendReq(!sendReq);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleReplySubmit = async (commentId, data) => {
+    const postDetailsService = new PostDetailsService();
+    try {
+      const response = await postDetailsService.postReply(
+        postId,
+        commentId,
+        data
+      );
+      setSendReq(!sendReq);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     dispatch(detailsPost(postId));
   }, [dispatch, postId]);
@@ -38,17 +61,27 @@ function PostDetails(props) {
       }
     }
     fetchComments();
-  }, []);
+  }, [postId, sendReq]);
 
-  const handleVoteChange = (value) => {
-    console.log("VOTE: ", value);
+  const handleVoteChange = async (voteType) => {
+    const postDetailsService = new PostDetailsService();
+    try {
+      const response = await postDetailsService.postVote(postId, voteType);
+      console.log("VOTED", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div className="post-details__container">
       <Grid container spacing={2}>
         <Grid className="post-details__reaction" item xs={1} sm={1} md={1}>
           <div className="fixed">
-            <Vote onVoteChange={handleVoteChange} />
+            <Vote
+              vote={payload.numberOfVotes}
+              onVoteChange={handleVoteChange}
+            />
             <BookmarkButton />
           </div>
         </Grid>
@@ -69,7 +102,11 @@ function PostDetails(props) {
             />
           </div>
           <div className="post-details__discussion">
-            <Discussion comments={listComment} />
+            <Discussion
+              comments={listComment}
+              onCommentSubmit={handleCommentSubmit}
+              onReplySubmit={handleReplySubmit}
+            />
           </div>
         </Grid>
         <Grid item xs={2} sm={3} md={3} style={{ overflow: "hidden " }}>

@@ -5,6 +5,14 @@ export default class PostDetailsService extends ApiHelper {
     const url = `${baseUrl}/api/v1/comments`;
     return this.get(url, null, null, { postId: postId });
   }
+  postComment(postId, content) {
+    const url = `${baseUrl}/api/v1/user/comments`;
+    return this.post(url, null, { postId, content });
+  }
+  postReply(postId, parentId, content) {
+    const url = `${baseUrl}/api/v1/user/comments`;
+    return this.post(url, null, { postId, parentId, content });
+  }
   // getTags() {
   //   const url = `${baseUrl}/api/v1/tags`;
   //   return this.get(url);
