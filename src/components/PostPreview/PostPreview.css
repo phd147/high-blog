@@ -10,6 +10,9 @@ figure[class*="table"] {
 figure > table {
   width: 100%;
 }
+figure > figcaption {
+  text-align: center;
+}
 blockquote {
   overflow: hidden;
   padding-right: 1.5em;

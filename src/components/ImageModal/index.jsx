@@ -5,19 +5,44 @@ import { list } from "./ImageHelper";
 import "./ImageModal.css";
 import { Button } from "@material-ui/core";
 import ImageSelect from "../ImageSelect";
+import { propTypes } from "react-bootstrap/esm/Image";
+import ApiHelper from "../../configs/api/api-helper";
 
-export default function ImageModal() {
-  // getModalStyle is not a pure function, we roll the style only on the first render
+ImageModal.propTypes = {
+  onAddClick: propTypes.func,
+};
+
+ImageModal.defaultProps = {
+  onAddClick: null,
+};
+
+export default function ImageModal(props) {
+  const { onAddClick } = props;
+
   const [open, setOpen] = useState(false);
   const [imageList, setImageList] = useState([]);
+  const [selected, setSelected] = useState("");
 
-  const handleOpen = () => {
+  const handleOpen = async () => {
     setOpen(true);
-    setImageList(list);
+    const apiHelper = new ApiHelper();
+    const { data } = await apiHelper.get(
+      "http://35.240.173.198/api/v1/user/files/images"
+    );
+    setImageList(data.items);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleAddClick = () => {
+    if (onAddClick) onAddClick(selected);
+    setOpen(false);
+  };
+
+  const handleChangeImage = (imageUrl) => {
+    setSelected(imageUrl);
   };
 
   const body = (
@@ -26,14 +51,14 @@ export default function ImageModal() {
         <h2 id="simple-modal-title">My Images</h2>
         <Button>+ New</Button>
       </div>
-      <ImageSelect images = {imageList}/>
+      <ImageSelect onChange={handleChangeImage} images={imageList} />
       {/* <div className="img-modal__list">
         {imageList.map((e) => (
           <img className="img-modal__image" src={e} alt={e} />
         ))}
       </div> */}
       <div className="img-modal__footer">
-        <Button>Add</Button>
+        <Button onClick={handleAddClick}>Add</Button>
       </div>
     </div>
   );

@@ -21,17 +21,18 @@ export const detailsPost = (postId) => async (dispatch) => {
 };
 
 export const createPost = (postObj) => async (dispatch) => {
-  dispatch({ type: actionTypes.POST_CREATE_REQUEST, payload: postObj });
+  dispatch({ type: actionTypes.POST_CREATE_REQUEST });
   const apiHelper = new ApiHelper();
   try {
-    const { response } = await apiHelper.post(
+    const { data } = await apiHelper.post(
       `http://35.240.173.198/api/v1/user/posts`,
       null,
       postObj
     );
+    console.log(data);
     dispatch({
       type: actionTypes.POST_CREATE_SUCCESS,
-      payload: response.status,
+      payload: data,
     });
     localStorage.removeItem("highblog/new");
     dispatch({

@@ -1,0 +1,8 @@
+.MuiToggleButton-root {
+  border-radius: 50% !important;
+  padding: 8px !important;
+}
+.Mui-selected {
+  border: 2px solid #757ce8 !important;
+  color: #3f50b5 !important;
+}

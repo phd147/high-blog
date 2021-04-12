@@ -134,9 +134,22 @@ function CreatePost(props) {
     dispatch(createPost(postObj));
   };
 
+  const handleAddImageFromLibrary = (imageUrl) => {
+    console.log("handle Add iamge", imageUrl);
+    const newImage = `<figure class="image image_resized"><img
+    src="${imageUrl}"></figure>`;
+    const newContent = content.concat(newImage);
+    console.log("NEW CONTENT: ", newContent);
+    setContent(newContent);
+  };
+
   useEffect(() => {
-    if (payload === 201) props.history.push("/post/7");
-  });
+    const titleUrl = title.toLowerCase().replace(" ", "-");
+    if (typeof payload == "number")
+      props.history.push(
+        decodeURIComponent(`/${payload}/${titleUrl}`.replace(/\+/g, " "))
+      );
+  }, [payload, props.history]);
 
   return (
     <Container className="create-post-container">
@@ -214,7 +227,7 @@ function CreatePost(props) {
               </Row>
               <Row>
                 <Col xs={12} sm={6}>
-                  <ImageModal />
+                  <ImageModal onAddClick={handleAddImageFromLibrary} />
                 </Col>
               </Row>
               <Row>

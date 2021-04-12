@@ -10,6 +10,7 @@ import Discussion from "../../components/Discussion";
 import { useDispatch, useSelector } from "react-redux";
 import { detailsPost } from "../../store/action/postActions";
 import PostDetailsService from "./PostDetails.service";
+import { createFavorite } from "../../store/action/favoriteActions.";
 
 PostDetails.propTypes = {};
 
@@ -73,6 +74,10 @@ function PostDetails(props) {
     }
   };
 
+  const handleBookmarkClick = () => {
+    dispatch(createFavorite(postId));
+  };
+
   return (
     <div className="post-details__container">
       <Grid container spacing={2}>
@@ -82,7 +87,7 @@ function PostDetails(props) {
               vote={payload.numberOfVotes}
               onVoteChange={handleVoteChange}
             />
-            <BookmarkButton />
+            <BookmarkButton onClick={handleBookmarkClick} />
           </div>
         </Grid>
         <Grid item xs={9} sm={7} md={8}>

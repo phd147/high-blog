@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./ImageSelect.css";
 import CheckIcon from "@material-ui/icons/Check";
+
 ImageSelect.propTypes = {
   images: PropTypes.array,
+  onChange: PropTypes.func,
+};
+
+ImageSelect.defaultProps = {
+  images: [],
+  onChange: null,
 };
 
 function ImageSelect(props) {
-  const { images } = props;
-  const [selected, setSelected] = useState("");
+  const { images, onChange } = props;
   const handleImageSelectChange = (event) => {
-    setSelected(event.target.value);
+    if (onChange) onChange(event.target.value);
   };
   return (
     <div className="img-select__list">
@@ -19,17 +25,23 @@ function ImageSelect(props) {
           <input
             type="radio"
             name="img-select"
-            id={e.slice(25, 29)}
-            value={e}
+            id={e.path.slice(-12).slice(0, 8)}
+            value={`http://35.240.173.198/${e.path}`}
             onChange={handleImageSelectChange}
           ></input>
-          <label htmlFor={e.slice(25, 29)} className="img-select__label">
+          <label
+            htmlFor={e.path.slice(-12).slice(0, 8)}
+            className="img-select__label"
+          >
             <CheckIcon fontSize="large" className="img-select__check-icon" />
-            <img className="img-select__image" src={e} alt={e} />
+            <img
+              className="img-select__image"
+              src={`http://35.240.173.198/${e.path}`}
+              alt={e.name}
+            />
           </label>
         </div>
       ))}
-      <h2>Selected : {selected}</h2>
     </div>
   );
 }

@@ -67,11 +67,7 @@ function App() {
               component={CreatePost}
               meta={{ auth: true }}
             />
-            <GuardedRoute
-              path="/post/:id"
-              exact
-              component={PostDetails}
-            />
+            <GuardedRoute path="/:id/:title" exact component={PostDetails} />
           </Switch>
           <Grid item xs={12} md={4}></Grid>
         </Grid>

@@ -8,7 +8,7 @@
   flex-wrap: wrap;
 }
 .img-select__image {
-  width: 100px;
+  width: 200px;
   margin: 5px 10px;
 }
 input[type="radio"] {
