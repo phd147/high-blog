@@ -3,7 +3,7 @@ import axios from 'axios';
 import {getTokenFromRefreshToken} from '../../services/user.service';
 
 const instance = axios.create({
-    baseURL : 'https://api.example.com'
+    baseURL : 'http://35.240.173.198'
 });
 
 instance.interceptors.response.use(response => response, async err => {
@@ -13,13 +13,9 @@ instance.interceptors.response.use(response => response, async err => {
             // call api get new access token from refresh token
             const newAccessToken = await getTokenFromRefreshToken();
 
-            // store this one to local storage 
-            if(localStorage.getItem('dut-accessToken')){
-                localStorage.setItem('dut-accessToken',newAccessToken);
-            }
-            else {
-                sessionStorage.setItem('dut-accessToken',newAccessToken);
-            }
+            // store this one to local storage
+            localStorage.setItem('dut-accessToken',newAccessToken);
+
         }catch(error){
             console.log(error);
             return Promise.reject(error);
