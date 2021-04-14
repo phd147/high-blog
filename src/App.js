@@ -24,6 +24,7 @@ import Dashboard from "./components/Dashboard";
 import Content from "./components/Content";
 import URLRouter from "./components/URLRouter";
 import PostDetails from "./containers/PostDetails";
+import FileManagement from "./containers/FileManagement";
 
 function App() {
   return (
@@ -68,6 +69,12 @@ function App() {
               meta={{ auth: true }}
             />
             <GuardedRoute path="/:id/:title" exact component={PostDetails} />
+            <GuardedRoute
+              path="/file"
+              exact
+              component={FileManagement}
+              meta={{ auth: true }}
+            />
           </Switch>
           <Grid item xs={12} md={4}></Grid>
         </Grid>
