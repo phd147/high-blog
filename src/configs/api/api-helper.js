@@ -67,5 +67,5 @@ export default class ApiHelper {
     static postRegister(url,header = null ,data = null,params = null){
         return this.customRegister('post',url,header,data,params);
     }
-    
+
 }
