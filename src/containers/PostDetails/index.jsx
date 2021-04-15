@@ -25,6 +25,8 @@ function PostDetails(props) {
 
   const dispatch = useDispatch();
 
+  console.log("POST DETAILS RENDER  ");
+
   const handleCommentSubmit = async (data) => {
     const postDetailsService = new PostDetailsService();
     try {
@@ -49,7 +51,7 @@ function PostDetails(props) {
   };
   useEffect(() => {
     dispatch(detailsPost(postId));
-  }, [dispatch, postId]);
+  }, [dispatch, postId, sendReq]);
 
   useEffect(() => {
     async function fetchComments() {
@@ -64,11 +66,19 @@ function PostDetails(props) {
     fetchComments();
   }, [postId, sendReq]);
 
-  const handleVoteChange = async (voteType) => {
+  const handleVoteChange = async (value, action) => {
     const postDetailsService = new PostDetailsService();
     try {
-      const response = await postDetailsService.postVote(postId, voteType);
-      console.log("VOTED", response);
+      if (action === "CREATE") {
+        const { status } = await postDetailsService.createVote(postId, value);
+        if (status === 201) setSendReq(!sendReq);
+      } else if (action === "UPDATE") {
+        const { status } = await postDetailsService.updateVote(postId, value);
+        if (status === 204) setSendReq(!sendReq);
+      } else if (action === "DELETE") {
+        const { status } = await postDetailsService.deleteVote(postId, value);
+        if (status === 204) setSendReq(!sendReq);
+      }
     } catch (error) {
       console.log(error);
     }
