@@ -18,7 +18,7 @@ export const checkToken = () => {
 export const getTokenFromRefreshToken = () => {
     const url = 'api/v1/token';
     const data = {
-        refreshToken : localStorage.getItem('dut-refreshToken')
+        refreshToken : localStorage.getItem('dut-refreshToken') || sessionStorage.getItem('dut-refreshToken')
     }
     return new Api().post(url,null,data);
     

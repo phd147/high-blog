@@ -21,10 +21,17 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
 import TopMenu from "./components/TopMenu";
 import Dashboard from "./components/Dashboard";
+<<<<<<< HEAD
 import URLRouter from "./components/URLRouter";
 import PostDetails from "./containers/PostDetails";
 import Content from "./containers/NewsFeed/Content";
 import Test1 from "./components/Test1";
+=======
+import Content from "./components/Content";
+import URLRouter from "./components/URLRouter";
+import PostDetails from "./containers/PostDetails";
+import FileManagement from "./containers/FileManagement";
+>>>>>>> minhduc
 
 function App() {
   return (
@@ -68,6 +75,7 @@ function App() {
               component={CreatePost}
               meta={{ auth: true }}
             />
+<<<<<<< HEAD
             <GuardedRoute
               path="/post/:id"
               exact
@@ -77,6 +85,14 @@ function App() {
               path="/tuanthanh"
               exact
               component={Content}
+=======
+            <GuardedRoute path="/:id/:title" exact component={PostDetails} />
+            <GuardedRoute
+              path="/file"
+              exact
+              component={FileManagement}
+              meta={{ auth: true }}
+>>>>>>> minhduc
             />
           </Switch>
           <Grid item xs={12} md={4}></Grid>

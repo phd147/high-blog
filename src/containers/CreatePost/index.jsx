@@ -15,8 +15,14 @@ import {
 import ContentEditor from "../../components/Editor/ContentEditor";
 import PostPreview from "../../components/PostPreview";
 import TagSelect from "../../components/TagSelect/index";
+import ImageModal from "../../components/ImageModal";
 import "./CreatePost.css";
 import { header, headerCK } from "./headerHelper.js";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost } from "../../store/action/postActions";
+import PostCreateService from "./CreatePost.service";
+import ToastContainerConfig from "../../hoc/ToastContainerConfig";
+import { toast } from "react-toastify";
 
 CreatePost.propTypes = {};
 CKEDITOR.ContentEditor.defaultConfig.simpleUpload = {
@@ -26,6 +32,10 @@ CKEDITOR.ContentEditor.defaultConfig.simpleUpload = {
 };
 function CreatePost(props) {
   console.log("RE_RENDER");
+  const dispatch = useDispatch();
+  const postCreated = useSelector((state) => state.postCreate);
+  const { payload, isLoading, error } = postCreated;
+
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
@@ -38,29 +48,32 @@ function CreatePost(props) {
   const coverImageRef = useRef(null);
 
   useEffect(() => {
-    try {
-      axios
-        .get("http://35.240.173.198/api/v1/tags", { headers: header })
-        .then(function (response) {
-          setListTag(response.data);
-        });
-    } catch (error) {
-      console.log(error);
+    async function fetchTags() {
+      const postCreateService = new PostCreateService();
+      try {
+        const response = await postCreateService.getTags();
+        setListTag(response.data);
+      } catch (error) {
+        console.log(error);
+        toast(error);
+      }
     }
+    fetchTags();
+    console.log("FETCH TAGS");
   }, []);
 
   useEffect(() => {
-    try {
-      axios
-        .get("http://35.240.173.198/api/v1/user/categories", {
-          headers: header,
-        })
-        .then(function (response) {
-          setListCategory(response.data);
-        });
-    } catch (error) {
-      console.log(error);
+    async function fetchCategories() {
+      const postCreateService = new PostCreateService();
+      try {
+        const response = await postCreateService.getCategories();
+        setListCategory(response.data);
+      } catch (error) {
+        toast(error.response.message);
+      }
     }
+    fetchCategories();
+    console.log("FETCH CATEGORIES");
   }, []);
 
   useEffect(() => {
@@ -95,19 +108,17 @@ function CreatePost(props) {
     setTags(selectedList);
   };
 
-  const handleFileUpload = (event) => {
-    const data = new FormData();
-    data.append("image", event.target.files[0]);
-    let url = "http://35.240.173.198/api/v1/user/files/images";
-
-    axios
-      .post(url, data, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res);
-        setCoverImagePath(res.data.path);
-      });
+  const handleFileUpload = async (event) => {
+    const postCreateService = new PostCreateService();
+    try {
+      const data = new FormData();
+      data.append("image", event.target.files[0]);
+      const response = await postCreateService.postImage(data);
+      setCoverImagePath(response.data.path);
+    } catch (error) {
+      toast(error.response.message);
+    }
+    console.log("UPLOAD COVER IMAGE");
   };
 
   const handlePostClick = (postType) => {
@@ -120,18 +131,29 @@ function CreatePost(props) {
       tags: tags,
       title: title,
     };
-    //localStorage.removeItem("highblog/new") ??
-    axios
-      .post("http://35.240.173.198/api/v1/user/posts", postObj, {
-        headers: header,
-      })
-      .then(function (response) {
-        console.log(response);
-      });
+    dispatch(createPost(postObj));
   };
+
+  const handleAddImageFromLibrary = (imageUrl) => {
+    console.log("handle Add iamge", imageUrl);
+    const newImage = `<figure class="image image_resized"><img
+    src="${imageUrl}"></figure>`;
+    const newContent = content.concat(newImage);
+    console.log("NEW CONTENT: ", newContent);
+    setContent(newContent);
+  };
+
+  useEffect(() => {
+    const titleUrl = title.toLowerCase().replace(" ", "-");
+    if (typeof payload == "number")
+      props.history.push(
+        decodeURIComponent(`/${payload}/${titleUrl}`.replace(/\+/g, " "))
+      );
+  }, [payload, props.history]);
 
   return (
     <Container className="create-post-container">
+      <ToastContainerConfig />
       <Row style={{ marginBottom: "20px" }}>
         <Col xs={12} sm={6}>
           <h2>#New Post</h2>
@@ -201,6 +223,11 @@ function CreatePost(props) {
                       thumbnail
                     />
                   )}
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={6}>
+                  <ImageModal onAddClick={handleAddImageFromLibrary} />
                 </Col>
               </Row>
               <Row>

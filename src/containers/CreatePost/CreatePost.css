@@ -20,7 +20,6 @@
   margin: 10px;
 }
 .create-post-card {
-  height: 100%;
   padding: 0;
   margin-bottom: 10px;
 }
@@ -51,8 +50,8 @@
 }
 @media only screen and (max-width: 575px) {
   .create-post-container {
-  width: 100%;
-}
+    width: 100%;
+  }
   .scroll {
     overflow-y: hidden;
     height: 100%;

@@ -1,0 +1,78 @@
+.mycomment__container {
+  width: 100%;
+  margin: 30px auto 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.mycomment__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.mycomment__inner {
+  width: 100%;
+}
+.mycomment__card {
+  margin-left: 10px;
+  /* border: 1px solid rgb(206, 206, 206);
+  border-radius: 8px; */
+  padding: 0;
+  position: relative;
+}
+.mycomment__textfield {
+  width: 100%;
+  border: 1px solid rgb(162, 162, 162);
+  border-radius: 8px;
+  padding: 10px;
+  padding-bottom: 25px;
+  position: static;
+
+  resize: none;
+
+  background-color: rgb(242, 242, 242);
+}
+
+.mycomment__toolbar {
+  visibility: hidden;
+  opacity: 0;
+
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgb(162, 162, 162);
+  border-top: none;
+  border-radius: 0px 0px 8px 8px;
+
+  /* position: absolute !important;
+  bottom: -34px;
+  left: 0; */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mycomment__textfield:focus {
+  outline: none !important;
+  border-radius: 8px 8px 0px 0px;
+  border: 2px solid rgb(112, 96, 255);
+  border-bottom: none;
+  background-color: white;
+}
+.mycomment__textfield-focused {
+  outline: none !important;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: none;
+  background-color: white;
+}
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-6px);
+}
+.mycomment__textfield:focus ~ .mycomment__toolbar {
+  border: 2px solid rgb(112, 96, 255);
+  border-top: none;
+}
