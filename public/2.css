@@ -134,7 +134,7 @@ width: 100%
 
 .date {
 font-size: 12px;
-margin-left: -62px;
+margin-left: 0px;
 }
 
 .username {
@@ -180,4 +180,11 @@ text-align: initial;
 }
 .img_avatar{
   height: 30px;
+}
+a.nav-link {
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 8px;
+  margin-left: -15px;
+  margin-right: 45px;
+  margin-top: 15px;
 }
