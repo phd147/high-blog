@@ -32,16 +32,8 @@ import thunk from "redux-thunk";
 
 // provider
 import { Provider } from "react-redux";
-<<<<<<< HEAD
 import { postCreateReducer, postDetailsReducer } from "./store/reducers/postReducers";
 import {newsFeedReducer} from './store/reducers/newsFeedReducers'
-=======
-import {
-  postCreateReducer,
-  postDetailsReducer,
-} from "./store/reducers/postReducers";
-import { favoriteCreateReducer } from "./store/reducers/favoriteReducer";
->>>>>>> minhduc
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -52,11 +44,7 @@ const reducer = combineReducers({
   user: userReducer,
   postDetails: postDetailsReducer,
   postCreate: postCreateReducer,
-<<<<<<< HEAD
   newsFeed: newsFeedReducer
-=======
-  favoriteCreate: favoriteCreateReducer,
->>>>>>> minhduc
 });
 
 // create redux store
