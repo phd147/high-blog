@@ -5,13 +5,15 @@ import { checkToken } from "../../services/user.service";
 
 
 export default class ApiHelper {
+
+
     custom(method,url,headers = null,data = null,params = null){
         const config = {
             method ,
             url ,
             headers : {
                 ...headers ,
-                Authorization : 'Bearer ' + checkToken()
+                Authorization :   checkToken() ? 'Bearer ' + checkToken() : null
             },
             data,
             params
@@ -19,6 +21,18 @@ export default class ApiHelper {
         return axios_config(config);
     }
     customLogin(method,url,headers =null,data,params=null){
+        const config = {
+            method ,
+            url ,
+            headers : {
+                ...headers
+            },
+            data,
+            params
+        }
+        return axios_config(config)
+    }
+    customRegister(method,url,headers =null,data,params=null){
         const config = {
             method ,
             url ,
@@ -49,6 +63,9 @@ export default class ApiHelper {
 
     postLogin(url,headers =null,data =null, params= null){
         return this.customLogin('post',url,headers,data,params);
+    }
+    postRegister(url,header = null ,data = null,params = null){
+        return this.customRegister('post',url,header,data,params);
     }
     
 }

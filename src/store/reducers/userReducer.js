@@ -1,7 +1,7 @@
 import * as actionTypes from '../action/actionTypes';
 
 const initialState = {
-    userName : '',
+    userId : '',
     role : [],
     name : ''
 };
@@ -13,7 +13,7 @@ const reducer = (state =initialState, action) => {
             return {
                 ...state, 
                 name : action.name , 
-                userName : action.userName ,
+                userId : action.userId ,
                 role : action.role 
             }
         default : 

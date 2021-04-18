@@ -18,10 +18,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import LoginService from './login.service';
-import ToastContainerConfig from '../../hoc/ToastContainerConfig';
+import ToastContainerConfig from '../../configs/toast/ToastContainerConfig';
 
 // action toast 
-
 
 
 
@@ -77,7 +76,6 @@ export default function SignInSide() {
 
   const history = useHistory();
 
-  
 
   const [checked,setCheck] = useState(false);
 
@@ -90,14 +88,18 @@ export default function SignInSide() {
         const loginService = new LoginService();
         try {
           const res = await loginService.loginHandle(username.current.value,password.current.value);
-          console.log(res);  
-          console.log(res.accessToken);
-          localStorage.setItem('dut-accessToken',res.accessToken);
-          history.replace('/home');
+
+          console.log(res);
+          localStorage.setItem('dut-accessToken',res.data.accessToken);
+          setTimeout(() => {
+            history.replace('/home');
+          },2000)
+          
+          toast.success('LOGIN SUCCESSFUL')
           
         }catch(err){
           console.log(err);
-          toast(err.response.message);
+          toast.error(err.response.message);
         }
 
 
