@@ -8,10 +8,14 @@ import Test from "./components/Test";
 import Test2 from "./components/Test2";
 import Login from "./containers/Login/Login";
 
+import Home from './containers/Home/HOME';
+
 import Header from '../src/components/Header/Header';
 import Register from '../src/containers/Register/Register';
 
 import LoadmoreDemo from "./containers/LoadmoreDemo/LoadmoreDemo";
+
+import RequireVerifyEmail from "./components/RequireVerifyEmail/RequireVerifyEmail";
 
 //ck editor
 // import CKEditorCustom from './components/CKEditorCustom/CKEditorCustom';
@@ -66,6 +70,20 @@ function App() {
                     component={LoadmoreDemo}
                     meta={{auth: false}}
                 />
+
+            <GuardedRoute
+                path="/email"
+                exact
+                component={RequireVerifyEmail}
+                meta={{auth: false}}
+            />
+
+            <GuardedRoute
+                path="/home"
+                exact
+                component={Home}
+                meta={{auth: true}}
+            />
 
         </Switch>)
 
