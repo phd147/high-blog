@@ -20,7 +20,9 @@
   padding: 10px 15px;
 }
 .comment__card-header {
-  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 .comment__owner {
   margin-right: 10px;
@@ -111,4 +113,23 @@
 .reply__textfield:focus ~ .reply__toolbar {
   border: 2px solid rgb(112, 96, 255);
   border-top: none;
+}
+
+.edit__textfield {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  padding-bottom: 25px;
+  position: static;
+
+  resize: none;
+
+  background-color: rgb(242, 242, 242);
+}
+.edit__textfield:focus {
+  outline: none !important;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: none;
+  background-color: white;
 }

@@ -1,3 +1,4 @@
+//TODO: wait userInfo de setVisible cho edit, remove button
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./Comment.css";
@@ -6,6 +7,8 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
 import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MyComment from "../MyComment";
 Comment.propTypes = {
   owner: PropTypes.object,
@@ -14,6 +17,8 @@ Comment.propTypes = {
   numberOfVotes: PropTypes.number,
   numberOfReply: PropTypes.number,
   onReplySubmit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
 };
 
 Comment.defaultProps = {
@@ -27,6 +32,8 @@ Comment.defaultProps = {
   numberOfVotes: 0,
   numberOfReply: 0,
   onReplySubmit: null,
+  onDelete: null,
+  onEdit: null,
 };
 
 function Comment(props) {
@@ -37,15 +44,30 @@ function Comment(props) {
     numberOfVotes,
     numberOfReply,
     onReplySubmit,
+    onDelete,
+    onEdit,
   } = props;
   const [isReply, setIsReply] = useState(false);
   const [replyText, setReplyText] = useState("");
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [editText, setEditText] = useState("");
 
   const handleSubmitClick = () => {
     if (onReplySubmit) onReplySubmit(id, replyText);
     setReplyText("");
     setIsReply(false);
   };
+  const handleDelete = () => {
+    console.log("delete comment id: ", id);
+    if (onDelete) onDelete(id);
+  };
+  const handleEdit = () => {
+    console.log("edit comment id: ", id);
+    if (onEdit) onEdit(id, editText);
+    setIsEdit(false);
+  };
+  console.log("COMMENT RENDER");
   return (
     <div className="comment__container">
       <Link to="#">
@@ -54,15 +76,56 @@ function Comment(props) {
       <div className="comment__inner">
         <div className="comment__card">
           <div className="comment__card-header">
-            <Link to="#">
-              <span className="comment__owner">
-                {owner.firstName} {owner.lastName}
-              </span>
-            </Link>
-            {/* {"\u2022"} */}
-            <span className="comment__date">{"date here"}</span>
+            <div>
+              <Link to="#">
+                <span className="comment__owner">
+                  {owner.firstName} {owner.lastName}
+                </span>
+              </Link>
+              {/* {"\u2022"} */}
+              <span className="comment__date">{"date here"}</span>
+            </div>
+            {!isEdit ? (
+              <div>
+                <IconButton
+                  onClick={() => {
+                    setIsEdit(true);
+                    setEditText(content);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginRight: "10px" }}
+                  onClick={handleEdit}
+                >
+                  Submit
+                </Button>
+                <Button variant="outlined" onClick={() => setIsEdit(false)}>
+                  Discard
+                </Button>
+              </div>
+            )}
           </div>
-          <p>{content}</p>
+          {!isEdit ? (
+            <p>{content}</p>
+          ) : (
+            <TextareaAutosize
+              rowsMax={3}
+              className="edit__textfield"
+              onChange={(e) => setEditText(e.target.value)}
+            >
+              {content}
+            </TextareaAutosize>
+          )}
         </div>
 
         <div className="comment__reaction">
@@ -72,12 +135,16 @@ function Comment(props) {
               <span className="comment__reaction-count">{numberOfVotes}</span>
             </IconButton>
           </div>
-          <div className="comment__reaction-reply">
-            <IconButton onClick={() => setIsReply(!isReply)}>
-              <ModeCommentOutlinedIcon />
-              <span className="comment__reaction-count">{numberOfReply}</span>
-            </IconButton>
-          </div>
+          {onReplySubmit ? (
+            <div className="comment__reaction-reply">
+              <IconButton onClick={() => setIsReply(!isReply)}>
+                <ModeCommentOutlinedIcon />
+                <span className="comment__reaction-count">{numberOfReply}</span>
+              </IconButton>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         {isReply ? (
           <div className="reply__container">
@@ -106,7 +173,7 @@ function Comment(props) {
             </div>
           </div>
         ) : (
-          <div></div>
+          <></>
         )}
       </div>
     </div>

@@ -16,29 +16,36 @@ BookmarkButton.defaultProps = {
 
 function BookmarkButton(props) {
   const favorite = useSelector((state) => state.favoriteCreate);
-  const [selected, setSelected] = useState(false);
+
+  const postDetails = useSelector((state) => state.postDetails);
+
+  const addedToFavorite = postDetails.payload.addedToFavorite;
+
   const { payload, isLoading, error } = favorite;
   const { onClick } = props;
   const handleClick = () => {
-    if (onClick) onClick();
+    if (onClick) {
+      if (addedToFavorite === true) {
+        onClick("DELETE");
+      } else if (addedToFavorite === false) {
+        onClick("CREATE");
+      }
+    }
   };
-  useEffect(() => {
-    if (payload === 201) setSelected(true);
-  }, [payload]);
+
   return (
     <div>
-      <ToggleButton value="check" selected={selected} onChange={handleClick}>
-        {selected ? (
-          <BookmarkIcon />
+      <ToggleButton
+        value="check"
+        selected={addedToFavorite}
+        onChange={handleClick}
+      >
+        {addedToFavorite ? (
+          <BookmarkIcon fontSize="large" />
         ) : (
-          <BookmarkBorderSharpIcon fontSize="medium" />
+          <BookmarkBorderSharpIcon fontSize="large" />
         )}
       </ToggleButton>
-      {/* <IconButton
-        color="primary"
-        aria-label="add to shopping cart"
-        onClick={handleClick}
-      ></IconButton> */}
     </div>
   );
 }

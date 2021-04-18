@@ -9,21 +9,38 @@ Discussion.propTypes = {
   comments: PropTypes.array,
   onCommentSubmit: PropTypes.func,
   onReplySubmit: PropTypes.func,
+  onCommentDelete: PropTypes.func,
+  onCommentEdit: PropTypes.func,
 };
 
 Discussion.defaultProps = {
   comments: [],
   onCommentSubmit: null,
   onReplySubmit: null,
+  onCommentDelete: null,
+  onCommentEdit: null,
 };
 
 function Discussion(props) {
-  const { comments, onCommentSubmit, onReplySubmit } = props;
+  console.log("Discussion");
+  const {
+    comments,
+    onCommentSubmit,
+    onReplySubmit,
+    onCommentDelete,
+    onCommentEdit,
+  } = props;
   const handleCommentSubmit = (data) => {
     if (onCommentSubmit) onCommentSubmit(data);
   };
   const handleReplySubmit = (commentId, data) => {
     if (onReplySubmit) onReplySubmit(commentId, data);
+  };
+  const handleCommentDelete = (commentId) => {
+    if (onCommentDelete) onCommentDelete(commentId);
+  };
+  const handleCommentEdit = (commentId, content) => {
+    if (onCommentEdit) onCommentEdit(commentId, content);
   };
   return (
     <div>
@@ -43,6 +60,8 @@ function Discussion(props) {
                 numberOfVotes={e.numberOfVotes}
                 numberOfReply={e.childComments ? e.childComments.length : 0}
                 onReplySubmit={handleReplySubmit}
+                onDelete={handleCommentDelete}
+                onEdit={handleCommentEdit}
               />
               <div style={{ marginLeft: "40px" }}>
                 {e.childComments &&
@@ -53,6 +72,7 @@ function Discussion(props) {
                       content={reply.content}
                       id={reply.id}
                       numberOfVotes={reply.numberOfVotes}
+                      onDelete={handleCommentDelete}
                     />
                   ))}
               </div>
