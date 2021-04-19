@@ -17,7 +17,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 
 //user service
-//import {getUserInfor} from './services/user.service';
+import {getUserInfor} from './services/user.service';
 
 
 //redux 
@@ -57,32 +57,38 @@ const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
 
 const requireLogin = async (to,from,next) => {
   if(to.meta.auth){
-    try {
-      // goi api to get user role
-        //const res = await getUserInfor();
-        //console.log(res);
+
 
         if(localStorage.getItem('dut-accessToken')){
 
+            try {
+                // call api to get user infor
+                const res = await getUserInfor();
+                console.log(res);
+
+                if(to.location.pathname === '/login'){
+                    // when user enter login path but have valid token, it will return home route
+                    next.redirect('/home');
+
+                }
+                next();
+            }
+            catch(err){
+                console.log(err);
+                if(to.location.pathname === '/login') next();
+                next.redirect('/login');
+            }
+
+
+
           store.dispatch({type : actionTypes.INIT_USER_INFOR, name : 'phd',userName : 'phan huynh duc',role : ['admin','user'] })
-          if(to.location.pathname === '/login'){
-            console.log(to.location.pathname === '/login');
-            next.redirect('/1');
-            
-          }
-          next();
+
           
         }
         else {
           next.redirect('/login');
         }
-    }catch(err){
-      console.log(err.response);
-      console.log(to);
-      if(to.location.pathname === '/login') next();
-      next.redirect('/login');
     }
-  }
   else {
     next();
   }

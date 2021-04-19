@@ -1,7 +1,7 @@
 import Api from '../configs/api/api-helper';
 
 export function getUserInfor() {
-    const url = 'api/v1/me';
+    const url = 'api/v1/profiles';
     return new Api().get(url);
 }
 
