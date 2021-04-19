@@ -4,7 +4,10 @@ import "./reset.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import App from "./App";
+
+import 'react-toastify/dist/ReactToastify.css'
+
+import App from './App';
 //import reportWebVitals from './reportWebVitals';
 
 //react-router-guards
@@ -14,7 +17,7 @@ import { GuardProvider } from "react-router-guards";
 import { BrowserRouter } from "react-router-dom";
 
 //user service
-//import {getUserInfor} from './services/user.service';
+import {getUserInfor} from './services/user.service';
 
 //redux
 import { createStore, compose, combineReducers, applyMiddleware } from "redux";
@@ -79,6 +82,42 @@ const requireLogin = async (to, from, next) => {
       next.redirect("/login");
     }
   } else {
+const requireLogin = async (to,from,next) => {
+  if(to.meta.auth){
+
+
+        if(localStorage.getItem('dut-accessToken')){
+
+            try {
+                // call api to get user infor
+                const res = await getUserInfor();
+                console.log(res);
+                store.dispatch({type : actionTypes.INIT_USER_INFOR, firstName : res.data.firstName,lastName : res.data.lastName,roles : res.data.roleTypes,imagePath : res.data.imagePath })
+
+
+                if(to.location.pathname === '/login'){
+                    // when user enter login path but have valid token, it will return home route
+                    next.redirect('/home');
+
+                }
+                next();
+            }
+            catch(err){
+                console.log(err);
+                if(to.location.pathname === '/login') next();
+                next.redirect('/login');
+            }
+
+
+
+
+          
+        }
+        else {
+          next.redirect('/login');
+        }
+    }
+  else {
     next();
   }
 };
