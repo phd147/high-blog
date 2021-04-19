@@ -1,9 +1,10 @@
 import * as actionTypes from '../action/actionTypes';
 
 const initialState = {
-    userId : '',
-    role : [],
-    name : ''
+    roles : [],
+    firstName : '',
+    lastName  : '',
+    imagePath : ''
 };
 
 
@@ -12,9 +13,10 @@ const reducer = (state =initialState, action) => {
         case actionTypes.INIT_USER_INFOR : 
             return {
                 ...state, 
-                name : action.name , 
-                userId : action.userId ,
-                role : action.role 
+                roles : action.roles ,
+                firstName: action.firstName  ,
+                lastName : action.lastName ,
+                imagePath:  action.imagePath
             }
         default : 
             return state ;
