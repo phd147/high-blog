@@ -3,5 +3,19 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  
+}
+.vote_icon {
+  height: 3rem;
+  width: 3rem;
+}
+.vote__btn {
+  padding: 0.2rem !important;
+}
+.vote__value {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+
+  color: #919191;
 }

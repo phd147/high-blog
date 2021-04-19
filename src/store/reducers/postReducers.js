@@ -2,7 +2,7 @@ import * as actionTypes from "../action/actionTypes";
 
 const initialState = {
   payload: [],
-  isLoading: false,
+  isLoading: true,
   error: {},
 };
 

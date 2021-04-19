@@ -4,34 +4,94 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import "./Vote.css";
+import { useSelector } from "react-redux";
+
 Vote.propTypes = {
-  vote: PropTypes.number,
   onVoteChange: PropTypes.func,
 };
 Vote.defaultProps = {
-  vote: 0,
   onVoteChange: null,
 };
 
 function Vote(props) {
-  const { vote, onVoteChange } = props;
-  const [isVoted, setIsVoted] = useState(false);
+  const { onVoteChange } = props;
 
-  const handleVote = (type) => {
-    if (onVoteChange) onVoteChange(type);
+  const postDetails = useSelector((state) => state.postDetails);
+  const { payload, isLoading, error } = postDetails;
+  const { vote } = payload;
+
+  console.log("post vote: ", vote);
+  const handleVoteUp = () => {
+    if (onVoteChange) {
+      if (vote === undefined) {
+        onVoteChange("UP", "CREATE");
+      } else if (vote.voteType === "UP") {
+        onVoteChange("UP", "DELETE");
+      } else if (vote.voteType === "DOWN") {
+        onVoteChange("UP", "UPDATE");
+      }
+    }
+  };
+  const handleVoteDown = () => {
+    if (onVoteChange) {
+      if (vote === undefined) {
+        onVoteChange("DOWN", "CREATE");
+      } else if (vote.voteType === "DOWN") {
+        onVoteChange("DOWN", "DELETE");
+      } else if (vote.voteType === "UP") {
+        onVoteChange("DOWN", "UPDATE");
+      }
+    }
+  };
+  const styles = {
+    voteIconActived: {
+      fill: "#039703",
+    },
+    voteIconNonActived: {
+      fill: "#919191",
+    },
+    voteValueActived: {
+      color: "#002984",
+    },
   };
 
   return (
     <div className="vote__container">
       <div>
-        <IconButton aria-label="upvote" onClick={() => handleVote("UP")}>
-          <KeyboardArrowUpIcon />
+        <IconButton
+          className="vote__btn"
+          aria-label="upvote"
+          onClick={handleVoteUp}
+          style={
+            vote
+              ? vote.voteType === "UP"
+                ? styles.voteIconActived
+                : styles.voteIconNonActived
+              : styles.voteIconNonActived
+          }
+        >
+          <KeyboardArrowUpIcon class="vote_icon" />
         </IconButton>
       </div>
-      <div>{vote}</div>
+      <div className="vote__value" style={vote ? styles.voteValueActived : {}}>
+        {payload.numberOfVotes > 0
+          ? `+${payload.numberOfVotes}`
+          : payload.numberOfVotes}
+      </div>
       <div>
-        <IconButton aria-label="downvote" onClick={() => handleVote("DOWN")}>
-          <KeyboardArrowDownIcon />
+        <IconButton
+          className="vote__btn"
+          aria-label="downvote"
+          onClick={handleVoteDown}
+          style={
+            vote
+              ? vote.voteType === "DOWN"
+                ? styles.voteIconActived
+                : styles.voteIconNonActived
+              : styles.voteIconNonActived
+          }
+        >
+          <KeyboardArrowDownIcon class="vote_icon" />
         </IconButton>
       </div>
     </div>
