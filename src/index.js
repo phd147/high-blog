@@ -65,6 +65,8 @@ const requireLogin = async (to,from,next) => {
                 // call api to get user infor
                 const res = await getUserInfor();
                 console.log(res);
+                store.dispatch({type : actionTypes.INIT_USER_INFOR, firstName : res.data.firstName,lastName : res.data.lastName,roles : res.data.roleTypes,imagePath : res.data.imagePath })
+
 
                 if(to.location.pathname === '/login'){
                     // when user enter login path but have valid token, it will return home route
@@ -81,7 +83,6 @@ const requireLogin = async (to,from,next) => {
 
 
 
-          store.dispatch({type : actionTypes.INIT_USER_INFOR, name : 'phd',userName : 'phan huynh duc',role : ['admin','user'] })
 
           
         }
