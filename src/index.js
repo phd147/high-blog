@@ -56,44 +56,69 @@ const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)));
 
 
 const requireLogin = async (to,from,next) => {
-  if(to.meta.auth){
 
-
-        if(localStorage.getItem('dut-accessToken')){
-
-            try {
-                // call api to get user infor
-                const res = await getUserInfor();
-                console.log(res);
-                store.dispatch({type : actionTypes.INIT_USER_INFOR, firstName : res.data.firstName,lastName : res.data.lastName,roles : res.data.roleTypes,imagePath : res.data.imagePath })
-
-
-                if(to.location.pathname === '/login'){
-                    // when user enter login path but have valid token, it will return home route
-                    next.redirect('/home');
-
-                }
-                next();
-            }
-            catch(err){
-                console.log(err);
-                if(to.location.pathname === '/login') next();
-                next.redirect('/login');
-            }
-
-
-
-
-          
-        }
-        else {
-          next.redirect('/login');
+    // call api to get user infor
+    try {
+        const res = await getUserInfor();
+        const data = res.data;
+        store.dispatch({
+            type: actionTypes.INIT_USER_INFOR,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            roles: data.roleTypes,
+            userId: data.id
+        });
+        if (to.location.path === '/login') next.redirect('/home');
+        next();
+    } catch (err) {
+        console.log(err);
+        if (!to.meta.auth) {
+            next();
+        } else {
+            next.redirect('/login');
         }
     }
-  else {
-    next();
-  }
 }
+
+//   if(to.meta.auth){
+//
+//
+//
+//         if(localStorage.getItem('dut-accessToken')){
+//
+//             try {
+//                 // call api to get user infor
+//                 const res = await getUserInfor();
+//                 console.log(res);
+//                 store.dispatch({type : actionTypes.INIT_USER_INFOR, firstName : res.data.firstName,lastName : res.data.lastName,roles : res.data.roleTypes,imagePath : res.data.imagePath })
+//
+//
+//                 if(to.location.pathname === '/login'){
+//                     // when user enter login path but have valid token, it will return home route
+//                     next.redirect('/home');
+//
+//                 }
+//                 next();
+//             }
+//             catch(err){
+//                 console.log(err);
+//                 if(to.location.pathname === '/login') next();
+//                 next.redirect('/login');
+//             }
+//
+//
+//
+//
+//
+//         }
+//         else {
+//           next.redirect('/login');
+//         }
+//     }
+//   else {
+//     next();
+//   }
+// }
 
 
 

@@ -22,6 +22,8 @@ import RequireVerifyEmail from "./components/RequireVerifyEmail/RequireVerifyEma
 import CreatePost from "./containers/CreatePost/index";
 
 import { Switch } from "react-router-dom";
+import HBHeader from "./components/HBHeader/HBHeader";
+import NotFoundC from "./components/Not Found/NotFoundC";
 
 //ck editor 
 
@@ -84,6 +86,18 @@ function App() {
                 component={Home}
                 meta={{auth: true}}
             />
+            <GuardedRoute
+                path="/headerr"
+                exact
+                component={HBHeader}
+                meta={{auth: true}}
+            />
+                <GuardedRoute
+                    path="*"
+                    exact
+                    component={NotFoundC}
+                    meta={{auth: false}}
+                />
 
         </Switch>)
 
