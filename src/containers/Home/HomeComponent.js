@@ -10,9 +10,6 @@ import Posts from "../Posts/Posts";
 
 export default function Home(props){
 
-
-
-
     return (
        <Container className={cs(classnames.hb_home)}>
 
@@ -25,7 +22,6 @@ export default function Home(props){
                </Grid>
 
            </Grid>
-
 
        </Container>
     )

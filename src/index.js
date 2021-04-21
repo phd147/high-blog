@@ -23,8 +23,7 @@ import { getUserInfor } from "./services/user.service";
 import { createStore, compose, combineReducers, applyMiddleware } from "redux";
 
 // import reducer
-import { oneReducer } from "./store/reducers/oneReducer";
-import { twoReducer } from "./store/reducers/twoReducer";
+
 import userReducer from "./store/reducers/userReducer";
 import {
   postCreateReducer,
@@ -45,8 +44,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // create combine reducer
 const reducer = combineReducers({
-  one: oneReducer,
-  two: twoReducer,
   user: userReducer,
   postDetails: postDetailsReducer,
   postCreate: postCreateReducer,
