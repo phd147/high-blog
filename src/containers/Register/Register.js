@@ -30,7 +30,7 @@ import {useHistory} from 'react-router-dom';
 
 
 
-const registerAPIInstance = new RegisterAPI();
+
 
 /// react router
 
@@ -101,7 +101,7 @@ export default function SignUp() {
       };
 
         try {
-            const res = await registerAPIInstance.register(registerData);
+            const res = await RegisterAPI.register(registerData);
             console.log(res);
             setTimeout(() => {
                 history.push('/login')

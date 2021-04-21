@@ -7,8 +7,18 @@
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Not Found/NotFound.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Not Found/NotFound.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configs/api/api-helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/api/api-helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Home/HOME.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Login/login.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/login.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +54,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1rDbdhsNKO5Jx4iH1FInYAnhRzP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,6 +70,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -94,7 +108,12 @@
       <workItem from="1618838249379" duration="7476000" />
       <workItem from="1618852102729" duration="731000" />
       <workItem from="1618852923265" duration="1036000" />
-      <workItem from="1618885069962" duration="2815000" />
+      <workItem from="1618885069962" duration="12104000" />
+      <workItem from="1618925511705" duration="6914000" />
+      <workItem from="1618936943717" duration="8391000" />
+      <workItem from="1618971258730" duration="1971000" />
+      <workItem from="1618977422334" duration="7954000" />
+      <workItem from="1618996240238" duration="717000" />
     </task>
     <servers />
   </component>

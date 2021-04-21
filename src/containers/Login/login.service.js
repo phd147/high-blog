@@ -6,7 +6,7 @@ export default class Login extends ApiHelper {
 
 
     
-    loginHandle(username,password){
+    static loginHandle(username,password){
         const url = 'http://35.240.173.198/api/v1/auth/login';
         return this.postLogin(url,null,{username,password});
     }
