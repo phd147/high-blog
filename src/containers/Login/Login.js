@@ -85,26 +85,28 @@ export default function SignInSide() {
         console.log(password.current.value);
         console.log(checked);
 
-        const loginService = new LoginService();
+
         try {
-          const res = await loginService.loginHandle(username.current.value,password.current.value);
+          const res = await LoginService.loginHandle(username.current.value,password.current.value);
 
           console.log(res);
+
+
           localStorage.setItem('dut-accessToken',res.data.accessToken);
           setTimeout(() => {
-            history.replace('/home');
+            history.replace('/');
           },2000)
           
           toast.success('LOGIN SUCCESSFUL')
           
         }catch(err){
           console.log(err);
-          toast.error(err.response.message);
+          //toast.error(err.response.data.message);
         }
 
 
 
-  },[])
+  },[]);
 
   return (
     <Grid container component="main" className={classes.root}>

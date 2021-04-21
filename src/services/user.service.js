@@ -2,7 +2,7 @@ import Api from '../configs/api/api-helper';
 
 export function getUserInfor() {
     const url = 'api/v1/profiles';
-    return new Api().get(url);
+    return Api.get(url);
 }
 
 export function removeToken(){
@@ -20,6 +20,6 @@ export const getTokenFromRefreshToken = () => {
     const data = {
         refreshToken : localStorage.getItem('dut-refreshToken') 
     }
-    return new Api().post(url,null,data);
+    return Api.post(url,null,data);
     
 }

@@ -80,48 +80,6 @@ const requireLogin = async (to,from,next) => {
     }
 }
 
-//   if(to.meta.auth){
-//
-//
-//
-//         if(localStorage.getItem('dut-accessToken')){
-//
-//             try {
-//                 // call api to get user infor
-//                 const res = await getUserInfor();
-//                 console.log(res);
-//                 store.dispatch({type : actionTypes.INIT_USER_INFOR, firstName : res.data.firstName,lastName : res.data.lastName,roles : res.data.roleTypes,imagePath : res.data.imagePath })
-//
-//
-//                 if(to.location.pathname === '/login'){
-//                     // when user enter login path but have valid token, it will return home route
-//                     next.redirect('/home');
-//
-//                 }
-//                 next();
-//             }
-//             catch(err){
-//                 console.log(err);
-//                 if(to.location.pathname === '/login') next();
-//                 next.redirect('/login');
-//             }
-//
-//
-//
-//
-//
-//         }
-//         else {
-//           next.redirect('/login');
-//         }
-//     }
-//   else {
-//     next();
-//   }
-// }
-
-
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
