@@ -2,6 +2,33 @@
     background : white ;
 }
 
-.author_infor {
+.post_item_author_infor {
+    display : flex ;
+    flex-direction : row ;
+    align-items: center;
+}
+
+.authorName {
+    margin-bottom : 0 !important;
+}
+
+.postTime {
+    margin-bottom : 0 !important ;
+}
+.post_item_author_infor {
+    margin-bottom : 10px;
+}
+
+.post_item_reactions {
+    margin-top : 10px ;
+}
+
+.post_item_util {
+    display : flex ;
+    flex-direction : row ;
+    justify-content: space-between;
+}
+
+.post_item_save {
 
 }

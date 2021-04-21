@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 
 import PostService from "./Post.service";
-import moment from "moment";
+
 
 import Post from './Post/Post';
 
@@ -10,6 +10,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import cs from 'classnames';
 
 import classnames from './Posts.module.css';
+import PostLoading from "../../components/PostLoading/PostLoading";
 
 export default function Posts(props){
 
@@ -59,13 +60,12 @@ export default function Posts(props){
 
     return (
         <div className={cs(classnames.hb_posts)}>
-            {moment('1970-01-01').set('millisecond',1618239547478).format()}
-            {moment.locale()}
+
             <InfiniteScroll
                 pageStart={0}
                 loadMore={loadmoreFunction}
                 hasMore={hasMoreItem}
-                loader={<div>... Loading</div>}
+                loader={<PostLoading/>}
             >
                 {items}
             </InfiniteScroll>

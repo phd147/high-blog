@@ -3,22 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="ef29dc07-a900-4bb7-adfb-d1e486d0bef5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Not Found/NotFound.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Not Found/NotFound.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/api/api-helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/api/api-helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Home/HOME.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Login/login.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/login.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Register/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Post/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Post/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Post/Post.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Post/Post.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Posts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/action/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/action/actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducers/oneReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducers/twoReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HeaderUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HeaderUtil.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +111,10 @@
       <workItem from="1618936943717" duration="8391000" />
       <workItem from="1618971258730" duration="1971000" />
       <workItem from="1618977422334" duration="7954000" />
-      <workItem from="1618996240238" duration="717000" />
+      <workItem from="1618996240238" duration="6508000" />
+      <workItem from="1619021170181" duration="4022000" />
+      <workItem from="1619025242498" duration="98000" />
+      <workItem from="1619025354741" duration="960000" />
     </task>
     <servers />
   </component>
