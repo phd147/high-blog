@@ -1,0 +1,41 @@
+.vote__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.vote__icon {
+  height: 3rem;
+  width: 3rem;
+}
+.vote__btn {
+  padding: 0.2rem !important;
+}
+.vote__value {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+
+  color: #919191;
+}
+@media only screen and (max-width: 600px) {
+  .vote__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .vote__icon {
+    height: 2rem;
+    width: 2rem;
+  }
+  .vote__value {
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+
+    color: #919191;
+  }
+}
