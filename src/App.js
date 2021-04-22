@@ -27,6 +27,7 @@ import Favorite from "./containers/Favorite";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
+import TagsPanel from "./containers/TagsPanel";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
           component={Favorite}
           meta={{ auth: true }}
         />
+        <GuardedRoute path="/tags" exact component={TagsPanel} />
 
         <GuardedRoute
           path="*"
