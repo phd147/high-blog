@@ -29,7 +29,11 @@ import {
   postCreateReducer,
   postDetailsReducer,
 } from "./store/reducers/postReducers";
-import { favoriteCreateReducer } from "./store/reducers/favoriteReducer";
+import {
+  favoriteCreateReducer,
+  favoriteListReducer,
+  favoriteDeleteReducer,
+} from "./store/reducers/favoriteReducer";
 
 //action
 import * as actionTypes from "./store/action/actionTypes";
@@ -48,6 +52,8 @@ const reducer = combineReducers({
   postDetails: postDetailsReducer,
   postCreate: postCreateReducer,
   favoriteCreate: favoriteCreateReducer,
+  favoriteList: favoriteListReducer,
+  favoriteDelete: favoriteDeleteReducer,
 });
 
 // create redux store
