@@ -3,6 +3,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 import PostService from "./Post.service";
 
 
+import * as PostsType from './TypeOfPost';
+
 import Post from './Post/Post';
 
 import InfiniteScroll from 'react-infinite-scroller';
@@ -14,18 +16,46 @@ import PostLoading from "../../components/PostLoading/PostLoading";
 
 export default function Posts(props){
 
+    const type = props.type ;
+
+    const initialParams = props.initialParams ;
+
+    let fetchListPost = null ;
+
+
+    // post type
+    switch (type){
+
+        case (PostsType.HOME_TYPE)  :
+            fetchListPost = PostService.getListPost;
+            break ;
+
+
+
+
+        default :
+            console.log('default ');
+    }
+
+
+
+
+
     const [posts,setPosts] = useState([]);
     const [hasMoreItem,setHasMoreItem] = useState(true);
 
 
     const loadmoreFunction = useCallback(async (page) => {
         console.log({page});
-        const params = {
+
+        const loadMoreParams = {
             page : page ,
             pageSize : 10
         }
+
+
         try {
-            const res = await PostService.getListPost(params);
+            const res = await PostService.getListPost(loadMoreParams);
             const data = res.data ;
             setPosts(oldItems => [...oldItems,...data.items]);
         }
@@ -42,12 +72,10 @@ export default function Posts(props){
 
     useEffect( () => {
         const fetchData = async () => {
-            const params = {
-                page : 0 ,
-                pageSize : 10
-            }
-            const res = await PostService.getListPost(params);
+
+            const res = await fetchListPost.call(PostService,initialParams);
             console.log(res);
+
         }
         fetchData();
 

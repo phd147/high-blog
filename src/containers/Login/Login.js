@@ -93,6 +93,7 @@ export default function SignInSide() {
 
 
           localStorage.setItem('dut-accessToken',res.data.accessToken);
+          localStorage.setItem('dut-refreshToken',res.data.refreshToken);
           setTimeout(() => {
             history.replace('/');
           },2000)

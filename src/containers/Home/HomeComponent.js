@@ -2,6 +2,8 @@
 import React from 'react';
 import {Container, Grid} from "@material-ui/core";
 
+import * as PostType from '../Posts/TypeOfPost';
+
 import classnames from './Home.module.css';
 
 import cs from 'classnames';
@@ -18,7 +20,7 @@ export default function Home(props){
                     <Menu/>
                 </Grid>
                <Grid item xs={12} md={7} >
-                    <Posts/>
+                    <Posts type={PostType.HOME_TYPE} initialParams = {{page : 1, pageSize : 10}}/>
                </Grid>
 
            </Grid>

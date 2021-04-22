@@ -1,0 +1,1 @@
+export const HOME_TYPE = 'HOME_TYPE';

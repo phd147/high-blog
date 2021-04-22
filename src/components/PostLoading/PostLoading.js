@@ -7,8 +7,9 @@ import {Avatar, Box, Typography} from "@material-ui/core";
 export default function PostLoading(props){
 
     return (
-        <div>{
-            [1,2,3].map((el,index )=>  <div key={index}>
+
+
+            <div>
 
 
                 <Box display="flex" alignItems="center">
@@ -31,9 +32,6 @@ export default function PostLoading(props){
                 <Skeleton variant="rect" width="100%">
                     <div style={{ paddingTop: '40%' }} />
                 </Skeleton>
-            </div> )
-        }
-
-        </div>
+            </div>
     )
 }
