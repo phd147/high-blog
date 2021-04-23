@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ef29dc07-a900-4bb7-adfb-d1e486d0bef5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Content.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/News.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewsDashboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchPage/SearchPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPage/SearchPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Test2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TopMenu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/URLRouter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Posts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Login/login.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/login.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +22,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/FE-create_manage_wallet_layout" />
+                    <option name="lastUsedInstant" value="1619192907" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
                     <option name="lastUsedInstant" value="1618838997" />
@@ -121,7 +116,7 @@
       <workItem from="1619163223094" duration="2321000" />
       <workItem from="1619167744424" duration="602000" />
       <workItem from="1619177615299" duration="1816000" />
-      <workItem from="1619191738200" duration="727000" />
+      <workItem from="1619191738200" duration="2936000" />
     </task>
     <servers />
   </component>

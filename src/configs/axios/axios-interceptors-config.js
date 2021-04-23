@@ -3,7 +3,7 @@ import axios from 'axios';
 import {getTokenFromRefreshToken} from '../../services/user.service';
 
 const instance = axios.create({
-    baseURL : 'http://35.240.173.198'
+    baseURL : 'https://35.240.173.198'
 });
 
 instance.interceptors.response.use(response => response, async err => {
