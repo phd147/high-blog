@@ -3,13 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="ef29dc07-a900-4bb7-adfb-d1e486d0bef5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Post.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Post.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/News.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewsDashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPage/SearchPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPage/SearchPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Test2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TopMenu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/URLRouter.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Posts/Posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Posts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,11 +60,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Workspace/learn/backend/node-express-boilerplate" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Workspace/learn/backend/nest/project" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -110,6 +114,14 @@
       <workItem from="1619025354741" duration="2019000" />
       <workItem from="1619057243916" duration="3898000" />
       <workItem from="1619075012178" duration="4055000" />
+      <workItem from="1619102788972" duration="748000" />
+      <workItem from="1619107505010" duration="1034000" />
+      <workItem from="1619146258776" duration="17000" />
+      <workItem from="1619151743806" duration="439000" />
+      <workItem from="1619163223094" duration="2321000" />
+      <workItem from="1619167744424" duration="602000" />
+      <workItem from="1619177615299" duration="1816000" />
+      <workItem from="1619191738200" duration="727000" />
     </task>
     <servers />
   </component>
