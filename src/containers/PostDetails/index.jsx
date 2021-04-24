@@ -1,185 +1,320 @@
-import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-import "./PostDetails.css";
-import PostPreview from "../../components/PostPreview";
-import Vote from "../../components/Vote";
-import BookmarkButton from "../../components/BookmarkButton";
-import WriterInfoCard from "../../components/WriterInfoCard";
-import Discussion from "../../components/Discussion";
-import { useDispatch, useSelector } from "react-redux";
-import { detailsPost } from "../../store/action/postActions";
-import PostDetailsService from "./PostDetails.service";
-import {
-  createFavorite,
-  deleteFavorite,
-} from "../../store/action/favoriteActions.";
+import Container from "@material-ui/core/Container";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import ToastContainerConfig from "../../configs/toast/ToastContainerConfig";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import BookmarkButton from "../../components/BookmarkButton";
+import Discussion from "../../components/Discussion";
+import PostLoading from "../../components/PostLoading/PostLoading";
+import PostPreview from "../../components/PostPreview";
+import SocialButtons from "../../components/SocialButtons";
+import Vote from "../../components/Vote";
+import WriterInfoCard from "../../components/WriterInfoCard";
+import { BASE_URL } from "../../constant.js";
+import "./PostDetails.css";
+import PostDetailsService from "./PostDetails.service";
 
 PostDetails.propTypes = {};
 
 function PostDetails(props) {
   const postId = props.match.params.id;
   const postTitle = props.match.params.title;
+  const userInfo = useSelector((state) => state.user);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [listComment, setListComment] = useState([]);
-  const [sendReq, setSendReq] = useState(0);
 
-  const postDetails = useSelector((state) => state.postDetails);
-  const { payload, isLoading, error } = postDetails;
+  const [postDetails, setPostDetails] = useState({});
 
   const history = useHistory();
+  const location = useLocation();
 
-  useEffect(() => {
-    if (error === "Post id and title is incompatible") {
-      setTimeout(() => {
-        history.replace("/home");
-      }, 6000);
-      toast.error("ERROR SUCCESSFUL");
-    }
-  }, [error, history]);
+  function handleUserLogged() {
+    return new Promise((resolve) => {
+      if (userInfo.userId === "") {
+        setTimeout(() => {
+          history.push(`/login?redirect=${location.pathname}`);
+          resolve(false);
+        }, 1000);
+        toast.error("Log in to continue");
+      } else resolve(true);
+    });
+  }
 
-  const dispatch = useDispatch();
-
-  const handleCommentSubmit = async (data) => {
-    const postDetailsService = new PostDetailsService();
-    try {
-      await postDetailsService.postComment(postId, data);
-      fetchComments();
-    } catch (error) {
-      console.log(error);
+  // useEffect(() => {
+  //   if (error === "Post id and title is incompatible") {
+  //     setTimeout(() => {
+  //       history.replace("/home");
+  //     }, 6000);
+  //     toast.error("ERROR SUCCESSFUL");
+  //   }
+  // }, [error, history]);
+  const handleCommentSubmit = async (content) => {
+    const logged = await handleUserLogged();
+    if (logged) {
+      const res = await PostDetailsService.postComment(postId, content);
+      const newComment = {
+        id: res.data,
+        content: content,
+        numberOfVotes: 0,
+        user: {
+          id: userInfo.userId,
+          firstName: userInfo.firstName,
+          lastName: userInfo.lastName,
+          //nickname: userInfo.nickName//chua co trong store
+        },
+      };
+      setListComment((oldComments) => [newComment, ...oldComments]);
     }
   };
-  const handleReplySubmit = async (commentId, data) => {
-    const postDetailsService = new PostDetailsService();
-    try {
-      await postDetailsService.postReply(postId, commentId, data);
-      fetchComments();
-    } catch (error) {
-      console.log(error);
+
+  const handleReplySubmit = async (commentId, content) => {
+    const logged = await handleUserLogged();
+    if (logged) {
+      const res = await PostDetailsService.postReply(
+        postId,
+        commentId,
+        content
+      );
+      let editList = [...listComment];
+      const idx = editList.findIndex((item) => item.id === commentId);
+      let newReply = {
+        id: res.data,
+        content: content,
+        numberOfVotes: 0,
+        user: {
+          id: userInfo.userId,
+          firstName: userInfo.firstName,
+          lastName: userInfo.lastName,
+          //nickname: userInfo.nickName//chua co trong store
+        },
+      };
+
+      if (listComment[idx].childComments === undefined)
+        editList[idx].childComments = [newReply];
+      else
+        editList[idx].childComments = [
+          newReply,
+          ...listComment[idx].childComments,
+        ];
+      console.log(editList);
+      setListComment(editList);
     }
   };
 
   const handleCommentDelete = async (commentId) => {
-    const postDetailsService = new PostDetailsService();
-    try {
-      await postDetailsService.deleteComment(commentId);
-      fetchComments();
-    } catch (error) {
-      console.log(error);
+    const logged = await handleUserLogged();
+    if (logged) {
+      await PostDetailsService.deleteComment(commentId);
+      let newCommentList = listComment.filter((item) => item.id !== commentId);
+      setListComment(newCommentList);
+    }
+  };
+
+  const handleReplyDelete = async (parentId, replyId) => {
+    const logged = await handleUserLogged();
+    if (logged) {
+      await PostDetailsService.deleteComment(replyId);
+      let newCommentList = [...listComment];
+      const parentIndex = listComment.findIndex((item) => item.id === parentId);
+      let newChildComments = listComment[parentIndex].childComments.filter(
+        (item) => item.id !== replyId
+      );
+      newCommentList[parentIndex].childComments = newChildComments;
+      setListComment(newCommentList);
     }
   };
 
   const handleCommentEdit = async (commentId, content) => {
-    const postDetailsService = new PostDetailsService();
-    try {
-      await postDetailsService.editComment(commentId, content);
-      fetchComments();
-    } catch (error) {
-      console.log(error);
+    const logged = await handleUserLogged();
+    if (logged) {
+      await PostDetailsService.editComment(commentId, content);
+      let editList = [...listComment];
+      const editIdx = editList.findIndex((item) => item.id === commentId);
+      editList[editIdx].content = content;
+      setListComment(editList);
     }
   };
+  const handleReplyEdit = async (parentId, replyId, content) => {
+    const logged = await handleUserLogged();
+    if (logged) {
+      await PostDetailsService.editComment(replyId, content);
+      let newCommentList = [...listComment];
+      const parentIndex = listComment.findIndex((item) => item.id === parentId);
+      let replyIndex = listComment[parentIndex].childComments.findIndex(
+        (item) => item.id === replyId
+      );
+      newCommentList[parentIndex].childComments[replyIndex].content = content;
+      setListComment(newCommentList);
+    }
+  };
+
   const handleFollowWriter = async (nickName, type) => {
-    const postDetailsService = new PostDetailsService();
-    try {
+    const logged = await handleUserLogged();
+    if (logged) {
       if (type === "FOLLOW") {
-        await postDetailsService.postFollow(nickName);
+        await PostDetailsService.postFollow(nickName);
+        setPostDetails({
+          ...postDetails,
+          user: { ...postDetails.user, followed: true },
+        });
       } else if (type === "UNFOLLOW") {
-        await postDetailsService.deleteFollow(nickName);
+        await PostDetailsService.deleteFollow(nickName);
+        setPostDetails({
+          ...postDetails,
+          user: { ...postDetails.user, followed: false },
+        });
       }
-
-      fetchPostDetails();
-    } catch (error) {
-      console.log(error);
     }
   };
-
-  async function fetchPostDetails() {
-    console.log("[REDUX] DETAILS POST");
-    dispatch(detailsPost(postId, postTitle));
-    console.log(postTitle);
-  }
-
-  async function fetchComments() {
-    console.log("[API] FETCH COMMENT");
-    const postDetailsService = new PostDetailsService();
-    try {
-      const response = await postDetailsService.getComments(postId);
-      setListComment(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const handleVoteChange = async (value, action) => {
-    const postDetailsService = new PostDetailsService();
-    try {
+    const logged = await handleUserLogged();
+    if (logged) {
       if (action === "CREATE") {
-        const { status } = await postDetailsService.createVote(postId, value);
-        if (status === 201) setSendReq(!sendReq);
+        await PostDetailsService.createVote(postId, value);
+        let change = value === "UP" ? 1 : -1;
+        setPostDetails({
+          ...postDetails,
+          numberOfVotes: postDetails.numberOfVotes + change,
+          vote: { ...postDetails.vote, voteType: value },
+        });
       } else if (action === "UPDATE") {
-        const { status } = await postDetailsService.updateVote(postId, value);
-        if (status === 204) setSendReq(!sendReq);
+        await PostDetailsService.updateVote(postId, value);
+        let change = value === "UP" ? 2 : -2;
+        setPostDetails({
+          ...postDetails,
+          numberOfVotes: postDetails.numberOfVotes + change,
+          vote: { ...postDetails.vote, voteType: value },
+        });
       } else if (action === "DELETE") {
-        const { status } = await postDetailsService.deleteVote(postId, value);
-        if (status === 204) setSendReq(!sendReq);
+        await PostDetailsService.deleteVote(postId, value);
+        let change = value === "UP" ? -1 : 1;
+        setPostDetails({
+          ...postDetails,
+          numberOfVotes: postDetails.numberOfVotes + change,
+          vote: null,
+        });
       }
-      fetchPostDetails();
-    } catch (error) {
-      console.log(error);
     }
   };
 
   const handleBookmarkClick = async (type) => {
-    console.log("handle bookmark from parent");
-    if (type === "CREATE") {
-      await dispatch(createFavorite(postId));
-    } else if (type === "DELETE") {
-      await dispatch(deleteFavorite(postId));
+    const logged = await handleUserLogged();
+    if (logged) {
+      if (type === "CREATE") {
+        await PostDetailsService.postFavorite(postId);
+        setPostDetails({
+          ...postDetails,
+          addedToFavorite: true,
+        });
+      } else if (type === "DELETE") {
+        await PostDetailsService.deleteFavorite(postId);
+        setPostDetails({
+          ...postDetails,
+          addedToFavorite: false,
+        });
+      }
     }
-    fetchPostDetails();
   };
+  const handlePostDelete = async () => {
+    try {
+      await PostDetailsService.deletePost(postId);
+      history.replace("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function fetchPostDetails() {
+    return new Promise(async (resolve) => {
+      try {
+        const res = await PostDetailsService.getPostDetails(postId);
+        setPostDetails(res.data);
+        setIsLoading(false);
+        resolve();
+      } catch (error) {
+        console.log("FETCH POST ERROR: ", error);
+        history.push("/404");
+      }
+    });
+  }
 
+  async function fetchComments() {
+    try {
+      const response = await PostDetailsService.getComments(postId);
+      setListComment(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
-    fetchPostDetails();
-  }, []);
-
-  useEffect(() => {
-    fetchComments();
+    async function fetchData() {
+      await fetchPostDetails();
+      fetchComments();
+    }
+    fetchData();
   }, []);
 
   return (
-    <div className="post-details__container">
-      <ToastContainerConfig />
-      {false ? (
-        <div>Loading ...</div>
+    <Container className="post-details__container">
+      {isLoading ? (
+        <Grid container spacing={2}>
+          <Grid item xs={0} sm={1} md={1}></Grid>
+          <Grid item xs={12} sm={8} md={8}>
+            <PostLoading />
+          </Grid>
+          <Grid
+            className="writer-info"
+            item
+            xs={0}
+            sm={3}
+            md={3}
+            style={{ overflow: "hidden " }}
+          >
+            <PostLoading />
+          </Grid>
+        </Grid>
       ) : (
         <Grid container spacing={2}>
-          <Grid className="post-details__reaction" item xs={0} sm={1} md={1}>
-            <div className="fixed">
+          <Grid item xs={0} sm={1} md={1}>
+            <div className="fixed post-details__reaction">
               <Vote
-                vote={payload.numberOfVotes}
+                current={postDetails.vote ? postDetails.vote : null}
+                numberOfVotes={postDetails.numberOfVotes}
                 onVoteChange={handleVoteChange}
               />
-              <BookmarkButton onClick={handleBookmarkClick} />
+              <BookmarkButton
+                added={postDetails.addedToFavorite}
+                onClick={handleBookmarkClick}
+              />
+              <SocialButtons
+                url={`${BASE_URL}/${props.location.pathname}`}
+                text={postDetails.summary}
+              />
             </div>
           </Grid>
           <Grid item xs={12} sm={8} md={8}>
             <div className="post-details__content">
-              {payload.coverImagePath && (
+              {postDetails.coverImagePath && (
                 <img
                   className="post-details__cover-image"
-                  src={`http://35.240.173.198/${payload.coverImagePath}`}
+                  src={`${BASE_URL}/${postDetails.coverImagePath}`}
                   alt="cover_image"
                 />
               )}
 
               <PostPreview
-                postTitle={payload.title}
-                postContent={payload.content}
-                postTags={payload.tags}
-                postOwner={payload.user}
+                postTitle={postDetails.title}
+                postContent={postDetails.content}
+                postTags={postDetails.tags}
+                postOwner={postDetails.user}
+                postDate={postDetails.createdDate}
+                onEdit={() => {}}
+                onDelete={handlePostDelete}
               />
             </div>
             <div className="post-details__discussion">
@@ -189,8 +324,9 @@ function PostDetails(props) {
                 onReplySubmit={handleReplySubmit}
                 onCommentDelete={handleCommentDelete}
                 onCommentEdit={handleCommentEdit}
+                onReplyDelete={handleReplyDelete}
+                onReplyEdit={handleReplyEdit}
               />
-              {/* )} */}
             </div>
           </Grid>
           <Grid
@@ -203,14 +339,14 @@ function PostDetails(props) {
           >
             <div className="fixed post-details__writer-info">
               <WriterInfoCard
-                postOwner={payload.user}
+                postOwner={postDetails.user}
                 onFollowClick={handleFollowWriter}
               />
             </div>
           </Grid>
         </Grid>
       )}
-    </div>
+    </Container>
   );
 }
 

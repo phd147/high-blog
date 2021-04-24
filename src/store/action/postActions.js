@@ -1,13 +1,11 @@
 import ApiHelper from "../../configs/api/api-helper";
+import { BASE_URL } from "../../constant";
 import * as actionTypes from "../action/actionTypes";
 
 export const detailsPost = (postId, postTitle) => async (dispatch) => {
   dispatch({ type: actionTypes.POST_DETAILS_REQUEST, payload: postId });
-  const apiHelper = new ApiHelper();
   try {
-    const { data } = await apiHelper.get(
-      `http://35.240.173.198/api/v1/posts/${postId}`
-    );
+    const { data } = await ApiHelper.get(`${BASE_URL}/api/v1/posts/${postId}`);
     const resTitle = data.title.toLowerCase().replaceAll(" ", "-");
     dispatch({ type: actionTypes.POST_DETAILS_SUCCESS, payload: data });
     console.log("RES TITLE: ", resTitle);
@@ -33,10 +31,9 @@ export const detailsPost = (postId, postTitle) => async (dispatch) => {
 
 export const createPost = (postObj) => async (dispatch) => {
   dispatch({ type: actionTypes.POST_CREATE_REQUEST });
-  const apiHelper = new ApiHelper();
   try {
-    const { data } = await apiHelper.post(
-      `http://35.240.173.198/api/v1/user/posts`,
+    const { data } = await ApiHelper.post(
+      `https://35.240.173.198/api/v1/user/posts`,
       null,
       postObj
     );

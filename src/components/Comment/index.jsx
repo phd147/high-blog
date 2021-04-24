@@ -5,13 +5,19 @@ import "./Comment.css";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
-import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  TextareaAutosize,
+} from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MyComment from "../MyComment";
 import { useSelector } from "react-redux";
 Comment.propTypes = {
+  parentId: PropTypes.number,
   owner: PropTypes.object,
   content: PropTypes.string,
   id: PropTypes.number,
@@ -23,6 +29,7 @@ Comment.propTypes = {
 };
 
 Comment.defaultProps = {
+  parentId: null,
   owner: {
     username: "Garen",
     avatar:
@@ -39,6 +46,7 @@ Comment.defaultProps = {
 
 function Comment(props) {
   const {
+    parentId,
     owner,
     id,
     content,
@@ -63,18 +71,18 @@ function Comment(props) {
   };
   const handleDelete = () => {
     console.log("delete comment id: ", id);
-    if (onDelete) onDelete(id);
+    if (onDelete) onDelete(parentId, id);
   };
   const handleEdit = () => {
     console.log("edit comment id: ", id);
-    if (onEdit) onEdit(id, editText);
+    if (onEdit) onEdit(parentId, id, editText);
     setIsEdit(false);
   };
   console.log("COMMENT RENDER");
   return (
     <div className="comment__container">
       <Link to="#">
-        <img className="comment__avatar" src={owner.avatar} alt="" />
+        <Avatar alt="user" src="" />
       </Link>
       <div className="comment__inner">
         <div className="comment__card">
@@ -86,21 +94,21 @@ function Comment(props) {
                 </span>
               </Link>
               {/* {"\u2022"} */}
-              <span className="comment__date">{"date here"}</span>
             </div>
             {userInfo.userId === owner.id ? (
               !isEdit ? (
-                <div>
+                <div style={{ minWidth: "80px", textAlign: "right" }}>
                   <IconButton
+                    style={{ padding: "4px", fontSize: "10px" }}
                     onClick={() => {
                       setIsEdit(true);
                       setEditText(content);
                     }}
                   >
-                    <EditIcon />
+                    <EditIcon fontSize="small" />
                   </IconButton>
-                  <IconButton onClick={handleDelete}>
-                    <DeleteIcon />
+                  <IconButton style={{ padding: "4px" }} onClick={handleDelete}>
+                    <DeleteIcon fontSize="small" />
                   </IconButton>
                 </div>
               ) : (
@@ -155,7 +163,7 @@ function Comment(props) {
         </div>
         {isReply ? (
           <div className="reply__container">
-            <img className="reply__avatar" src="" alt="" />
+            <Avatar alt="user" src="" />
             <div className="reply__inner">
               <div className="reply__card">
                 <TextareaAutosize

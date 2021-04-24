@@ -4,6 +4,7 @@ import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactSimpleImageViewer from "react-simple-image-viewer";
+import { BASE_URL } from "../../constant";
 import "./FileManagement.css";
 import FileManagementService from "./FileManagement.service";
 
@@ -46,20 +47,18 @@ function FileManagement(props) {
     setSelectedList(newSelectedList);
   };
   const handleImageUpload = async (event) => {
-    const fileManagementService = new FileManagementService();
     try {
       const data = new FormData();
       data.append("image", event.target.files[0]);
-      await fileManagementService.postImage(data);
+      await FileManagementService.postImage(data);
       setTrigger(Math.random());
     } catch (error) {
       console.log(error);
     }
   };
   const handleDelete = async (id) => {
-    const fileManagementService = new FileManagementService();
     try {
-      const response = await fileManagementService.deleteImage(id);
+      const response = await FileManagementService.deleteImage(id);
       console.log("DELETE: ", response);
     } catch (error) {
       console.log("ERROR: ", error);
@@ -78,9 +77,8 @@ function FileManagement(props) {
   };
 
   async function fetchImages() {
-    const fileManagementService = new FileManagementService();
     try {
-      const response = await fileManagementService.getImages();
+      const response = await FileManagementService.getImages();
       console.log("FETCH: ", response);
       setImages(response.data.items);
     } catch (error) {
@@ -121,7 +119,7 @@ function FileManagement(props) {
                 <CheckCircleRoundedIcon className="file__check-icon" />
               </label>
               <img
-                src={`http://35.240.173.198/${item.path}`}
+                src={`${BASE_URL}/${item.path}`}
                 onClick={() => openImageViewer(index)}
                 width="100%"
                 height="100%"
@@ -133,7 +131,7 @@ function FileManagement(props) {
           ))}
           {isViewerOpen && (
             <ReactSimpleImageViewer
-              src={images.map((item) => `http://35.240.173.198/${item.path}`)}
+              src={images.map((item) => `${BASE_URL}/${item.path}`)}
               currentIndex={currentImage}
               onClose={closeImageViewer}
               backgroundStyle={{

@@ -7,13 +7,17 @@ import "./Editor.css";
 ContentEditor.propTypes = {
   contentData: PropTypes.string,
   onContentChange: PropTypes.func,
+  onContentFocus: PropTypes.func,
+  onContentBlur: PropTypes.func,
 };
 ContentEditor.defaultProps = {
-  data: '',
+  data: "",
   onContentChange: null,
-}
+  onContentFocus: null,
+  onContentBlur: null,
+};
 function ContentEditor(props) {
-  const {data, onContentChange} = props;
+  const { data, onContentChange, onContentFocus, onContentBlur } = props;
   return (
     <div className="editor-container editor-content">
       <CKEditor
@@ -24,18 +28,20 @@ function ContentEditor(props) {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          if(onContentChange) {
+          if (onContentChange) {
             console.log(data);
             onContentChange(data);
           }
           // console.log({ event, editor, data });
         }}
-        // onBlur={(event, editor) => {
-        //   console.log("Blur.", editor);
-        // }}
-        // onFocus={(event, editor) => {
-        //   console.log("Focus.", editor);
-        // }}
+        onBlur={(event, editor) => {
+          if (onContentBlur) onContentBlur();
+          console.log("Blur.", editor);
+        }}
+        onFocus={(event, editor) => {
+          if (onContentFocus) onContentFocus();
+          console.log("Focus.", editor);
+        }}
       />
     </div>
   );

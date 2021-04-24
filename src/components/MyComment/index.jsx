@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import "./MyComment.css";
 import "./MyCommentHelper.js";
-import { Button, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton } from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import cssAction from "./MyCommentHelper.js";
+import { useSelector } from "react-redux";
 
 MyComment.propTypes = {
   currentUser: PropTypes.object,
@@ -22,6 +23,7 @@ MyComment.defaultProps = {
 
 function MyComment(props) {
   const { currentUser, onCommentSubmit } = props;
+  const userInfo = useSelector((state) => state.user);
   const [numRow, setNumRow] = useState(2);
   const [commentText, setCommentText] = useState("");
   console.log("RENDER MY COMMENT");
@@ -41,7 +43,8 @@ function MyComment(props) {
 
   return (
     <div className="mycomment__container">
-      <img className="mycomment__avatar" src={currentUser.avatar} alt="" />
+      {/* <img className="mycomment__avatar" src={currentUser.avatar} alt="" /> */}
+      <Avatar alt="user" src="" />
       <div className="mycomment__inner">
         <div className="mycomment__card">
           <TextareaAutosize

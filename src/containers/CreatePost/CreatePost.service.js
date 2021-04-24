@@ -1,16 +1,20 @@
 import ApiHelper from "../../configs/api/api-helper";
-const baseUrl = "http://35.240.173.198";
+import { BASE_URL } from "../../constant";
 export default class PostCreateService extends ApiHelper {
-  getCategories() {
-    const url = `${baseUrl}/api/v1/user/categories`;
+  static getCategories() {
+    const url = `${BASE_URL}/api/v1/user/categories`;
     return this.get(url);
   }
-  getTags() {
-    const url = `${baseUrl}/api/v1/tags`;
+  static getTags() {
+    const url = `${BASE_URL}/api/v1/tags`;
     return this.get(url);
   }
-  postImage(data) {
-    const url = `${baseUrl}/api/v1/user/files/images`;
+  static postImage(data) {
+    const url = `${BASE_URL}/api/v1/user/files/images`;
     return this.post(url, null, data);
+  }
+  static postPost(postObj) {
+    const url = `${BASE_URL}/api/v1/user/posts`;
+    return this.post(url, null, postObj);
   }
 }

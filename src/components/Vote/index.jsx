@@ -7,38 +7,42 @@ import voteStyles from "./Vote.module.css";
 import { useSelector } from "react-redux";
 
 Vote.propTypes = {
+  current: PropTypes.any,
+  numberOfVotes: PropTypes.number,
   onVoteChange: PropTypes.func,
 };
 Vote.defaultProps = {
+  current: null,
+  numberOfVotes: 0,
   onVoteChange: null,
 };
 
 function Vote(props) {
-  const { onVoteChange } = props;
+  const { current, numberOfVotes, onVoteChange } = props;
 
-  const postDetails = useSelector((state) => state.postDetails);
-  const { payload, isLoading, error } = postDetails;
-  const { vote } = payload;
+  // const postDetails = useSelector((state) => state.postDetails);
+  // const { payload, isLoading, error } = postDetails;
+  // const { vote } = payload;
 
-  console.log("post vote: ", vote);
+  console.log("CURRENT: ", current);
   const handleVoteUp = () => {
     if (onVoteChange) {
-      if (vote === undefined) {
+      if (current === null) {
         onVoteChange("UP", "CREATE");
-      } else if (vote.voteType === "UP") {
+      } else if (current.voteType === "UP") {
         onVoteChange("UP", "DELETE");
-      } else if (vote.voteType === "DOWN") {
+      } else if (current.voteType === "DOWN") {
         onVoteChange("UP", "UPDATE");
       }
     }
   };
   const handleVoteDown = () => {
     if (onVoteChange) {
-      if (vote === undefined) {
+      if (current === null) {
         onVoteChange("DOWN", "CREATE");
-      } else if (vote.voteType === "DOWN") {
+      } else if (current.voteType === "DOWN") {
         onVoteChange("DOWN", "DELETE");
-      } else if (vote.voteType === "UP") {
+      } else if (current.voteType === "UP") {
         onVoteChange("DOWN", "UPDATE");
       }
     }
@@ -63,8 +67,8 @@ function Vote(props) {
           aria-label="upvote"
           onClick={handleVoteUp}
           style={
-            vote
-              ? vote.voteType === "UP"
+            current
+              ? current.voteType === "UP"
                 ? styles.voteIconActived
                 : styles.voteIconNonActived
               : styles.voteIconNonActived
@@ -75,11 +79,9 @@ function Vote(props) {
       </div>
       <div
         className={voteStyles.vote__value}
-        style={vote ? voteStyles.voteValueActived : {}}
+        style={current ? voteStyles.voteValueActived : {}}
       >
-        {payload.numberOfVotes > 0
-          ? `+${payload.numberOfVotes}`
-          : payload.numberOfVotes}
+        {numberOfVotes > 0 ? `+${numberOfVotes}` : numberOfVotes}
       </div>
       <div>
         <IconButton
@@ -87,8 +89,8 @@ function Vote(props) {
           aria-label="downvote"
           onClick={handleVoteDown}
           style={
-            vote
-              ? vote.voteType === "DOWN"
+            current
+              ? current.voteType === "DOWN"
                 ? styles.voteIconActived
                 : styles.voteIconNonActived
               : styles.voteIconNonActived

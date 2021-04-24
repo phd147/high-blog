@@ -11,6 +11,8 @@ Discussion.propTypes = {
   onReplySubmit: PropTypes.func,
   onCommentDelete: PropTypes.func,
   onCommentEdit: PropTypes.func,
+  onReplyDelete: PropTypes.func,
+  onReplyEdit: PropTypes.func,
 };
 
 Discussion.defaultProps = {
@@ -19,6 +21,8 @@ Discussion.defaultProps = {
   onReplySubmit: null,
   onCommentDelete: null,
   onCommentEdit: null,
+  onReplyDelete: null,
+  onReplyEdit: null,
 };
 
 function Discussion(props) {
@@ -29,6 +33,8 @@ function Discussion(props) {
     onReplySubmit,
     onCommentDelete,
     onCommentEdit,
+    onReplyDelete,
+    onReplyEdit,
   } = props;
   const handleCommentSubmit = (data) => {
     if (onCommentSubmit) onCommentSubmit(data);
@@ -36,17 +42,23 @@ function Discussion(props) {
   const handleReplySubmit = (commentId, data) => {
     if (onReplySubmit) onReplySubmit(commentId, data);
   };
-  const handleCommentDelete = (commentId) => {
+  const handleCommentDelete = (parentId, commentId) => {
     if (onCommentDelete) onCommentDelete(commentId);
   };
-  const handleCommentEdit = (commentId, content) => {
+  const handleCommentEdit = (parentId, commentId, content) => {
     if (onCommentEdit) onCommentEdit(commentId, content);
+  };
+  const handleReplyDelete = (parentId, replyId) => {
+    if (onReplyDelete) onReplyDelete(parentId, replyId);
+  };
+  const handleReplyEdit = (parentId, replyId, content) => {
+    if (onReplyEdit) onReplyEdit(parentId, replyId, content);
   };
   return (
     <div>
       <Card className="discussion__container">
         <CardContent className="discussion__inner">
-          <h2>Discussion ({comments.length})</h2>
+          <h2 style={{ color: "black" }}>Discussion ({comments.length})</h2>
           <div className="discussion__mycomment">
             <MyComment onCommentSubmit={handleCommentSubmit} />
           </div>
@@ -67,12 +79,14 @@ function Discussion(props) {
                 {e.childComments &&
                   e.childComments.map((reply) => (
                     <Comment
+                      parentId={e.id}
                       key={reply.id}
                       owner={reply.user}
                       content={reply.content}
                       id={reply.id}
                       numberOfVotes={reply.numberOfVotes}
-                      onDelete={handleCommentDelete}
+                      onDelete={handleReplyDelete}
+                      onEdit={handleReplyEdit}
                     />
                   ))}
               </div>

@@ -1,36 +1,66 @@
-import { Card } from "@material-ui/core";
-import axios from "axios";
+import { Button, Card, Container, Grid } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import CKEDITOR from "ckeditor-blog";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  Row,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import ContentEditor from "../../components/Editor/ContentEditor";
+import ImageModal from "../../components/ImageModal";
 import PostPreview from "../../components/PostPreview";
 import TagSelect from "../../components/TagSelect/index";
-import ImageModal from "../../components/ImageModal";
-import "./CreatePost.css";
-import { CKConfig } from "./CK-Helper.js";
-import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../../store/action/postActions";
-import PostCreateService from "./CreatePost.service";
 import ToastContainerConfig from "../../configs/toast/ToastContainerConfig";
-import { toast } from "react-toastify";
+import { BASE_URL } from "../../constant";
+import { CKConfig } from "./CK-Helper.js";
+import styles from "./CreatePost.module.css";
+import PostCreateService from "./CreatePost.service";
+
+const toggleTheme = createMuiTheme({
+  overrides: {
+    MuiToggleButton: {
+      root: {
+        height: "30px",
+        width: "100px",
+      },
+    },
+  },
+});
+
+let theme = createMuiTheme({});
+theme = {
+  ...theme,
+  overrides: {
+    MuiToggleButton: {
+      root: {
+        borderRadius: "2px !important",
+        width: "100%",
+      },
+    },
+    Mui: {
+      selected: {
+        backgroundColor: "#ccc",
+      },
+    },
+    MuiToggleButtonGroup: {
+      root: {
+        width: "90%",
+        [theme.breakpoints.down("xs")]: {
+          width: "100%",
+          margin: "0 auto",
+        },
+      },
+    },
+  },
+};
 
 CreatePost.propTypes = {};
 CKEDITOR.ContentEditor.defaultConfig.simpleUpload = CKConfig;
 function CreatePost(props) {
-  console.log("RE_RENDER");
-  const dispatch = useDispatch();
-  const postCreated = useSelector((state) => state.postCreate);
-  const { payload, isLoading, error } = postCreated;
+  const history = useHistory();
+
+  const [contentFocus, setContentFocus] = useState(false);
 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -43,11 +73,12 @@ function CreatePost(props) {
   const [isPreview, setIsPreview] = useState(false);
   const coverImageRef = useRef(null);
 
+  const userInfo = useSelector((state) => state.user);
+
   useEffect(() => {
     async function fetchTags() {
-      const postCreateService = new PostCreateService();
       try {
-        const response = await postCreateService.getTags();
+        const response = await PostCreateService.getTags();
         setListTag(response.data);
       } catch (error) {
         console.log(error);
@@ -55,21 +86,19 @@ function CreatePost(props) {
       }
     }
     fetchTags();
-    console.log("FETCH TAGS");
   }, []);
 
   useEffect(() => {
     async function fetchCategories() {
-      const postCreateService = new PostCreateService();
       try {
-        const response = await postCreateService.getCategories();
+        const response = await PostCreateService.getCategories();
         setListCategory(response.data);
+        console.log(response.data);
       } catch (error) {
-        toast(error.response.message);
+        console.log(error);
       }
     }
     fetchCategories();
-    console.log("FETCH CATEGORIES");
   }, []);
 
   useEffect(() => {
@@ -105,19 +134,17 @@ function CreatePost(props) {
   };
 
   const handleFileUpload = async (event) => {
-    const postCreateService = new PostCreateService();
     try {
       const data = new FormData();
       data.append("image", event.target.files[0]);
-      const response = await postCreateService.postImage(data);
+      const response = await PostCreateService.postImage(data);
       setCoverImagePath(response.data.path);
     } catch (error) {
       toast(error.response.message);
     }
-    console.log("UPLOAD COVER IMAGE");
   };
 
-  const handlePostClick = (postType) => {
+  const handlePostClick = async (postType) => {
     const postObj = {
       categoryId: category,
       content: content,
@@ -127,199 +154,202 @@ function CreatePost(props) {
       tags: tags,
       title: title,
     };
-    dispatch(createPost(postObj));
+    const { data } = await PostCreateService.postPost(postObj);
+    console.log("DATA", data);
+    const titleUrl = title.toLowerCase().replaceAll(" ", "-");
+    history.push(`/${data}/${titleUrl}`);
   };
 
   const handleAddImageFromLibrary = (imageUrl) => {
-    console.log("handle Add iamge", imageUrl);
     const newImage = `<figure class="image image_resized"><img
     src="${imageUrl}"></figure>`;
     const newContent = content.concat(newImage);
-    console.log("NEW CONTENT: ", newContent);
     setContent(newContent);
   };
-
-  useEffect(() => {
-    const titleUrl = title.toLowerCase().replaceAll(" ", "-");
-    if (typeof payload == "number")
-      props.history.push(
-        decodeURIComponent(`/${payload}/${titleUrl}`.replace(/\+/g, " "))
-      );
-  }, [payload, props.history]);
-
   return (
-    <Container className="create-post-container">
+    <ThemeProvider theme={theme}>
       <ToastContainerConfig />
-      <Row style={{ marginBottom: "20px" }}>
-        <Col xs={12} sm={6}>
-          <h2>#New Post</h2>
-        </Col>
-        <Col xs={12} sm={6} className="view-type">
-          <ToggleButtonGroup
-            type="radio"
-            name="options"
-            defaultValue={false}
-            onChange={(selected) => setIsPreview(selected)}
+      <Container className={styles.container}>
+        <Grid container spacing={2}>
+          <Grid
+            item
+            md={9}
+            sm={10}
+            style={{ position: "relative", width: "100%" }}
           >
-            <ToggleButton size="sm" variant="outline-secondary" value={false}>
-              Edit
-            </ToggleButton>
-            <ToggleButton size="sm" variant="outline-secondary" value={true}>
-              Preview
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Col>
-      </Row>
-      {/* {isPreview ? (
-          <PostPreview postTitle={title} postContent={content} />
-        ) : ( */}
-      <Card className="create-post-card">
-        <div className="scroll">
-          {isPreview ? (
-            <PostPreview
-              postTitle={title !== "" ? title : "No title"}
-              postContent={
-                content !== "" ? content : "No content for displaying"
-              }
-              postTags={tags}
-            />
-          ) : (
-            <div>
-              <Row>
-                <Col xs={12} sm={5}>
-                  <input
-                    ref={coverImageRef}
-                    onChange={handleFileUpload}
-                    type="file"
-                    style={{ display: "none" }}
-                    accept=".png, .jpg, .jpeg"
-                    // multiple={false}
-                  />
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => coverImageRef.current.click()}
-                  >
-                    {coverImagePath === "" ? "Add a cover image" : "Change"}
-                  </Button>
-                  {coverImagePath !== "" && (
-                    <Button
-                      variant="outline-danger"
-                      style={{ marginLeft: "10px" }}
-                      onClick={() => setCoverImagePath("")}
-                    >
-                      Remove
-                    </Button>
-                  )}
-                </Col>
-                <Col xs={12} sm={4}>
-                  {coverImagePath !== "" && (
-                    <Image
-                      className="cover-image"
-                      src={`http://35.240.173.198/${coverImagePath}`}
-                      thumbnail
-                    />
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12} sm={6}>
-                  <ImageModal onAddClick={handleAddImageFromLibrary} />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12} sm={6} className="category-container">
-                  <ToggleButtonGroup
-                    type="radio"
-                    name="options"
-                    defaultValue={1}
-                    onChange={(selected) => setCategory(selected)}
-                  >
-                    {listCategory.map((item) => (
-                      <ToggleButton
-                        key={item.id}
-                        size="sm"
-                        variant="outline-info"
-                        value={item.id}
-                      >
-                        {item.title}
-                      </ToggleButton>
-                    ))}
-                  </ToggleButtonGroup>
-                </Col>
-                <Col xs={12} sm={6}>
-                  {" "}
-                  <TagSelect
-                    listTag={listTag}
-                    onSelectTag={handleSelectTag}
-                    value={tags}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group controlId="post-summary">
-                    <Form.Control
-                      as="textarea"
-                      placeholder="Type the summary"
-                      rows={1}
-                      onChange={(e) => setSummary(e.target.value)}
-                      value={summary}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  {/* <Form.Group controlId="post-title">
-                    <TitleEditor
-                      data={title}
-                      onTitleChange={handleTitleChange}
-                    />
-                  </Form.Group>
-                   */}
-                  <Form.Group controlId="post-title">
-                    <Form.Control
-                      className="title-editor"
-                      as="textarea"
-                      placeholder="Type the title"
-                      rows={2}
-                      onChange={(e) => setTitle(e.target.value)}
-                      value={title}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group controlId="post-content">
-                    <ContentEditor
-                      data={content}
-                      onContentChange={handleContentChange}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-            </div>
-          )}
-        </div>
-      </Card>
+            <h2 style={{ color: "black" }}>#New</h2>
 
-      <Row>
-        <Col>
-          <Form.Group className="post-btn">
-            <Button variant="success" onClick={() => handlePostClick("NORMAL")}>
-              Publish
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => handlePostClick("DRAFT")}
-            >
-              Save
-            </Button>
-          </Form.Group>
-        </Col>
-      </Row>
-    </Container>
+            <div className={styles.view_type}>
+              <ThemeProvider theme={toggleTheme}>
+                <ToggleButtonGroup
+                  value={isPreview}
+                  exclusive
+                  onChange={(event, value) => {
+                    setIsPreview(value);
+                  }}
+                >
+                  <ToggleButton size="small" value={false} aria-label="edit">
+                    Edit
+                  </ToggleButton>
+                  <ToggleButton value={true} aria-label="preview">
+                    Preview
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </ThemeProvider>
+            </div>
+            <Card className={styles.card}>
+              <div className={styles.scroll}>
+                {isPreview ? (
+                  <PostPreview
+                    postOwner={userInfo}
+                    postTitle={title !== "" ? title : "No title"}
+                    postContent={
+                      content !== "" ? content : "No content for displaying"
+                    }
+                    postTags={tags}
+                  />
+                ) : (
+                  <div>
+                    <Grid container>
+                      <Grid item xs={12} sm={6}>
+                        <input
+                          ref={coverImageRef}
+                          onChange={handleFileUpload}
+                          type="file"
+                          style={{ display: "none" }}
+                          accept=".png, .jpg, .jpeg"
+                          // multiple={false}
+                        />
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={() => coverImageRef.current.click()}
+                        >
+                          {coverImagePath === ""
+                            ? "Add a cover image"
+                            : "Change"}
+                        </Button>
+                        {coverImagePath !== "" && (
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{ marginLeft: "10px" }}
+                            onClick={() => setCoverImagePath("")}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </Grid>
+
+                      <Grid item xs={12} sm={6}>
+                        {coverImagePath !== "" && (
+                          <img
+                            alt="cover"
+                            className={styles.cover_image}
+                            src={`${BASE_URL}/${coverImagePath}`}
+                          ></img>
+                        )}
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      container
+                      direction={"row"}
+                      style={{ margin: "10px 0" }}
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                        className={styles.category_container}
+                      >
+                        <ToggleButtonGroup
+                          exclusive
+                          defaultValue={1}
+                          value={category}
+                          onChange={(event, value) => setCategory(value)}
+                        >
+                          {listCategory.map((item) => (
+                            <ToggleButton
+                              size="small"
+                              key={item.id}
+                              value={item.id}
+                            >
+                              {item.title}
+                            </ToggleButton>
+                          ))}
+                        </ToggleButtonGroup>
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        {" "}
+                        <TagSelect
+                          listTag={listTag}
+                          onSelectTag={handleSelectTag}
+                          value={tags}
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <TextareaAutosize
+                        className={styles.summary}
+                        rowsMin={1}
+                        rowsMax={4}
+                        aria-label="summary"
+                        placeholder="Type the summary"
+                        onChange={(e) => setSummary(e.target.value)}
+                        value={summary}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextareaAutosize
+                        className={styles.title}
+                        rowsMin={2}
+                        rowsMax={4}
+                        aria-label="title"
+                        placeholder="Type the title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ContentEditor
+                        data={content}
+                        onContentChange={handleContentChange}
+                        onContentFocus={() => setContentFocus(true)}
+                      />
+                    </Grid>
+                  </div>
+                )}
+              </div>
+            </Card>
+            <Grid item>
+              <div className={styles.post_btn}>
+                <Button
+                  className={styles.btn}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handlePostClick("NORMAL")}
+                >
+                  Publish
+                </Button>
+                <Button
+                  className={styles.btn}
+                  variant="contained"
+                  onClick={() => handlePostClick("DRAFT")}
+                >
+                  Save
+                </Button>
+              </div>
+            </Grid>
+            {contentFocus && !isPreview && (
+              <div className={styles.library}>
+                <ImageModal onAddClick={handleAddImageFromLibrary} />
+              </div>
+            )}
+          </Grid>
+        </Grid>
+      </Container>
+    </ThemeProvider>
   );
 }
 

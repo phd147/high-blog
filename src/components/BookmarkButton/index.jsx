@@ -1,52 +1,58 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import BookmarkBorderSharpIcon from "@material-ui/icons/BookmarkBorderSharp";
+import {
+  createMuiTheme,
+  makeStyles,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-import { IconButton } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import BookmarkBorderSharpIcon from "@material-ui/icons/BookmarkBorderSharp";
 import ToggleButton from "@material-ui/lab/ToggleButton";
-import "./BookmarkButton.css";
+import PropTypes from "prop-types";
+import React from "react";
+import styless from "./BookmarkButton.module.css";
 
 BookmarkButton.propTypes = {
+  added: PropTypes.bool,
   onClick: PropTypes.func,
 };
 BookmarkButton.defaultProps = {
+  added: false,
   onClick: null,
 };
 
+const mytheme = createMuiTheme({
+  overrides: {
+    MuiToggleButton: {
+      root: {
+        borderRadius: "50%",
+        "&$selected": {
+          border: "2px solid #757ce8",
+        },
+      },
+    },
+  },
+});
 function BookmarkButton(props) {
-  const favorite = useSelector((state) => state.favoriteCreate);
-
-  const postDetails = useSelector((state) => state.postDetails);
-
-  const addedToFavorite = postDetails.payload.addedToFavorite;
-
-  const { payload, isLoading, error } = favorite;
-  const { onClick } = props;
+  const { onClick, added } = props;
   const handleClick = () => {
     if (onClick) {
-      if (addedToFavorite === true) {
+      if (added === true) {
         onClick("DELETE");
-      } else if (addedToFavorite === false) {
+      } else if (added === false) {
         onClick("CREATE");
       }
     }
   };
 
   return (
-    <div>
-      <ToggleButton
-        value="check"
-        selected={addedToFavorite}
-        onChange={handleClick}
-      >
-        {addedToFavorite ? (
-          <BookmarkIcon className="bookmark__icon" />
+    <ThemeProvider theme={mytheme}>
+      <ToggleButton value="check" selected={added} onChange={handleClick}>
+        {added ? (
+          <BookmarkIcon className={styless.btn_icon_selected} />
         ) : (
-          <BookmarkBorderSharpIcon className="bookmark__icon" />
+          <BookmarkBorderSharpIcon className={styless.btn_icon} />
         )}
       </ToggleButton>
-    </div>
+    </ThemeProvider>
   );
 }
 

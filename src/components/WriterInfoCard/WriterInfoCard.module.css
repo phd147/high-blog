@@ -1,19 +1,30 @@
-.writer-info__container {
+.container {
   width: 100%;
   margin: 0 auto;
 }
-.writer-info__inner {
-  padding: 10px 16px !important
+.inner {
+  padding: 10px 16px !important;
+}
+.post_owner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post_owner > a {
+  width: 60%;
+  display: flex;
+  align-items: center;
 }
 .follow-btn {
   width: 100%;
 }
-.user-intro {
+.bio {
   color: rgb(119, 119, 119);
   margin: 20px 0;
   position: relative;
 }
-.user-intro::before {
+.bio::before {
   content: "";
   height: 3px;
   width: 90%;

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import { list } from "./ImageHelper";
-import "./ImageModal.css";
+import { IconButton } from "@material-ui/core";
 import { Button } from "@material-ui/core";
-import ImageSelect from "../ImageSelect";
+import Modal from "@material-ui/core/Modal";
+import React, { useState } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
-import ApiHelper from "../../configs/api/api-helper";
+import FileManagementService from "../../containers/FileManagement/FileManagement.service";
+import ImageSelect from "../ImageSelect";
+import AddIcon from "@material-ui/icons/Add";
+import "./ImageModal.css";
 
 ImageModal.propTypes = {
   onAddClick: propTypes.func,
@@ -25,10 +25,8 @@ export default function ImageModal(props) {
 
   const handleOpen = async () => {
     setOpen(true);
-    const apiHelper = new ApiHelper();
-    const { data } = await apiHelper.get(
-      "http://35.240.173.198/api/v1/user/files/images"
-    );
+
+    const { data } = await FileManagementService.getImages();
     setImageList(data.items);
   };
 
@@ -49,7 +47,6 @@ export default function ImageModal(props) {
     <div className="img-modal">
       <div className="img-modal__header">
         <h2 id="simple-modal-title">My Images</h2>
-        <Button>+ New</Button>
       </div>
       <ImageSelect onChange={handleChangeImage} images={imageList} />
       {/* <div className="img-modal__list">
@@ -64,10 +61,15 @@ export default function ImageModal(props) {
   );
 
   return (
-    <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        My Image Library
-      </Button>
+    <>
+      <IconButton
+        variant="contained"
+        style={{ backgroundColor: "#002884", color: "white" }}
+        onClick={handleOpen}
+      >
+        <AddIcon fontSize="small" />
+      </IconButton>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -76,6 +78,6 @@ export default function ImageModal(props) {
       >
         {body}
       </Modal>
-    </div>
+    </>
   );
 }
