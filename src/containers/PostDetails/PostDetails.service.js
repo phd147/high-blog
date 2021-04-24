@@ -1,52 +1,61 @@
 import ApiHelper from "../../configs/api/api-helper";
-const baseUrl = "http://35.240.173.198";
+import { BASE_URL } from "../../constant.js";
+const baseUrl = BASE_URL;
 export default class PostDetailsService extends ApiHelper {
-  getComments(postId) {
+  static getPostDetails(postId) {
+    const url = `${baseUrl}/api/v1/posts/${postId}`;
+    return this.get(url);
+  }
+  static deletePost(postId) {
+    const url = `${baseUrl}/api/v1/user/posts/${postId}`;
+    return this.delete(url);
+  }
+  static postFavorite(postId) {
+    const url = `${baseUrl}/api/v1/user/favorite-posts`;
+    return this.post(url, null, { postId });
+  }
+  static deleteFavorite(postId) {
+    const url = `${baseUrl}/api/v1/user/favorite-posts`;
+    return this.delete(url, null, null, { postId });
+  }
+  static getComments(postId) {
     const url = `${baseUrl}/api/v1/comments?page=1&pageSize=1000`;
     return this.get(url, null, null, { postId: postId });
   }
-  postComment(postId, content) {
+  static postComment(postId, content) {
     const url = `${baseUrl}/api/v1/user/comments`;
     return this.post(url, null, { postId, content });
   }
-  editComment(commentId, content) {
+  static editComment(commentId, content) {
     const url = `${baseUrl}/api/v1/user/comments/${commentId}`;
     return this.put(url, null, { content });
   }
-  deleteComment(commentId) {
+  static deleteComment(commentId) {
     const url = `${baseUrl}/api/v1/user/comments/${commentId}`;
     return this.delete(url);
   }
-  postReply(postId, parentId, content) {
+  static postReply(postId, parentId, content) {
     const url = `${baseUrl}/api/v1/user/comments`;
     return this.post(url, null, { postId, parentId, content });
   }
-  createVote(postId, voteType) {
+  static createVote(postId, voteType) {
     const url = `${baseUrl}/api/v1/user/posts-votes`;
     return this.post(url, null, { postId, voteType });
   }
-  updateVote(postId, voteType) {
+  static updateVote(postId, voteType) {
     const url = `${baseUrl}/api/v1/user/posts-votes`;
     return this.put(url, null, { postId, voteType });
   }
-  deleteVote(postId, previousVoteType) {
+  static deleteVote(postId, previousVoteType) {
     const url = `${baseUrl}/api/v1/user/posts-votes`;
     return this.delete(url, null, { postId, previousVoteType });
   }
-  postFollow(nickName) {
+  static postFollow(nickName) {
     const url = `${baseUrl}/api/v1/user/subscriptions/users/${nickName}`;
     return this.post(url);
   }
-  deleteFollow(nickName) {
+  static deleteFollow(nickName) {
     const url = `${baseUrl}/api/v1/user/subscriptions/users/${nickName}`;
     return this.delete(url);
   }
-  // getTags() {
-  //   const url = `${baseUrl}/api/v1/tags`;
-  //   return this.get(url);
-  // }
-  // postImage(data) {
-  //   const url = `${baseUrl}/api/v1/user/files/images`;
-  //   return this.post(url, null, data);
-  // }
 }

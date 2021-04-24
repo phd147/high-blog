@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Multiselect } from "multiselect-react-dropdown";
-import "./TagSelect.css";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import styles from "./TagSelect.module.css";
 
 TagSelect.propTypes = {
   listTag: PropTypes.array,
@@ -13,28 +15,31 @@ TagSelect.propTypes = {
 TagSelect.defaultProps = {
   listTag: [],
   value: [],
-  OnSelectTag: null,
+  onSelectTag: null,
 };
 
 export default function TagSelect(props) {
   const { listTag, onSelectTag, value } = props;
-  const handleTagSelectChange = (selectedList) => {
+  const handleTagSelectChange = (event, value) => {
     if (onSelectTag) {
-      onSelectTag(selectedList);
+      onSelectTag(value);
     }
   };
 
   return (
-    <div className="tags">
-      <Multiselect
-        className="tag-inner"
+    <div className={styles.container}>
+      <Autocomplete
+        size="small"
+        multiple
+        id="combo-box-demo"
         options={listTag}
-        selectedValues={value}
-        onSelect={handleTagSelectChange}
-        onRemove={handleTagSelectChange}
-        displayValue="name"
-        placeholder="Add tags..."
-        hidePlaceholder="true"
+        defaultValue={value}
+        getOptionLabel={(option) => option.name}
+        style={{ width: "100%" }}
+        onChange={handleTagSelectChange}
+        renderInput={(params) => (
+          <TextField {...params} label="Add tags..." variant="outlined" />
+        )}
       />
     </div>
   );
