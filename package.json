@@ -66,6 +66,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-lottie": "^1.2.3",
     "react-motion": "^0.5.2",
+    "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-router-guards": "^1.0.2",

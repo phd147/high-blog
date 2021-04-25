@@ -36,12 +36,14 @@ import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
 import SearchPage from "./components/SearchPage/SearchPage";
+import ToastContainerConfig from "./configs/toast/ToastContainerConfig";
 
 
 function App() {
   return (
       <div>
         <HBHeader />
+        <ToastContainerConfig/>
         <Switch>
           <GuardedRoute
               path="/login"
