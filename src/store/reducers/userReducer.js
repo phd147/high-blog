@@ -18,7 +18,8 @@ const reducer = (state =initialState, action) => {
                 firstName: action.firstName  ,
                 lastName : action.lastName ,
                 imagePath:  action.imagePath,
-                userId : action.userId
+                userId : action.userId,
+                nickName : action.nickName
             }
         default : 
             return state ;

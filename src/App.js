@@ -23,6 +23,11 @@ import NotFoundC from "./components/Not Found/NotFoundC";
 import Favorite from "./containers/Favorite";
 
 
+// USER
+import EditProfile from './containers/UserProfile/Edit/UserProfile';
+import ViewProfile from './containers/UserProfile/View/ViewProfile'
+
+
 
 //ck editor
 
@@ -31,6 +36,7 @@ import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
 import SearchPage from "./components/SearchPage/SearchPage";
+
 
 function App() {
   return (
@@ -87,6 +93,20 @@ function App() {
             exact
             component={SearchPage}
             meta={{ auth: false }}
+        />
+
+        <GuardedRoute
+            path="/edit-profile"
+            exact
+            component={EditProfile}
+            meta={{ auth: true }}
+        />
+
+        <GuardedRoute
+            path="/view-profile"
+            exact
+            component={ViewProfile}
+            meta={{ auth: true }}
         />
 
         <GuardedRoute
