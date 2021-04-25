@@ -14,20 +14,29 @@ import Register from "../src/containers/Register/Register";
 import RequireVerifyEmail from "./components/RequireVerifyEmail/RequireVerifyEmail";
 
 //ck editor
-// import CKEditorCustom from './components/CKEditorCustom/CKEditorCustom';
+
 import CreatePost from "./containers/CreatePost/index";
 import { Switch } from "react-router-dom";
 import HBHeader from "./components/HBHeader/HBHeader";
 import NotFoundC from "./components/Not Found/NotFoundC";
-import Menu from "./components/Menu/Menu";
+
 import Favorite from "./containers/Favorite";
+
+
+// USER
+import EditProfile from './containers/UserProfile/Edit/UserProfile';
+import ViewProfile from './containers/UserProfile/View/ViewProfile'
+
+
 
 //ck editor
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
+import SearchPage from "./components/SearchPage/SearchPage";
+
 
 function App() {
   return (
@@ -80,11 +89,33 @@ function App() {
         <GuardedRoute path="/tags" exact component={TagsPanel} />
 
         <GuardedRoute
+            path="/search"
+            exact
+            component={SearchPage}
+            meta={{ auth: false }}
+        />
+
+        <GuardedRoute
+            path="/edit-profile"
+            exact
+            component={EditProfile}
+            meta={{ auth: true }}
+        />
+
+        <GuardedRoute
+            path="/view-profile"
+            exact
+            component={ViewProfile}
+            meta={{ auth: true }}
+        />
+
+        <GuardedRoute
           path="*"
           exact
           component={NotFoundC}
           meta={{ auth: false }}
         />
+
       </Switch>
     </div>
   );

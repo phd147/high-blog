@@ -3,15 +3,17 @@ import axios from 'axios';
 import {getTokenFromRefreshToken} from '../../services/user.service';
 
 const instance = axios.create({
-    baseURL : 'http://35.240.173.198'
+    baseURL : 'https://api.highblog.codes/'
 });
+
+let originalRequest = null;
 
 instance.interceptors.response.use(response => response, async err => {
     console.log('on rejected middleware');
-    const originalRequest = err.config ;
+
     console.log(err.response);
     if(err.response.status === 403 && err.response.data.errorCode === 'HB-0102'){
-
+        originalRequest = err.config ;
         console.log(err.response);
 
         // remove access token in local storage

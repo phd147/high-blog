@@ -90,6 +90,7 @@ export default function Posts(props) {
       >
         {items}
       </InfiniteScroll>
+      {posts.length ? null : [1,2,3].map((el,index) => <PostLoading key={index}/>)}
     </div>
   );
 }

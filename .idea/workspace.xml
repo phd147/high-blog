@@ -3,13 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="ef29dc07-a900-4bb7-adfb-d1e486d0bef5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostLoading/PostLoading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/File html/highblog.html" beforeDir="false" afterPath="$PROJECT_DIR$/File html/highblog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/File html/newsfeed.html" beforeDir="false" afterPath="$PROJECT_DIR$/File html/newsfeed.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HBHeader/HBHeader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/axios/axios-interceptors-config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/HomeComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Post.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Post.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Posts/Posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Posts/Posts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configs/toast/ToastContainerConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/toast/ToastContainerConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Login/login.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Login/login.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/userReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +24,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>
@@ -27,6 +40,14 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/FE-create_and_integrate_api_to_update_user_profile" />
+                    <option name="lastUsedInstant" value="1619195586" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/FE-create_manage_wallet_layout" />
+                    <option name="lastUsedInstant" value="1619192907" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
                     <option name="lastUsedInstant" value="1618838997" />
@@ -56,13 +77,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Workspace/learn/backend/node-express-boilerplate" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/containers/UserProfile" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\cnpm2021\high-blog\src\containers\UserProfile" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\cnpm2021\high-blog\src\containers\UserProfile" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/index.js" working-dir="$PROJECT_DIR$/src">
@@ -110,6 +139,17 @@
       <workItem from="1619025354741" duration="2019000" />
       <workItem from="1619057243916" duration="3898000" />
       <workItem from="1619075012178" duration="4055000" />
+      <workItem from="1619102788972" duration="748000" />
+      <workItem from="1619107505010" duration="1034000" />
+      <workItem from="1619146258776" duration="17000" />
+      <workItem from="1619151743806" duration="439000" />
+      <workItem from="1619163223094" duration="2321000" />
+      <workItem from="1619167744424" duration="602000" />
+      <workItem from="1619177615299" duration="1816000" />
+      <workItem from="1619191738200" duration="5502000" />
+      <workItem from="1619232470973" duration="3445000" />
+      <workItem from="1619270601755" duration="9633000" />
+      <workItem from="1619324269775" duration="14796000" />
     </task>
     <servers />
   </component>

@@ -8,8 +8,8 @@ export default  function ToastContainerConfig(props){
         return (
             <ToastContainer
     position="top-center"
-    autoClose={5000}
-    hideProgressBar={false}
+    autoClose={2000}
+    hideProgressBar
     newestOnTop={false}
     closeOnClick
     rtl={false}

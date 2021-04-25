@@ -126,7 +126,7 @@ export default function HBHeader(props){
                        <MenuIcon onClick={toggleDrawer} />
 
                    </IconButton>
-                    <h2>high blog</h2>
+                    <h2 style={{cursor : 'pointer'}} onClick={() => history.push('/')}>high blog</h2>
 
 
 
