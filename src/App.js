@@ -36,88 +36,90 @@ import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
 import SearchPage from "./components/SearchPage/SearchPage";
+import ToastContainerConfig from "./configs/toast/ToastContainerConfig";
 
 
 function App() {
   return (
-    <div>
-      <HBHeader />
-      <Switch>
-        <GuardedRoute
-          path="/login"
-          exact
-          component={Login}
-          meta={{ auth: true }}
-        />
-        <GuardedRoute
-          path="/editor"
-          exact
-          component={CreatePost}
-          meta={{ auth: true }}
-        />
+      <div>
+        <HBHeader />
+        <ToastContainerConfig/>
+        <Switch>
+          <GuardedRoute
+              path="/login"
+              exact
+              component={Login}
+              meta={{ auth: true }}
+          />
+          <GuardedRoute
+              path="/editor"
+              exact
+              component={CreatePost}
+              meta={{ auth: true }}
+          />
 
-        <GuardedRoute path="/:id/:title" exact component={PostDetails} />
+          <GuardedRoute path="/:id/:title" exact component={PostDetails} />
 
-        <GuardedRoute
-          path="/register"
-          exact
-          component={Register}
-          meta={{ auth: false }}
-        />
+          <GuardedRoute
+              path="/register"
+              exact
+              component={Register}
+              meta={{ auth: false }}
+          />
 
-        <GuardedRoute
-          path="/file"
-          exact
-          component={FileManagement}
-          meta={{ auth: true }}
-        />
+          <GuardedRoute
+              path="/file"
+              exact
+              component={FileManagement}
+              meta={{ auth: true }}
+          />
 
-        <GuardedRoute
-          path="/email"
-          exact
-          component={RequireVerifyEmail}
-          meta={{ auth: false }}
-        />
+          <GuardedRoute
+              path="/email"
+              exact
+              component={RequireVerifyEmail}
+              meta={{ auth: false }}
+          />
 
-        <GuardedRoute path="/" exact component={Home} meta={{ auth: false }} />
-        <GuardedRoute
-          path="/favorite"
-          exact
-          component={Favorite}
-          meta={{ auth: true }}
-        />
-        <GuardedRoute path="/tags" exact component={TagsPanel} />
+          <GuardedRoute path="/" exact component={Home} meta={{ auth: false }} />
+          <GuardedRoute
+              path="/favorite"
+              exact
+              component={Favorite}
+              meta={{ auth: true }}
+          />
+          <GuardedRoute path="/tags" exact component={TagsPanel} />
 
-        <GuardedRoute
-            path="/search"
-            exact
-            component={SearchPage}
-            meta={{ auth: false }}
-        />
+          <GuardedRoute
+              path="/search"
+              exact
+              component={SearchPage}
+              meta={{ auth: false }}
+          />
 
-        <GuardedRoute
-            path="/edit-profile"
-            exact
-            component={EditProfile}
-            meta={{ auth: true }}
-        />
+          <GuardedRoute
+              path="/edit-profile"
+              exact
+              component={EditProfile}
+              meta={{ auth: true }}
+          />
 
-        <GuardedRoute
-            path="/view-profile"
-            exact
-            component={ViewProfile}
-            meta={{ auth: true }}
-        />
+          <GuardedRoute
+              path="/view-profile"
+              exact
+              component={ViewProfile}
+              meta={{ auth: true }}
+          />
 
-        <GuardedRoute
-          path="*"
-          exact
-          component={NotFoundC}
-          meta={{ auth: false }}
-        />
+          <GuardedRoute
+              path="*"
+              exact
+              component={NotFoundC}
+              meta={{ auth: false }}
+          />
 
-      </Switch>
-    </div>
+        </Switch>
+      </div>
   );
 }
 
