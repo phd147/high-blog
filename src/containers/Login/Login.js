@@ -1,65 +1,65 @@
-import React, {useRef,useCallback,useState} from 'react';
+import React, { useRef, useCallback, useState } from "react";
 
-import {toast} from 'react-toastify';
-import {useHistory} from 'react-router-dom'
+import { toast } from "react-toastify";
+import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import LoginService from "./login.service";
 
-import LoginService from './login.service';
-
-// action toast 
-
-
+// action toast
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://fb.com/bk.bop19">
         DUT TEAM
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh",
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -74,39 +74,38 @@ export default function SignInSide() {
   const password = useRef();
 
   const history = useHistory();
+  const location = useLocation();
 
-
-  const [checked,setCheck] = useState(false);
-
+  const [checked, setCheck] = useState(false);
 
   const loginHandler = useCallback(async () => {
-        console.log(username.current.value);
-        console.log(password.current.value);
-        console.log(checked);
+    console.log(username.current.value);
+    console.log(password.current.value);
+    console.log(checked);
 
+    try {
+      const res = await LoginService.loginHandle(
+        username.current.value,
+        password.current.value
+      );
 
-        try {
-          const res = await LoginService.loginHandle(username.current.value,password.current.value);
+      console.log(res);
 
-          console.log(res);
+      localStorage.setItem("dut-accessToken", res.data.accessToken);
+      localStorage.setItem("dut-refreshToken", res.data.refreshToken);
+      setTimeout(() => {
+        // history.replace('/');
 
+        const { redirect } = queryString.parse(location.search);
+        history.push(redirect == null ? "/" : redirect);
+      }, 2000);
 
-          localStorage.setItem('dut-accessToken',res.data.accessToken);
-          localStorage.setItem('dut-refreshToken',res.data.refreshToken);
-          setTimeout(() => {
-            history.replace('/');
-          },2000)
-          
-          toast.success('LOGIN SUCCESSFUL')
-          
-        }catch(err){
-          console.log(err);
-          //toast.error(err.response.data.message);
-        }
-
-
-
-  },[]);
+      toast.success("LOGIN SUCCESSFUL");
+    } catch (err) {
+      console.log(err);
+      //toast.error(err.response.data.message);
+    }
+  }, []);
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -122,7 +121,7 @@ export default function SignInSide() {
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
-            inputRef={username}
+              inputRef={username}
               variant="outlined"
               margin="normal"
               required
@@ -134,7 +133,7 @@ export default function SignInSide() {
               autoFocus
             />
             <TextField
-                inputRef={password}
+              inputRef={password}
               variant="outlined"
               margin="normal"
               required
@@ -146,13 +145,18 @@ export default function SignInSide() {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox checked={checked} onChange={(e) => {
-                  console.log(e.target.checked)
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={(e) => {
+                    console.log(e.target.checked);
                     setCheck(e.target.checked);
-                }}  value="remember" color="primary" />}
+                  }}
+                  value="remember"
+                  color="primary"
+                />
+              }
               label="Remember me"
-              
-
             />
             <Button
               type="submit"
@@ -161,9 +165,9 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
               onClick={(e) => {
-                    e.preventDefault();
-                    loginHandler();
-              } }
+                e.preventDefault();
+                loginHandler();
+              }}
             >
               Sign In
             </Button>

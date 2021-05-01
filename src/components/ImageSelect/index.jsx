@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./ImageSelect.css";
 import CheckIcon from "@material-ui/icons/Check";
+import { BASE_URL } from "../../constant";
 
 ImageSelect.propTypes = {
   images: PropTypes.array,
@@ -21,22 +22,19 @@ function ImageSelect(props) {
   return (
     <div className="img-select__list">
       {images.map((e) => (
-        <div>
+        <div className="img-select__item">
           <input
             type="radio"
             name="img-select"
-            id={e.path.slice(-12).slice(0, 8)}
-            value={`http://35.240.173.198/${e.path}`}
+            id={e.id}
+            value={`${BASE_URL}/${e.path}`}
             onChange={handleImageSelectChange}
           ></input>
-          <label
-            htmlFor={e.path.slice(-12).slice(0, 8)}
-            className="img-select__label"
-          >
+          <label htmlFor={e.id} className="img-select__label">
             <CheckIcon fontSize="large" className="img-select__check-icon" />
             <img
               className="img-select__image"
-              src={`http://35.240.173.198/${e.path}`}
+              src={`${BASE_URL}/${e.path}`}
               alt={e.name}
             />
           </label>

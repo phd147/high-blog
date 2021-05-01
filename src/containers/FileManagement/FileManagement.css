@@ -57,3 +57,7 @@ input[type="checkbox"]:checked .file__image-item::before {
   bottom: 5%;
   right: 5%;
 }
+
+.react-simple-image-viewer__close {
+  top: 40px;
+}

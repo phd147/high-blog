@@ -7,9 +7,15 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 }
+.img-select__item {
+  width: calc(33.33% - 20px);
+  height: 100px;
+  margin: 0px 10px;
+}
 .img-select__image {
-  width: 200px;
-  margin: 5px 10px;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
 }
 input[type="radio"] {
   display: none;

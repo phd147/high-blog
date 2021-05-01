@@ -1,11 +1,12 @@
 import ApiHelper from "../../configs/api/api-helper";
+import { BASE_URL } from "../../constant";
 import * as actionTypes from "../action/actionTypes";
 
 export const getFavorites = (page, pageSize) => async (dispatch) => {
   dispatch({ type: actionTypes.FAVORITE_LIST_REQUEST });
   try {
     const response = await ApiHelper.get(
-      `http://35.240.173.198/api/v1/user/favorite-posts`,
+      `${BASE_URL}/api/v1/user/favorite-posts`,
       null,
       null,
       { page, pageSize }
@@ -32,7 +33,7 @@ export const createFavorite = (postId) => async (dispatch) => {
   dispatch({ type: actionTypes.FAVORITE_CREATE_REQUEST });
   try {
     const response = await ApiHelper.post(
-      `http://35.240.173.198/api/v1/user/favorite-posts`,
+      `${BASE_URL}/api/v1/user/favorite-posts`,
       null,
       { postId }
     );
@@ -58,7 +59,7 @@ export const deleteFavorite = (postId) => async (dispatch) => {
   dispatch({ type: actionTypes.FAVORITE_DELETE_REQUEST });
   try {
     const response = await ApiHelper.delete(
-      `http://35.240.173.198/api/v1/user/favorite-posts`,
+      `${BASE_URL}/api/v1/user/favorite-posts`,
       null,
       null,
       { postId }
