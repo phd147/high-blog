@@ -21,7 +21,6 @@ import { header, headerCK } from "./headerHelper.js";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../store/action/postActions";
 import PostCreateService from "./CreatePost.service";
-import ToastContainerConfig from "../../hoc/ToastContainerConfig";
 import { toast } from "react-toastify";
 
 CreatePost.propTypes = {};
@@ -153,7 +152,6 @@ function CreatePost(props) {
 
   return (
     <Container className="create-post-container">
-      <ToastContainerConfig />
       <Row style={{ marginBottom: "20px" }}>
         <Col xs={12} sm={6}>
           <h2>#New Post</h2>

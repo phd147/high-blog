@@ -21,7 +21,7 @@ import RequireVerifyEmail from "./components/RequireVerifyEmail/RequireVerifyEma
 // import CKEditorCustom from './components/CKEditorCustom/CKEditorCustom';
 import CreatePost from "./containers/CreatePost/index";
 
-import { Switch } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
 
 //ck editor
 //ck editor 
@@ -36,6 +36,8 @@ import URLRouter from "./components/URLRouter";
 import PostDetails from "./containers/PostDetails";
 import Content from "./containers/NewsFeed/Content";
 import Test1 from "./components/Test1";
+import UserProfile from "./containers/UserProfiles";
+import NewsFeed from "./containers/NewsFeed";
 
 function App() {
   return (
@@ -87,7 +89,12 @@ function App() {
             <GuardedRoute
               path="/tuanthanh"
               exact
-              component={Content}
+              component={NewsFeed}
+            />
+            <GuardedRoute
+              path="/tuan"
+              exact
+              component={UserProfile}
             />
           </Switch>
           <Grid item xs={12} md={4}></Grid>
@@ -169,6 +176,7 @@ function App() {
         </Switch>)
 
 
+}
 }
 
 export default App;

@@ -47,41 +47,14 @@ const reducer = combineReducers({
   user: userReducer,
   postDetails: postDetailsReducer,
   postCreate: postCreateReducer,
-  newsFeed: newsFeedReducer
+  newsFeed: newsFeedReducer,
+  
 });
 
 // create redux store
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
-const requireLogin = async (to, from, next) => {
-  if (to.meta.auth) {
-    try {
-      // goi api to get user role
-      //const res = await getUserInfor();
-      //console.log(res);
 
-      if (localStorage.getItem("dut-accessToken")) {
-        store.dispatch({
-          type: actionTypes.INIT_USER_INFOR,
-          name: "phd",
-          userName: "phan huynh duc",
-          role: ["admin", "user"],
-        });
-        if (to.location.pathname === "/login") {
-          console.log(to.location.pathname === "/login");
-          next.redirect("/1");
-        }
-        next();
-      } else {
-        next.redirect("/login");
-      }
-    } catch (err) {
-      console.log(err.response);
-      console.log(to);
-      if (to.location.pathname === "/login") next();
-      next.redirect("/login");
-    }
-  } else {
 const requireLogin = async (to,from,next) => {
   if(to.meta.auth){
 
@@ -137,4 +110,3 @@ ReactDOM.render(
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
