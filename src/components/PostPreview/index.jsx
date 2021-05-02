@@ -77,7 +77,7 @@ function PostPreview(props) {
             <IconButton aria-label="delete" onClick={handleDelete}>
               <DeleteIcon />
             </IconButton>
-            <IconButton aria-label="edit">
+            <IconButton aria-label="edit" onClick={handleEdit}>
               <EditIcon />
             </IconButton>
           </div>

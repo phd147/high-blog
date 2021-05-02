@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { getTokenFromRefreshToken } from "../../services/user.service";
-
+import { BASE_URL } from "../../constant";
 const instance = axios.create({
-  baseURL: "https://api.highblog.codes/",
+  baseURL: BASE_URL,
 });
 
 let originalRequest = null;

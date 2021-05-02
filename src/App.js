@@ -15,7 +15,7 @@ import RequireVerifyEmail from "./components/RequireVerifyEmail/RequireVerifyEma
 
 //ck editor
 
-import CreatePost from "./containers/CreatePost/index";
+import PostEditor from "./containers/PostEditor/index";
 import { Switch } from "react-router-dom";
 import HBHeader from "./components/HBHeader/HBHeader";
 import NotFoundC from "./components/Not Found/NotFoundC";
@@ -49,11 +49,17 @@ function App() {
         <GuardedRoute
           path="/editor"
           exact
-          component={CreatePost}
+          component={PostEditor}
           meta={{ auth: true }}
         />
 
         <GuardedRoute path="/:id/:title" exact component={PostDetails} />
+        <GuardedRoute
+          path="/:id/:title/edit"
+          exact
+          render={() => <PostEditor isEdit={true} />}
+          meta={{ auth: true }}
+        />
 
         <GuardedRoute
           path="/register"
