@@ -6,10 +6,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Test from './Test';
 import { Grid } from '@material-ui/core';
-import WriterInfoCard from '../../components/WriterInfoCard';
 import { MicNone } from '@material-ui/icons';
+import Test from '../../containers/UserProfiles/Test';
+import WriterInfoCard from '../WriterInfoCard';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    marginTop:0
   },
 }));
 
@@ -61,7 +60,7 @@ export default function ScrollableTabsButtonAuto() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <AppBar position="static" color="default" style = {{boxShadow:'none'}}>
         <Tabs
           value={value}
@@ -74,15 +73,16 @@ export default function ScrollableTabsButtonAuto() {
         >
           <Tab label="POST" {...a11yProps(0)} />
           <Tab label="QUESTIONS" {...a11yProps(1)} />
+          
         </Tabs>
       </AppBar>
       <Grid container className = {classes.content} justify ='center'>
       <TabPanel value={value} index={0}>
         <Grid container spacing = {2}>
-          <Grid item xs={12} ms = {10} md = {8}>
+          <Grid item xs={12} ms = {12} md = {8}>
             <Test/>
           </Grid>
-          <Grid item xs={0} ms = {2} md = {4}>
+          <Grid item xs={0} ms = {0} md = {4}>
             <WriterInfoCard/>
           </Grid>
         </Grid>

@@ -96,6 +96,11 @@ function App() {
               exact
               component={UserProfile}
             />
+            <GuardedRoute
+              path="/userdetail/:nickname"
+              exact
+              component={UserProfile}
+            />
           </Switch>
           <Grid item xs={12} md={4}></Grid>
         </Grid>

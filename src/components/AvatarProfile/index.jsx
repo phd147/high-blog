@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Avatar, Divider, Fab, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import EditIcon from '@material-ui/icons/Edit';
 import FormDialog from '../EditAvatar';
 
 function AvatarProfile(props) {
@@ -17,6 +18,11 @@ function AvatarProfile(props) {
     const handleClose = () => {
         setOpen(false);
       };
+    const handleUpdate = (item) => {
+      setOpen(false);
+      console.log('this is data' + item.name)
+
+    };
     const useStyles = makeStyles({
         root: {
           Width: '100%',
@@ -24,6 +30,7 @@ function AvatarProfile(props) {
         media: {
           width:'100%',
           height: 350,
+          backgroundColor:'black',
         },
         large: {
           marginTop:-185,
@@ -38,6 +45,12 @@ function AvatarProfile(props) {
         button: {
           marginTop:300,
           marginRight:15,
+        },
+        editProfile: {
+          marginTop:-35,
+        },
+        nickName: {
+          marginTop:-25,
         },
         dashboard:{
           marginLeft:50,
@@ -54,15 +67,16 @@ function AvatarProfile(props) {
     const getForm = ()=>{
         if(open) {
             console.log('tuanthah')
-            return <FormDialog open ={open} handleForm = {handleClose}/> }else{
+            return <FormDialog open ={open} handleForm = {handleClose} handleUpdateForm = {(item)=>handleUpdate(item)} /> }else{
                 console.log('ko')
             }
     }
     return (
         <Card className={classes.root}>
+              <Grid container item xs={12} md = {12}>
               <CardMedia
                 className={classes.media}
-                image="https://sites.google.com/site/hinhanhdep24h/_/rsrc/1436687439788/home/hinh%20anh%20thien%20nhien%20dep%202015%20%281%29.jpeg"
+                image={props.background}
                 title="Contemplative Reptile"
                 
               >
@@ -73,21 +87,29 @@ function AvatarProfile(props) {
               </Button>
               </Grid>
               </CardMedia>
-              
+              </Grid>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
                 <Grid container justify="center">
-                <Avatar alt="Remy Sharp" src="" className={classes.large} />
+                <Avatar alt="Remy Sharp" src={props.avatar} className={classes.large} />
                 </Grid>
                 <Grid  container justify="center">
                 <Fab className={classes.icon} aria-label="add" size='small'>
                 <CameraAltIcon />
                 </Fab>
                 </Grid>
-                <Grid container justify="center">
-                  Nguyễn Sỹ Tuấn Thành
+                <Grid container justify="flex-end">
+                  <Grid item xs = {3}>
+                    <Button variant = "contained" color = "#000000" className ={classes.editProfile}>
+                     <EditIcon/>Edit Profile
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container justify="center" className ={classes.nickName}>
+                  {props.nickName}
                 </Grid>
                 </Typography>
+
                 <Divider/>
                 <Typography>
                     {getForm()}
