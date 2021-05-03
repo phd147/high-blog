@@ -23,7 +23,6 @@ const mytheme = createMuiTheme({
   overrides: {
     MuiToggleButton: {
       root: {
-        borderRadius: "50%",
         "&$selected": {
           border: "2px solid #757ce8",
         },
@@ -45,7 +44,12 @@ function BookmarkButton(props) {
 
   return (
     <ThemeProvider theme={mytheme}>
-      <ToggleButton value="check" selected={added} onChange={handleClick}>
+      <ToggleButton
+        value="check"
+        selected={added}
+        onChange={handleClick}
+        style={{ borderRadius: "50%" }}
+      >
         {added ? (
           <BookmarkIcon className={styless.btn_icon_selected} />
         ) : (

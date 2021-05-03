@@ -313,7 +313,10 @@ function PostDetails(props) {
                 postTags={postDetails.tags}
                 postOwner={postDetails.user}
                 postDate={postDetails.createdDate}
-                onEdit={() => {}}
+                onEdit={() => {
+                  console.log("EDIT");
+                  history.push(`${location.pathname}/edit`);
+                }}
                 onDelete={handlePostDelete}
               />
             </div>

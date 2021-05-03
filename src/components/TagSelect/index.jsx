@@ -1,7 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Multiselect } from "multiselect-react-dropdown";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import styles from "./TagSelect.module.css";
@@ -25,13 +24,13 @@ export default function TagSelect(props) {
       onSelectTag(value);
     }
   };
-
   return (
     <div className={styles.container}>
       <Autocomplete
+        key="select-tag"
         size="small"
         multiple
-        id="combo-box-demo"
+        id="combo-box-tag"
         options={listTag}
         defaultValue={value}
         getOptionLabel={(option) => option.name}
