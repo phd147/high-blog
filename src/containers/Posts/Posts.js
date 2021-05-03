@@ -34,6 +34,10 @@ export default function Posts(props) {
       fetchListPost = PostService.getFavoriteListPost;
       variant = "favorite";
       break;
+    case PostsType.SEARCH_TYPE:
+      fetchListPost = PostService.getSearchResult;
+      variant = "search";
+      break;
 
     default:
       console.log("default ");
@@ -45,11 +49,7 @@ export default function Posts(props) {
   const loadmoreFunction = useCallback(
     async (page) => {
       console.log({ page });
-
-      const loadMoreParams = {
-        page: page,
-        pageSize: 10,
-      };
+      const loadMoreParams = { ...initialParams, page: page };
       if (page <= totalPage) {
         try {
           const res = await fetchListPost.call(PostService, loadMoreParams);
@@ -90,7 +90,9 @@ export default function Posts(props) {
       >
         {items}
       </InfiniteScroll>
-      {posts.length ? null : [1,2,3].map((el,index) => <PostLoading key={index}/>)}
+      {posts.length
+        ? null
+        : [1, 2, 3].map((el, index) => <PostLoading key={index} />)}
     </div>
   );
 }

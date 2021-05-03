@@ -73,7 +73,9 @@ export default function Post(props) {
           )}
           <div className={cs(classnames.post_item_save)}>
             <Button color="default" variant="contained">
-              {variant === "post" ? "Save" : "Archive"}
+              {variant === "post" ? "Save" : ""}
+              {variant === "favorite" ? "Archive" : ""}
+              {variant === "search" ? "Save" : ""}
             </Button>
           </div>
         </div>
