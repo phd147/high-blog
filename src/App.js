@@ -33,6 +33,7 @@ import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
 import SearchPage from "./components/SearchPage/SearchPage";
 import ToastContainerConfig from "./configs/toast/ToastContainerConfig";
+import SearchScreen from "./containers/Search";
 
 function App() {
   return (
@@ -91,10 +92,16 @@ function App() {
         />
         <GuardedRoute path="/tags" exact component={TagsPanel} />
 
-        <GuardedRoute
+        {/* <GuardedRoute
           path="/search"
           exact
           component={SearchPage}
+          meta={{ auth: false }}
+        /> */}
+        <GuardedRoute
+          path="/search"
+          exact
+          component={SearchScreen}
           meta={{ auth: false }}
         />
 

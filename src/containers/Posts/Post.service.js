@@ -15,4 +15,10 @@ export default class PostService extends ApiHelper {
 
   // tag list posts
   static getTagListPost(data) {}
+
+  //search
+  static getSearchResult(data) {
+    const url = `/api/v1/posts/search?keyword=${data.keyword}&page=${data.page}&pageSize=${data.pageSize}`;
+    return this.get(url);
+  }
 }
