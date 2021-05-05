@@ -1,21 +1,16 @@
 //TODO: wait userInfo de setVisible cho edit, remove button
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import "./Comment.css";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
-import {
-  Avatar,
-  Button,
-  IconButton,
-  TextareaAutosize,
-} from "@material-ui/core";
+import {Avatar, Button, IconButton, TextareaAutosize,} from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MyComment from "../MyComment";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
+
 Comment.propTypes = {
   parentId: PropTypes.number,
   owner: PropTypes.object,
