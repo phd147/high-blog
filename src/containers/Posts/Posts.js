@@ -38,6 +38,10 @@ export default function Posts(props) {
       fetchListPost = PostService.getSearchResult;
       variant = "search";
       break;
+    case PostsType.FOLLOWING_TYPE:
+      fetchListPost = PostService.getFollowingPosts;
+      variant = "following";
+      break;
 
     default:
       console.log("default ");
@@ -45,7 +49,6 @@ export default function Posts(props) {
 
   const [posts, setPosts] = useState([]);
   const [hasMoreItem, setHasMoreItem] = useState(true);
-
   const loadmoreFunction = useCallback(
     async (page) => {
       console.log({ page });
@@ -64,7 +67,7 @@ export default function Posts(props) {
         setHasMoreItem(false);
       }
     },
-    [totalPage]
+    [totalPage, initialParams]
   );
 
   // useEffect(() => {
