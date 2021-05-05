@@ -1,0 +1,15 @@
+.category {
+  position: relative;
+}
+.category_btn {
+  position: fixed;
+}
+@media only screen and (max-width: 600px) {
+  .category_btn {
+    position: fixed;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    background-color: rgb(228, 228, 228);
+  }
+}

@@ -34,6 +34,7 @@ import TagsPanel from "./containers/TagsPanel";
 import SearchPage from "./components/SearchPage/SearchPage";
 import ToastContainerConfig from "./configs/toast/ToastContainerConfig";
 import SearchScreen from "./containers/Search";
+import FollowingPost from "./containers/FollowingPost";
 
 function App() {
   return (
@@ -103,6 +104,13 @@ function App() {
           exact
           component={SearchScreen}
           meta={{ auth: false }}
+        />
+
+        <GuardedRoute
+          path="/followings"
+          exact
+          component={FollowingPost}
+          meta={{ auth: true }}
         />
 
         <GuardedRoute

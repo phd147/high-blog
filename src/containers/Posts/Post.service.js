@@ -21,4 +21,9 @@ export default class PostService extends ApiHelper {
     const url = `/api/v1/posts/search?keyword=${data.keyword}&page=${data.page}&pageSize=${data.pageSize}`;
     return this.get(url);
   }
+
+  static getFollowingPosts(data) {
+    const url = `/api/v1/user/posts/subscriptions?categoryId=${data.categoryId}&page=${data.page}&pageSize=${data.pageSize}`;
+    return this.get(url);
+  }
 }

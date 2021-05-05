@@ -76,6 +76,7 @@ export default function Post(props) {
               {variant === "post" ? "Save" : ""}
               {variant === "favorite" ? "Archive" : ""}
               {variant === "search" ? "Save" : ""}
+              {variant === "following" ? "Save" : ""}
             </Button>
           </div>
         </div>
