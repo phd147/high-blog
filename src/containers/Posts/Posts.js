@@ -50,7 +50,10 @@ export default function Posts(props) {
       fetchListPost = PostService.getTagPosts;
       variant = "post";
       break;
-
+    case PostsType.PERSONAL_TYPE:
+      fetchListPost = PostService.getPersonalPost;
+      variant = "post";
+      break;
     default:
       console.log("default ");
   }

@@ -1,0 +1,55 @@
+.personal__header {
+    width: 100vw;
+    height: 50vh;
+
+    position: relative;
+}
+
+.personal__header__btn-edit-background {
+    position: absolute;
+
+    top: 100%;
+    left: 100%;
+    transform: translate(-120%, -120%);
+}
+
+.personal__header__avatar {
+    width: 200px;
+    height: 200px;
+
+    border: 2px solid white;
+    border-radius: 50%;
+
+    background-color: white;
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.personal__header__avatar__btn-edit {
+    background-color: white;
+    padding: 5px;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 100%;
+    left: 100%;
+    transform: translate(-125%, -125%);
+}
+
+.personal__header__avatar__btn-edit:hover{
+    background-color: #c9c9c9;
+    cursor: pointer;
+}
+
+.personal__header__info{
+    margin-top: 110px;
+}
+
+.personal__header__info__full-name{
+    font-size: 5em;
+}

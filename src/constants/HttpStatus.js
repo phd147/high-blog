@@ -1,4 +1,5 @@
 
 export default Object.freeze({
-    NO_CONTENT: 204
+    NO_CONTENT: 204,
+    OK: 200,
 })
