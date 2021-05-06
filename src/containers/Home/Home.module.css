@@ -1,14 +1,8 @@
-@media screen and (max-width : 1111px){
-    .hb_menu_grid_item {
-        display : none ;
-    }
-    .hb_home_grid {
-        justify-content: center;
-    }
-
-
-}
-
-.hb_home {
-    margin-top : 75px;
+@media screen and (max-width: 1111px) {
+  .hb_menu_grid_item {
+    display: none;
+  }
+  .hb_home_grid {
+    justify-content: center;
+  }
 }

@@ -31,7 +31,7 @@ export default function Posts(props) {
       variant = "post";
       break;
     case PostsType.FAVORITE_TYPE:
-      fetchListPost = PostService.getFavoriteListPost;
+      fetchListPost = PostService.getFavoritePosts;
       variant = "favorite";
       break;
     case PostsType.SEARCH_TYPE:
@@ -42,6 +42,14 @@ export default function Posts(props) {
       fetchListPost = PostService.getFollowingPosts;
       variant = "following";
       break;
+    case PostsType.QUESTION_TYPE:
+      fetchListPost = PostService.getQuestionPosts;
+      variant = "post";
+      break;
+    case PostsType.TAG_TYPE:
+      fetchListPost = PostService.getTagPosts;
+      variant = "post";
+      break;
 
     default:
       console.log("default ");
@@ -49,6 +57,7 @@ export default function Posts(props) {
 
   const [posts, setPosts] = useState([]);
   const [hasMoreItem, setHasMoreItem] = useState(true);
+  console.log("INIT PARAMS: ", initialParams);
   const loadmoreFunction = useCallback(
     async (page) => {
       console.log({ page });
@@ -83,19 +92,25 @@ export default function Posts(props) {
   });
 
   return (
-    <div className={cs(classnames.hb_posts)}>
-      <InfiniteScroll
-        pageStart={0}
-        threshold={100}
-        loadMore={loadmoreFunction}
-        hasMore={hasMoreItem}
-        loader={<PostLoading />}
-      >
-        {items}
-      </InfiniteScroll>
-      {posts.length
-        ? null
-        : [1, 2, 3].map((el, index) => <PostLoading key={index} />)}
-    </div>
+    <>
+      {totalPage === 0 ? (
+        <h2 style={{ color: "black" }}>Nothing to show</h2>
+      ) : (
+        <div className={cs(classnames.hb_posts)}>
+          <InfiniteScroll
+            pageStart={0}
+            threshold={100}
+            loadMore={loadmoreFunction}
+            hasMore={hasMoreItem}
+            loader={<PostLoading />}
+          >
+            {items}
+          </InfiniteScroll>
+          {posts.length
+            ? null
+            : [1, 2, 3].map((el, index) => <PostLoading key={index} />)}
+        </div>
+      )}
+    </>
   );
 }

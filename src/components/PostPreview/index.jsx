@@ -25,7 +25,7 @@ PostPreview.defaultProps = {
   postContent: "",
   postTags: [],
   postOwner: {},
-  postDate: 0,
+  postDate: new Date().getTime(),
   onDelete: null,
   onEdit: null,
 };
@@ -53,6 +53,7 @@ function PostPreview(props) {
   useEffect(() => {
     CSSHelper.addCodeLabel();
   }, []);
+  console.log("post date: ", postDate);
   return (
     <div>
       <div>

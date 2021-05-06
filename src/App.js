@@ -31,10 +31,11 @@ import ViewProfile from "./containers/UserProfile/View/ViewProfile";
 import PostDetails from "./containers/PostDetails";
 import FileManagement from "./containers/FileManagement";
 import TagsPanel from "./containers/TagsPanel";
-import SearchPage from "./components/SearchPage/SearchPage";
 import ToastContainerConfig from "./configs/toast/ToastContainerConfig";
 import SearchScreen from "./containers/Search";
 import FollowingPost from "./containers/FollowingPost";
+import QuestionPost from "./containers/QuestionPost";
+import TagPost from "./containers/TagPost";
 
 function App() {
   return (
@@ -86,10 +87,22 @@ function App() {
 
         <GuardedRoute path="/" exact component={Home} meta={{ auth: false }} />
         <GuardedRoute
-          path="/favorite"
+          path="/favorites"
           exact
           component={Favorite}
           meta={{ auth: true }}
+        />
+        <GuardedRoute
+          path="/questions"
+          exact
+          component={QuestionPost}
+          meta={{ auth: false }}
+        />
+        <GuardedRoute
+          path="/t/:tagId/:tagName"
+          exact
+          component={TagPost}
+          meta={{ auth: false }}
         />
         <GuardedRoute path="/tags" exact component={TagsPanel} />
 
@@ -124,7 +137,7 @@ function App() {
           path="/view-profile"
           exact
           component={ViewProfile}
-          meta={{ auth: true }}
+          meta={{ auth: false }}
         />
 
         <GuardedRoute

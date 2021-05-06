@@ -3,20 +3,19 @@ import React from "react";
 import Menu from "../../components/Menu/Menu";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
-import styles from "./Favorite.module.css";
 
-Favorite.propTypes = {};
+QuestionPost.propTypes = {};
 
-function Favorite(props) {
+function QuestionPost(props) {
   return (
     <Container>
-      <Grid container spacing={3} className={styles.container} direction="row">
+      <Grid container spacing={3} direction="row">
         <Grid item xs={false} md={2}>
           <Menu />
         </Grid>
         <Grid item xs={12} md={7}>
           <Posts
-            type={PostType.FAVORITE_TYPE}
+            type={PostType.QUESTION_TYPE}
             initialParams={{ page: 1, pageSize: 10 }}
           />
         </Grid>
@@ -25,4 +24,4 @@ function Favorite(props) {
   );
 }
 
-export default Favorite;
+export default QuestionPost;

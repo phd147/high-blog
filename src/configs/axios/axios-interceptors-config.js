@@ -1,9 +1,8 @@
 import axios from "axios";
 
 import { getTokenFromRefreshToken } from "../../services/user.service";
-import { BASE_URL } from "../../constant";
 const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 let originalRequest = null;
