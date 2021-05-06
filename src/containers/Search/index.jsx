@@ -1,5 +1,6 @@
 import { Container, Grid } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
 import Posts from "../Posts/Posts";
@@ -12,21 +13,40 @@ function useQuery() {
 SearchScreen.propTypes = {};
 
 function SearchScreen(props) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
   let query = useQuery();
+  useEffect(() => {
+    console.log("useEffect");
+    setIsLoading(true);
+    setKeyword(query.get("q"));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, [query.get("q")]);
+  console.log("KEYWORD: ", keyword);
   return (
     <Container>
-      <Grid container spacing={3} className={styles.container} direction="row">
-        <Grid item xs={false} md={2}>
-          <h2>Để tạm xíu</h2>
-          <Menu />
+      {isLoading ? (
+        <div>Loading ...</div>
+      ) : (
+        <Grid
+          container
+          spacing={3}
+          className={styles.container}
+          direction="row"
+        >
+          <Grid item xs={false} md={2}>
+            <Menu />
+          </Grid>
+          <Grid item xs={12} md={7}>
+            <Posts
+              type={PostType.SEARCH_TYPE}
+              initialParams={{ keyword: keyword, page: 1, pageSize: 10 }}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={7}>
-          <Posts
-            type={PostType.SEARCH_TYPE}
-            initialParams={{ keyword: query.get("q"), page: 1, pageSize: 10 }}
-          />
-        </Grid>
-      </Grid>
+      )}
     </Container>
   );
 }

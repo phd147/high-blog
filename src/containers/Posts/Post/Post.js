@@ -6,7 +6,7 @@ import cs from "classnames";
 import { Avatar, Card, Chip, Button } from "@material-ui/core";
 import moment from "moment";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export default function Post(props) {
   const history = useHistory();
@@ -16,19 +16,26 @@ export default function Post(props) {
   const variant = props.variant;
   const postMoment = moment("1970-01-01").set("millisecond", 1618239547478);
 
+  const titleUrl = data.title.toLowerCase().replaceAll(" ", "-");
+
   return (
     <Card style={{ marginBottom: "10px", padding: "10px" }}>
       <div className={cs(classnames.post_item)}>
         <div className={cs(classnames.post_item_author_infor)}>
-          <Avatar
-            style={{ marginRight: "10px" }}
-            alt="Remy Sharp"
-            src={data.user.imagePath || null}
-          />
+          <Link to="/view-profile">
+            <Avatar
+              style={{ marginRight: "10px" }}
+              alt="Remy Sharp"
+              src={data.user.imagePath || null}
+            />
+          </Link>
+
           <div>
-            <h5 className={cs(classnames.authorName)}>
-              {data.user.nickName} {data.user.lastName}
-            </h5>
+            <Link to="/view-profile">
+              <h5 className={cs(classnames.authorName)}>
+                {data.user.nickName} {data.user.lastName}
+              </h5>
+            </Link>
             <p className={cs(classnames.postTime)}>
               {" "}
               {postMoment.format("LL")} {`(${postMoment.fromNow()})`}
@@ -36,7 +43,9 @@ export default function Post(props) {
           </div>
         </div>
         <div className={cs(classnames.post_item_title)}>
-          <h4>{data.title}</h4>
+          <Link to={`/${data.id}/${titleUrl}`}>
+            <h4>{data.title}</h4>
+          </Link>
         </div>
         <div className={cs(classnames.post_item_summary)}>
           <p>{data.summary}</p>
@@ -46,7 +55,7 @@ export default function Post(props) {
             {data.tags
               ? data.tags.map((el) => (
                   <Chip
-                    onClick={() => history.push(`/tag/${el.id}`)}
+                    onClick={() => history.push(`/t/${el.id}/${el.name}`)}
                     style={{ marginRight: "5px", cursor: "pointer" }}
                     key={el.id}
                     label={el.name}
