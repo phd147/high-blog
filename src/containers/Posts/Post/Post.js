@@ -19,10 +19,10 @@ export default function Post(props) {
   const titleUrl = data.title.toLowerCase().replaceAll(" ", "-");
 
   return (
-    <Card style={{ marginBottom: "10px", padding: "10px" }}>
+    <Card variant="outlined" style={{ marginBottom: "10px", padding: "10px" }}>
       <div className={cs(classnames.post_item)}>
         <div className={cs(classnames.post_item_author_infor)}>
-          <Link to="/view-profile">
+          <Link to={`/user/personal/${data.user.nickName}`}>
             <Avatar
               style={{ marginRight: "10px" }}
               alt="Remy Sharp"
@@ -31,7 +31,7 @@ export default function Post(props) {
           </Link>
 
           <div>
-            <Link to="/view-profile">
+            <Link to={`/user/personal/${data.user.nickName}`}>
               <h5 className={cs(classnames.authorName)}>
                 {data.user.nickName} {data.user.lastName}
               </h5>

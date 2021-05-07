@@ -1,4 +1,5 @@
 export const INIT_USER_INFOR = "INIT_USER_INFOR";
+export const UPDATE_USER_AVATAR = "UPDATE_USER_AVATAR";
 
 // postDetailsReducers
 export const POST_DETAILS_REQUEST = "POST_DETAILS_REQUEST";

@@ -4,3 +4,4 @@ export const SEARCH_TYPE = "SEARCH_TYPE";
 export const FOLLOWING_TYPE = "FOLLOWING_TYPE";
 export const QUESTION_TYPE = "QUESTION_TYPE";
 export const TAG_TYPE = "TAG_TYPE";
+export const PERSONAL_TYPE = "PERSONAL_TYPE";
