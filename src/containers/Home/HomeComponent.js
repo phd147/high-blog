@@ -8,7 +8,7 @@ import classnames from "./Home.module.css";
 
 export default function Home(props) {
   return (
-    <Container className={cs(classnames.hb_home)}>
+    <Container className={cs(classnames.hb_home)} style={{marginTop: 25}}>
       <Grid
         className={cs(classnames.hb_home_grid)}
         container

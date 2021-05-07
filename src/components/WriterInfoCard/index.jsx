@@ -67,7 +67,7 @@ function WriterInfoCard(props) {
       <Card className={styles.container}>
         <CardContent className={styles.inner}>
           <div className={styles.post_owner}>
-            <Link to="/view-profile" style={{ width: "100%" }}>
+            <Link to={`/user/personal/${userInfo.nickName}`} style={{ width: "100%" }}>
               <Avatar alt="user" src={postOwner.avatar} />
               <div style={{ marginLeft: "10px" }}>
                 {postOwner.firstName} {postOwner.lastName}

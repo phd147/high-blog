@@ -70,7 +70,8 @@ const requireLogin = async (to, from, next) => {
       lastName: data.lastName,
       roles: data.roleTypes,
       userId: data.id,
-      nickName : data.nickName
+      nickName : data.nickName,
+      imagePath: data.imagePath,
     });
     if (to.location.path === "/login") next.redirect("/home");
     next();
