@@ -4,14 +4,14 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import Budget from '../../themes/components/dashboard//Budget';
-import LatestOrders from '../../themes/components/dashboard//LatestOrders';
-import LatestProducts from '../../themes/components/dashboard//LatestProducts';
-import Sales from '../../themes/components/dashboard//Sales';
-import TasksProgress from '../../themes/components/dashboard//TasksProgress';
-import TotalCustomers from '../../themes/components/dashboard//TotalCustomers';
-import TotalProfit from '../../themes/components/dashboard//TotalProfit';
-import TrafficByDevice from '../../themes/components/dashboard//TrafficByDevice';
+import Budget from '../../themes/components/dashboard/Budget';
+import LatestOrders from '../../themes/components/dashboard/LatestOrders';
+import LatestProducts from '../../themes/components/dashboard/LatestProducts';
+import Sales from '../../themes/components/dashboard/Sales';
+import TasksProgress from '../../themes/components/dashboard/TasksProgress';
+import TotalCustomers from '../../themes/components/dashboard/TotalCustomers';
+import TotalProfit from '../../themes/components/dashboard/TotalProfit';
+import TrafficByDevice from '../../themes/components/dashboard/TrafficByDevice';
 
 const Dashboard = () => (
   <>

@@ -34,6 +34,7 @@ import FollowingPost from "./containers/FollowingPost";
 import QuestionPost from "./containers/QuestionPost";
 import TagPost from "./containers/TagPost";
 import Personal from "./containers/Personal";
+import Wallets from "./containers/Wallets/Wallets";
 
 function App() {
   return (
@@ -110,6 +111,7 @@ function App() {
           component={SearchPage}
           meta={{ auth: false }}
         /> */}
+
         <GuardedRoute
           path="/search"
           exact
@@ -143,6 +145,12 @@ function App() {
           exact
           component={Personal}
         />
+          <GuardedRoute
+              path="/wallet"
+              exact
+              component={Wallets}
+              meta = {{auth : true }}
+          />
 
         <GuardedRoute
           path="*"
@@ -153,6 +161,8 @@ function App() {
       </Switch>
     </div>
   );
+
+
 }
 
 export default App;

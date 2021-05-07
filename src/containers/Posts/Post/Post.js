@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
+
+import PostService from "./post.service";
 
 import classnames from "./Post.module.css";
 
@@ -10,8 +12,39 @@ import {useHistory, Link} from "react-router-dom";
 import {BASE_URL} from "../../../constant";
 import DefaultAvatar from "../../../../public/default/default_user_avatar.png";
 
+import {toast} from "react-toastify";
+
+
 export default function Post(props) {
+
+    const [isLove, setIsLove] = useState(false);
+
+    const saveHandler = async (id) => {
+        const data = {
+            postId: id
+        };
+        try {
+            const res = await PostService.save(data);
+            toast.success('save ok');
+            setIsLove(true);
+        } catch (err) {
+            console.log(err);
+            toast.error('save error');
+        }
+    }
+
+    const unSaveHandler = async params => {
+        try {
+            const res = await PostService.unsave(params);
+            toast.success('unsave ok');
+            setIsLove(false);
+        } catch (err) {
+            toast.error('unsave error');
+        }
+    }
+
     const history = useHistory();
+
 
     const data = props.data;
 
@@ -82,16 +115,26 @@ export default function Post(props) {
                     ) : (
                         <div></div>
                     )}
+
+
                     <div className={cs(classnames.post_item_save)}>
-                        <Button color="default" variant="contained">
-                            {variant === "post" ? "Save" : ""}
-                            {variant === "favorite" ? "Remove" : ""}
-                            {variant === "search" ? "Save" : ""}
-                            {variant === "following" ? "Save" : ""}
-                        </Button>
+                        {
+                            !isLove ?
+                                <Button onClick={() => saveHandler(data.id)} color="secondary" variant="contained">
+                                    {variant === "post" ? "Save" : ""}
+                                    {variant === "favorite" ? "Archive" : ""}
+                                    {variant === "search" ? "Save" : ""}
+                                    {variant === "following" ? "Save" : ""}
+                                </Button> :
+                                <Button variant={"contained"} color={"primary"} onClick={() => unSaveHandler(data.id)}>
+                                    Unsave
+                                </Button>
+                        }
+
                     </div>
                 </div>
             </div>
         </Card>
     );
+
 }
