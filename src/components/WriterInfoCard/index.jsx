@@ -1,15 +1,22 @@
 import { Avatar, Button, Card, CardContent } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import ToggleButton from "@material-ui/lab/ToggleButton";
 import styles from "./WriterInfoCard.module.css";
+import DonationButton from "../DonationButton";
 
 WriterInfoCard.propTypes = {
   followed: PropTypes.bool,
   postOwner: PropTypes.object,
   userMeta: PropTypes.object,
   onFollowClick: PropTypes.func,
+  notiStatus: PropTypes.bool,
+  onDonationSubmit: PropTypes.func,
+  isDonateLoading: PropTypes.bool,
 };
 
 WriterInfoCard.defaultProps = {
@@ -22,12 +29,23 @@ WriterInfoCard.defaultProps = {
     joined: "4 thg 7, 2020",
   },
   onFollowClick: null,
+  notiStatus: false,
+  onDonationSubmit: null,
+  isDonateLoading: false,
 };
 
 function WriterInfoCard(props) {
-  const { postWriter, postOwner, userMeta, onFollowClick } = props;
+  const {
+    postWriter,
+    postOwner,
+    userMeta,
+    onFollowClick,
+    notiStatus,
+    onDonationSubmit,
+    isDonateLoading,
+  } = props;
 
-  console.log("FOLLOW RENDER: ", postOwner);
+  const [noti, setNoti] = useState(false);
 
   const userInfo = useSelector((state) => state.user);
 
@@ -38,6 +56,12 @@ function WriterInfoCard(props) {
       } else onFollowClick(postOwner.nickName, "FOLLOW");
     }
   };
+  function handleNotiClick() {
+    setNoti(!noti);
+  }
+  function handleDonateClick(amount) {
+    if (onDonationSubmit) onDonationSubmit(postOwner.nickName, amount);
+  }
   return (
     <div>
       <Card className={styles.container}>
@@ -55,16 +79,38 @@ function WriterInfoCard(props) {
             programmer, hacker, designer and blogger from Czechia.
           </div>
           {userInfo.userId !== postOwner.id ? (
-            <div>
+            <div className={styles.btn_group}>
               <Button
-                fullWidth={true}
-                className="follow-btn"
+                className={styles.btn}
                 variant={postOwner.followed ? "contained" : "outlined"}
                 color="primary"
                 onClick={handleClick}
               >
                 {postOwner.followed ? "Unfollow" : "Follow me"}
               </Button>
+              {postOwner.followed && (
+                <ToggleButton
+                  style={{
+                    height: "100%",
+                    border: "none",
+                    borderRadius: "50%",
+                  }}
+                  value="notification"
+                  selected={notiStatus}
+                  onChange={handleNotiClick}
+                >
+                  {noti ? (
+                    <NotificationsNoneIcon />
+                  ) : (
+                    <NotificationsActiveIcon />
+                  )}
+                </ToggleButton>
+              )}
+
+              <DonationButton
+                onDonateClick={handleDonateClick}
+                isDonateLoading={isDonateLoading}
+              />
             </div>
           ) : (
             <></>

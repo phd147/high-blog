@@ -186,7 +186,10 @@ export default function HBHeader(props) {
                   </form>
                 </div>
                 {userId ? (
-                  <Button className={cs(classnames.hb_header_button)}>
+                  <Button
+                    className={cs(classnames.hb_header_button)}
+                    onClick={() => history.push("/editor")}
+                  >
                     Write a post
                   </Button>
                 ) : null}

@@ -25,6 +25,8 @@ function PostDetails(props) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const [isDonateLoading, setIsDonateLoading] = useState(false);
+
   const [listComment, setListComment] = useState([]);
 
   const [postDetails, setPostDetails] = useState({});
@@ -170,6 +172,15 @@ function PostDetails(props) {
       }
     }
   };
+
+  async function handleDonationSubmit(nickName, amount) {
+    const logged = await handleUserLogged();
+    if (logged) {
+      setIsDonateLoading(true);
+      await PostDetailsService.postDonation(nickName, amount);
+      setIsDonateLoading(false);
+    }
+  }
 
   const handleVoteChange = async (value, action) => {
     const logged = await handleUserLogged();
@@ -344,6 +355,8 @@ function PostDetails(props) {
               <WriterInfoCard
                 postOwner={postDetails.user}
                 onFollowClick={handleFollowWriter}
+                onDonationSubmit={handleDonationSubmit}
+                isDonateLoading={isDonateLoading}
               />
             </div>
           </Grid>

@@ -43,7 +43,7 @@ export default function Post(props) {
           </div>
         </div>
         <div className={cs(classnames.post_item_title)}>
-          <Link to={`/${data.id}/${titleUrl}`}>
+          <Link to={`/p/${data.id}/${titleUrl}`}>
             <h4>{data.title}</h4>
           </Link>
         </div>
