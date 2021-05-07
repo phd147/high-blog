@@ -43,6 +43,7 @@ import thunk from "redux-thunk";
 
 // provider
 import { Provider } from "react-redux";
+import walletReducer from "./store/reducers/walletReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   favoriteCreate: favoriteCreateReducer,
   favoriteList: favoriteListReducer,
   favoriteDelete: favoriteDeleteReducer,
+  wallet : walletReducer
 });
 
 // create redux store

@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { getTokenFromRefreshToken } from "../../services/user.service";
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'https://highblog.codes',
 });
 
 let originalRequest = null;

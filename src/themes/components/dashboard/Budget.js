@@ -10,10 +10,10 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
 import { red } from '@material-ui/core/colors';
 
-const Budget = (props) => (
+const Budget = ({balance}) => (
   <Card
     sx={{ height: '100%' }}
-    {...props}
+
   >
     <CardContent>
       <Grid
@@ -33,7 +33,9 @@ const Budget = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            $24,000
+            {
+              balance
+            } USD
           </Typography>
         </Grid>
         <Grid item>
@@ -55,22 +57,8 @@ const Budget = (props) => (
           alignItems: 'center'
         }}
       >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
+
+
       </Box>
     </CardContent>
   </Card>
