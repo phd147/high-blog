@@ -153,12 +153,9 @@ export default function HBHeader(props) {
                 >
                   <MenuIcon onClick={toggleDrawer} />
                 </IconButton>
-                <h2
-                  style={{ cursor: "pointer" }}
-                  onClick={() => history.push("/")}
-                >
-                  high blog
-                </h2>
+                <div>
+                  <img src="./../../img/highblog1.png" alt="ko hien thi" style={{width: 75 }}/>
+                </div>
               </Grid>
               <Grid
                 item

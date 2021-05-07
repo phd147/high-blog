@@ -21,7 +21,7 @@ export default function Menu(props) {
   console.log(location.pathname);
   return (
     <div className={classnames.hb_menu}>
-      <Paper>
+      <Paper variant = 'outlined'>
         <MenuList>
           <MenuItem>
             <Link to="/" activeClassName={classnames.selected}>
