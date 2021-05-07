@@ -99,7 +99,7 @@ function AvatarProfile(props) {
                 </Fab>
                 </Grid>
                 <Grid container justify="flex-end">
-                  <Grid item xs = {3}>
+                  <Grid item xs = {3} ml={12}>
                     <Button variant = "contained" color = "#000000" className ={classes.editProfile}>
                      <EditIcon/>Edit Profile
                     </Button>
