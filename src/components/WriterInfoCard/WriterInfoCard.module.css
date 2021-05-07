@@ -16,8 +16,8 @@
   display: flex;
   align-items: center;
 }
-.follow-btn {
-  width: 100%;
+.btn {
+  height: 100%;
 }
 .bio {
   color: rgb(119, 119, 119);
@@ -41,4 +41,10 @@
   text-transform: uppercase;
   color: rgb(151, 151, 151);
   margin-bottom: 0;
+}
+.btn_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }

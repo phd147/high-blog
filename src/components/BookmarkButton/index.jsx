@@ -1,8 +1,4 @@
-import {
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BookmarkBorderSharpIcon from "@material-ui/icons/BookmarkBorderSharp";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -32,7 +28,7 @@ const mytheme = createMuiTheme({
 });
 function BookmarkButton(props) {
   const { onClick, added } = props;
-  const handleClick = () => {
+  function handleClick() {
     if (onClick) {
       if (added === true) {
         onClick("DELETE");
@@ -40,7 +36,7 @@ function BookmarkButton(props) {
         onClick("CREATE");
       }
     }
-  };
+  }
 
   return (
     <ThemeProvider theme={mytheme}>

@@ -14,15 +14,17 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import QuestionAnswerOutlinedIcon from "@material-ui/icons/QuestionAnswerOutlined";
 import ImportContactsOutlinedIcon from "@material-ui/icons/ImportContactsOutlined";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Menu(props) {
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <div className={classnames.hb_menu}>
       <Paper>
         <MenuList>
           <MenuItem>
-            <Link to="/">
+            <Link to="/" activeClassName={classnames.selected}>
               <ListItemIcon>
                 <HomeOutlinedIcon fontSize="small" />
               </ListItemIcon>
@@ -30,7 +32,7 @@ export default function Menu(props) {
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link to="/favorites">
+            <Link to="/favorites" activeClassName={classnames.selected}>
               <ListItemIcon>
                 <FavoriteBorderOutlinedIcon fontSize="small" />
               </ListItemIcon>

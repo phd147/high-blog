@@ -1,9 +1,12 @@
-@media screen and (max-width : 1111px){
-    .hb_menu {
-        display : none ;
-    }
+@media screen and (max-width: 1111px) {
+  .hb_menu {
+    display: none;
+  }
 }
 
 .hb_menu {
-    z-index : 1 ;
+  z-index: 1;
+}
+.selected {
+  background-color: red;
 }
