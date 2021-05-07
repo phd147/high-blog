@@ -3,24 +3,25 @@
   display: flex;
   align-items: center;
 }
-.hb_header_container * {
-  color: white;
+.hb_header_container  * {
+    color : black ;
 }
 
-/* h2 {
-    color : white ;
-} */
+h2 {
+    color : black ;
+}
 
 .hb_header {
-  background-color: #1976d2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
+    background-color : #ffffff ;
+    position : fixed ;
+    top : 0;
+    left : 0;
+    width : 100%;
+    z-index : 10 ;
+    border-bottom:1px solid #ccc
 }
 .hb_header svg {
-  color: white;
+    color : black ;
 }
 
 .hb_header_left {
@@ -35,8 +36,8 @@
 }
 
 .grid_header input {
-  height: 100%;
-  color: white;
+    height : 100%;
+    color : black ;
 }
 
 .hb_header_menu_icon {
