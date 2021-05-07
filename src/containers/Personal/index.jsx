@@ -12,7 +12,6 @@ import {CakeOutlined, LanguageOutlined, LocationOnOutlined} from "@material-ui/i
 import {Container} from "react-bootstrap";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
-import {LinkedinIcon} from "react-share";
 import TypographyIcon from "../../components/TypographyIcon/TypographyIcon";
 
 Personal.propTypes = {}
@@ -40,22 +39,20 @@ function Personal(props) {
         fetchData();
     }, []);
 
-    let submitFile = useCallback(async (event) => {
+    let submitFile = useCallback((event) => {
         let file = event.target.files[0];
         let targetName = event.target.name;
-        let newPath = await uploadImage(targetName, file);
-        if (targetName === 'avatar') {
+        uploadImage(targetName, file).then(newPath =>{
+            if (targetName === 'avatar') {
+                console.log(userData);
+                setUserData({...userData, imagePath: newPath});
+                dispatch(updateUserAvatar(newPath));
 
-            userData.imagePath = `${newPath}`;
-            setUserData({...userData});
-
-            dispatch(updateUserAvatar());
-
-        } else if (targetName === 'background') {
-            userData.backgroundPath = `${newPath}`;
-            setUserData({...userData});
-        }
-    }, []);
+            } else if (targetName === 'background') {
+                setUserData({...userData, backgroundPath: newPath});
+            }
+        });
+    }, [userData]);
 
     let currentUserProfile = useSelector(state => state.user);
     let isCurrentLoginedUser = currentUserProfile.nickName === nickName;
@@ -113,7 +110,7 @@ function Personal(props) {
                 <div className="personal__header__avatar"
                      style={{
                          backgroundImage: `url("${userData.imagePath ? BASE_URL + "/" + userData.imagePath : DefaultAvatar}")`,
-                         backgroundSize: "contain"
+                         backgroundSize: "cover"
                      }}>
                     {btnEditAvatar}
                 </div>

@@ -271,7 +271,7 @@ function PostDetails(props) {
   }, []);
 
   return (
-    <Container className="post-details__container">
+    <Container className="post-details__container" style={{marginTop: 25}}>
       {isLoading ? (
         <Grid container spacing={2}>
           <Grid item xs={0} sm={1} md={1}></Grid>
