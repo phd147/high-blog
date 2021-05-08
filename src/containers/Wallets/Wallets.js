@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Helmet} from "react-helmet";
 import {
@@ -16,13 +16,18 @@ import {
 import Budget from "../../themes/components/dashboard/Budget";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserTransaction, getWallet} from "../../store/action/walletAction";
+import {Pagination} from "@material-ui/lab";
 
 export default function Wallets(props){
 
-    const balance = useSelector(state => state.wallet.balance);
-    const transactions = useSelector(state => state.wallet.transactions)
+    const wallet = useSelector(state => state.wallet);
 
     const dispatch = useDispatch();
+
+    const handleChange = (event,value) => {
+        if(value === wallet.page) return ;
+        dispatch(getUserTransaction(value));
+    }
 
 
     useEffect(() => {
@@ -61,7 +66,7 @@ export default function Wallets(props){
 
                               xs={12}
                           >
-                              <Budget balance={balance} />
+                              <Budget balance={wallet.balance} />
                           </Grid>
                           <Grid
                               item
@@ -123,7 +128,7 @@ export default function Wallets(props){
                                           </TableRow>
                                       </TableHead>
                                       <TableBody>
-                                          {transactions.map((row) => (
+                                          {wallet.transactions.map((row) => (
                                               <TableRow key={row.id}>
                                                   <TableCell >
                                                       {row.id}
@@ -136,6 +141,8 @@ export default function Wallets(props){
                                                       <Chip
                                                           color="primary"
                                                           label={row.status}
+
+
                                                           size="small"
                                                       />
                                                   </TableCell>
@@ -145,6 +152,13 @@ export default function Wallets(props){
                                   </Table>
                               </TableContainer>
                           </Grid>
+                          <Grid container justify={"center"}>
+                              <Grid item >
+
+                                  <Pagination count={wallet.totalPage} page={wallet.page} onChange={handleChange} color={"primary"}/>
+                              </Grid>
+                          </Grid>
+
                       </Grid>
                   </Container>
               </Box>

@@ -32,5 +32,7 @@ export const FAVORITE_LIST_RESET = "FAVORITE_LIST_RESET";
 
 
 //wallet
-export const SET_WALLET = 'SET_WALLET';
+export const SET_WALLET = 'WALLET/SET_WALLET';
 export const SET_TRANSACTION = 'SET_TRANSACTION'
+
+export const ON_WALLET_ERROR = 'WALLET/SET_ON_WALLET_ERROR';

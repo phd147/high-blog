@@ -1,5 +1,6 @@
-import {SET_WALLET,SET_TRANSACTION} from './actionTypes';
+import {SET_WALLET, SET_TRANSACTION} from './actionTypes';
 import WalletService from "../../containers/Wallets/wallet.service";
+import {toast} from "react-toastify";
 
 
 export const getWallet = () => {
@@ -19,18 +20,18 @@ export const getWallet = () => {
 }
 
 
-export const getUserTransaction = () => {
+export const getUserTransaction = (page) => {
     return async dispatch => {
         try {
-            const res = await WalletService.getUserTransactions();
-            console.log(res);
+            const res = await WalletService.getUserTransactions(page);
             const data = res.data ;
             dispatch(
                 {type : SET_TRANSACTION,transactionData : data }
             )
         }
         catch(err){
-
+            console.log(err.response);
+            toast.error(err.response.message);
         }
 
     }

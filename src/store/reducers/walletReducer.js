@@ -1,4 +1,4 @@
-import {SET_WALLET,SET_TRANSACTION} from '../action/actionTypes';
+import {SET_WALLET, SET_TRANSACTION} from '../action/actionTypes';
 
 const initialState = {
     balance : 0 ,
@@ -6,8 +6,7 @@ const initialState = {
     page: 0,
     pageSize: 0,
     totalItems: 0,
-    totalPage: 0
-}
+    totalPage: 0 }
 
 const   walletReducer = (state = initialState , action) => {
 
@@ -26,8 +25,9 @@ const   walletReducer = (state = initialState , action) => {
                 page : action.transactionData.page ,
                 pageSize : action.transactionData.pageSize ,
                 totalItems:  action.transactionData.totalItems ,
-                totalPage:  action.transactionData.totalPage
+                totalPage:  action.transactionData.totalPage,
             }
+
         default :
             return state ;
     }

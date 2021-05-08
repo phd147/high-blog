@@ -25,11 +25,10 @@ export default function Post(props) {
         };
         try {
             const res = await PostService.save(data);
-            toast.success('save ok');
             setIsLove(true);
         } catch (err) {
             console.log(err);
-            toast.error('save error');
+            toast.error(err.response.data.message);
         }
     }
 
@@ -39,7 +38,7 @@ export default function Post(props) {
             toast.success('unsave ok');
             setIsLove(false);
         } catch (err) {
-            toast.error('unsave error');
+            toast.error(err.response.data.message);
         }
     }
 
