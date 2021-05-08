@@ -8,8 +8,8 @@ export default class WalletService extends ApiHelper {
         return this.get(url);
     }
 
-    static getUserTransactions(){
-        const url = '/api/v1/user/user-transactions';
+    static getUserTransactions(page=1){
+        const url = `/api/v1/user/user-transactions?page=${page}&pageSize=10`;
         return this.get(url);
     }
 }

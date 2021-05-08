@@ -1,5 +1,5 @@
 
-const pathNotIncludeHeader = ['login','register'];
+const pathNotIncludeHeader = ['login','register','404'];
 
 
 export const checkPathIsIncludeHeader = location => {

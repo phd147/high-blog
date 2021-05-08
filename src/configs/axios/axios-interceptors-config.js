@@ -26,7 +26,7 @@ instance.interceptors.response.use(
       console.log("expired refresh token");
 
       try {
-        // call api get new access token from refresh token
+        // call api to get new access token from refresh token
         const res = await getTokenFromRefreshToken();
         console.log(res);
         //  store this one to local storage

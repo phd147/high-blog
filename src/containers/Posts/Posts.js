@@ -12,6 +12,7 @@ import cs from "classnames";
 
 import classnames from "./Posts.module.css";
 import PostLoading from "../../components/PostLoading/PostLoading";
+import {nanoid} from "nanoid";
 
 export default function Posts(props) {
   const type = props.type;
@@ -111,7 +112,7 @@ export default function Posts(props) {
           </InfiniteScroll>
           {posts.length
             ? null
-            : [1, 2, 3].map((el, index) => <PostLoading key={index} />)}
+            : [1, 2, 3].map((el, index) => <PostLoading key={nanoid()} />)}
         </div>
       )}
     </>
