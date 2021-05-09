@@ -13,13 +13,16 @@ const createOrder = async (data, actions, amount) => {
         }).catch(err => toast.error("Can't create payment"));
 }
 
-const onApprove = async (data, actions) => {
+const onApprove = async (data, actions,onApproveCallback) => {
     console.log("Data : " + data + "\n\n" + actions)
     await ApiHelper
         .post("/api/v1/user/deposit/paypal/execute", null, {paymentId: data.orderID})
         .then(res => {
             if(res.status === HttpStatus.NO_CONTENT)
                 toast.success("Deposited successfully!");
+            // goi api get wallet
+            // dispatch .... set balance
+            onApproveCallback();
         }).catch(err => console.log(err));
 }
 

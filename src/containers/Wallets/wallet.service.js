@@ -12,6 +12,11 @@ export default class WalletService extends ApiHelper {
         const url = `/api/v1/user/user-transactions?page=${page}&pageSize=10`;
         return this.get(url);
     }
+
+    static withDrawal(data){
+        const url = '/api/v1/user/withdrawal/paypal';
+        return this.post(url,null,data);
+    }
 }
 
 

@@ -31,7 +31,7 @@ const Budget = ({balance}) => (
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="h4"
           >
             {
               balance
