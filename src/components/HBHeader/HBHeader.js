@@ -5,7 +5,19 @@ import {useSelector} from "react-redux";
 import {useHistory, useLocation} from "react-router-dom";
 
 // material ui
-import {Avatar, Button, Container, Drawer, Grid, Icon, IconButton, InputBase,} from "@material-ui/core";
+import {
+    Avatar,
+    Button,
+    Container, Divider,
+    Drawer,
+    Grid,
+    Icon,
+    IconButton,
+    InputBase, List, ListItem, ListItemIcon, ListItemText,
+    Menu,
+    MenuItem, MenuList,
+    Popover, Typography,
+} from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
@@ -24,6 +36,7 @@ import SideBar from "../SideBar/SideBar";
 
 import DefaultAvatar from "../../../public/default/default_user_avatar.png";
 import {BASE_URL} from "../../constant";
+import {removeToken} from "../../services/user.service";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -102,6 +115,21 @@ export default function HBHeader(props) {
         setDrawerState((oldState) => !oldState);
     }, []);
 
+    // Popover
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+    //
+
     const searchRef = useRef();
 
     const submitHandler = (e) => {
@@ -110,6 +138,11 @@ export default function HBHeader(props) {
         console.log(searchValue);
         history.push(`/search?q=${searchValue}`);
     };
+
+    const logoutHandler = () => {
+        removeToken();
+        history.push("/login");
+    }
 
     return (
         <div>
@@ -149,8 +182,8 @@ export default function HBHeader(props) {
                                 >
                                     <MenuIcon onClick={toggleDrawer}/>
                                 </IconButton>
-                                <div style={{cursor: "pointer"}} onClick={()=>history.push("/")}>
-                                    <img src="/img/highblog_logo.png" alt="ko hien thi" style={{width: 150 }}/>
+                                <div style={{cursor: "pointer"}} onClick={() => history.push("/")}>
+                                    <img src="/img/highblog_logo.png" alt="ko hien thi" style={{width: 150}}/>
                                 </div>
                             </Grid>
                             <Grid
@@ -179,7 +212,8 @@ export default function HBHeader(props) {
                                     </form>
                                 </div>
                                 {userId ? (
-                                    <Button className={cs(classnames.hb_header_button)}>
+                                    <Button className={cs(classnames.hb_header_button)}
+                                            onClick={() => history.push("/editor")}>
                                         Write a post
                                     </Button>
                                 ) : null}
@@ -206,9 +240,45 @@ export default function HBHeader(props) {
                                         Sign In
                                     </Button>
                                 ) : (
-                                    <IconButton onClick={()=>history.push(`/user/personal/${userNickName}`)}>
-                                        <Avatar alt="user avatar" src={imagePath ? BASE_URL + "/" + imagePath : DefaultAvatar}/>
-                                    </IconButton>
+                                    <div>
+                                        <IconButton
+                                            aria-describedby={id}
+                                            onClick={handleClick}
+                                        >
+                                            <Avatar alt="user avatar"
+                                                    src={imagePath ? BASE_URL + "/" + imagePath : DefaultAvatar}/>
+                                        </IconButton>
+
+                                        <Popover
+                                            id={id}
+                                            open={open}
+                                            anchorEl={anchorEl}
+                                            onClose={handleClose}
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'center',
+                                            }}
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'center',
+                                            }}
+                                        >
+                                            <MenuList>
+                                                <MenuItem
+                                                    onClick={() => history.push(`/user/personal/${userNickName}`)}>
+                                                    <div>
+                                                        <Typography>Your page</Typography>
+                                                        <Typography style={{color: "#ccc"}}>@{userNickName}</Typography>
+                                                    </div>
+                                                </MenuItem>
+                                                <Divider/>
+                                                <MenuItem onClick={() => history.push("/wallet")}>Wallet</MenuItem>
+                                                <MenuItem onClick={() => history.push("/edit-profile")}>Edit
+                                                    profile</MenuItem>
+                                                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                                            </MenuList>
+                                        </Popover>
+                                    </div>
                                 )}
                             </Grid>
                         </Grid>

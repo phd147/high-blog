@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {Button, Card, CardContent, CardHeader, Grid} from "@material-ui/core";
+import {Button, Card, CardContent, Grid} from "@material-ui/core";
 import "./Personal.css"
 import {getUserDataByNickName, uploadImage} from "./Personal.service"
 import EditIcon from "@material-ui/icons/Edit";
@@ -13,6 +13,7 @@ import {Container} from "react-bootstrap";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import TypographyIcon from "../../components/TypographyIcon/TypographyIcon";
+import moment from "moment";
 
 Personal.propTypes = {}
 
@@ -124,7 +125,7 @@ function Personal(props) {
                     {userData.firstName + " " + userData.lastName}
                 </Typography>
                 <TypographyIcon iconComponent={<CakeOutlined/>} justify="center">
-                    Joined on 2021/05/05
+                    Joined on {moment(userData.createdDate).format("YYYY-MM-DD")}
                 </TypographyIcon>
             </div>
             <Container>
