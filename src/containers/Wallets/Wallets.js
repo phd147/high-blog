@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {Helmet} from "react-helmet";
 import {
-    Box, Chip,
+    Box, Button, Card, CardActions, CardContent, Chip,
     Container,
     Grid,
     Paper,
@@ -11,14 +11,33 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow, TextField, Typography
 } from "@material-ui/core";
 import Budget from "../../themes/components/dashboard/Budget";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserTransaction, getWallet} from "../../store/action/walletAction";
+import {getUserTransaction, getWallet, withDrawalAction} from "../../store/action/walletAction";
 import {Pagination} from "@material-ui/lab";
+import ChipWithStatus from "../../components/ChipWithStatus/ChipWithStatus";
+import PaypalSmartButton from "../../components/PaypalSmartButton/PaypalSmartButton";
 
 export default function Wallets(props){
+
+    const emailRef  = useRef();
+    const amountRef = useRef();
+    const [amountDeposit,setAmountDeposit] = useState(1);
+
+    const amountDepositChangeHandler = e => {
+        setAmountDeposit(e.target.value);
+    }
+
+
+    const withDrawalHandler = () => {
+        dispatch(withDrawalAction({
+            email : emailRef.current.value ,
+            amount : amountRef.current.value
+        }));
+    }
+
 
     const wallet = useSelector(state => state.wallet);
 
@@ -74,9 +93,23 @@ export default function Wallets(props){
 
                               xs={12}
                           >
-                             <Paper>
-                                 Withdrawal
-                             </Paper>
+                             <Card>
+                                 <CardContent>
+                                     <Typography component={"h2"}>
+                                         Withdrawal
+                                     </Typography>
+                                     <div>
+                                         <TextField style={{width : '100%'}} id="wallet-email" inputRef={emailRef}  label="Email" />
+                                     </div>
+                                     <TextField id="wallet-amount" inputRef={amountRef} type={"number"} label="Amount" />
+                                 </CardContent>
+                                 <CardActions>
+                                     <Button variant={"contained"} color={"primary"} onClick={withDrawalHandler}>
+                                     Action
+                                    </Button>
+                                 </CardActions>
+
+                             </Card>
                           </Grid>
                           <Grid
                               item
@@ -85,9 +118,23 @@ export default function Wallets(props){
 
                               xs={12}
                           >
-                              <Paper>
-                                  Recharge
-                              </Paper>
+                              <Card>
+                                  <CardContent>
+                                      <Typography component={"h2"}>
+                                          Deposit
+                                    </Typography>
+                                      <TextField onChange={amountDepositChangeHandler} defaultValue={1} id="standard-error-helper-text" helperText={ amountDeposit <= 0 ?"Invalid amount" : null}   error={amountDeposit <= 0}   type={"number"} label="Amount" />
+                                  </CardContent>
+
+                                  <CardActions>
+                                      { amountDeposit > 0 ? <PaypalSmartButton amount={amountDeposit}/>: null }
+                                  </CardActions>
+
+
+
+
+
+                              </Card>
                           </Grid>
                           <Grid
                               item
@@ -138,12 +185,12 @@ export default function Wallets(props){
                                                   <TableCell align="right">{row.paymentMethod}</TableCell>
                                                   <TableCell align="right">{row.paymentType}</TableCell>
                                                   <TableCell align="right">
-                                                      <Chip
-                                                          color="primary"
-                                                          label={row.status}
+                                                      <ChipWithStatus
+
+                                                          status={row.status}
+                                                          // style={{backgroundColor:'black'}}
 
 
-                                                          size="small"
                                                       />
                                                   </TableCell>
                                               </TableRow>
@@ -155,7 +202,7 @@ export default function Wallets(props){
                           <Grid container justify={"center"}>
                               <Grid item >
 
-                                  <Pagination count={wallet.totalPage} page={wallet.page} onChange={handleChange} color={"primary"}/>
+                                  <Pagination variant={"outlined"} count={wallet.totalPage} page={wallet.page} onChange={handleChange} color={"primary"}/>
                               </Grid>
                           </Grid>
 

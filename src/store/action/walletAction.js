@@ -13,12 +13,12 @@ export const getWallet = () => {
             )
         }
         catch(err){
-
+            console.log(err);
+            toast.error(err.response.data.message);
         }
 
     }
 }
-
 
 export const getUserTransaction = (page) => {
     return async dispatch => {
@@ -33,6 +33,21 @@ export const getUserTransaction = (page) => {
             console.log(err.response);
             toast.error(err.response.message);
         }
+    }
 
+}
+
+
+export const withDrawalAction = data => {
+    return async dispatch => {
+        try {
+            const res = await WalletService.withDrawal(data);
+            dispatch(getWallet());
+            toast.success('Success');
+        }
+        catch(err){
+            console.log(err);
+            toast.error(err.response.data.message);
+        }
     }
 }

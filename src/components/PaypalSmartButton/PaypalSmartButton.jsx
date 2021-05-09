@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {PayPalButton} from "react-paypal-button-v2";
 import {createOrder, onApprove, onCancel} from "./PaypalSmartButton.service";
+import {useDispatch} from "react-redux";
+import {getUserTransaction, getWallet} from "../../store/action/walletAction";
 
 PaypalSmartButton.propTypes = {
     amount: PropTypes.number,
@@ -9,9 +11,16 @@ PaypalSmartButton.propTypes = {
 
 function PaypalSmartButton(props) {
 
+    const dispatch = useDispatch();
+
+    const onApproveCb = () => {
+        dispatch(getWallet());
+        dispatch(getUserTransaction());
+    }
+
     const {amount} = props;
     return <PayPalButton createOrder={(data, action) => createOrder(data, action, amount)}
-                         onApprove={onApprove}
+                         onApprove={(data,action) => onApprove(data,action,onApproveCb)}
                          onCancel={onCancel}
                          style={{
                              layout: "horizontal",
