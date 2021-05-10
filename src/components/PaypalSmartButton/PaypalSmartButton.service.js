@@ -34,7 +34,7 @@ const onCancel = async (data) => {
                 toast.success("Canceled depositing successfully!");
         }).catch(err => {
             toast.error("Canceled depositing unsuccessfully!");
-        })
+        });
 }
 
 export {createOrder, onApprove, onCancel}

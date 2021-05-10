@@ -1,5 +1,5 @@
 export const BASE_URL = "https://highblog.codes";
-
+export const NOTIFICATION_WEBSOCKET_CONNECT_URL = BASE_URL + "/notification";
 
 export const CREATED = {
     text: 'CREATED',

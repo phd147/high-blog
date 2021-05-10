@@ -37,6 +37,7 @@ import SideBar from "../SideBar/SideBar";
 import DefaultAvatar from "../../../public/default/default_user_avatar.png";
 import {BASE_URL} from "../../constant";
 import {removeToken} from "../../services/user.service";
+import NotificationMenuList from "../Notification/NotificationMenuList";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -116,18 +117,29 @@ export default function HBHeader(props) {
     }, []);
 
     // Popover
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorUserAvatar, setAnchorUserAvatar] = useState(null);
+    const [anchorNotification, setAnchorNotification] = useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleAvatarClick = (event) => {
+        setAnchorUserAvatar(event.currentTarget);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleNotificationClick = (event) => {
+        setAnchorNotification(event.currentTarget);
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const handleAvatarClose = () => {
+        setAnchorUserAvatar(null);
+    };
+
+    const handleNotificationClose = () => {
+        setAnchorNotification(null);
+    };
+
+    const avatarOpen = Boolean(anchorUserAvatar);
+    const avatarId = avatarOpen ? 'avatar-popover' : undefined;
+    const notificationOpen = Boolean(anchorNotification);
+    const notificationId = notificationOpen ? 'notification-popover' : undefined;
     //
 
     const searchRef = useRef();
@@ -228,11 +240,30 @@ export default function HBHeader(props) {
                                 </IconButton>
 
                                 {userId ? (
-                                    <IconButton>
-                                        <NotificationsNoneOutlinedIcon
-                                            className={classnames.hb_header_icon}
-                                        />
-                                    </IconButton>
+                                    <div>
+
+                                        <IconButton onClick={handleNotificationClick}>
+                                            <NotificationsNoneOutlinedIcon
+                                                className={classnames.hb_header_icon}
+                                            />
+                                        </IconButton>
+                                        <Popover
+                                            id={notificationId}
+                                            open={notificationOpen}
+                                            anchorEl={anchorNotification}
+                                            onClose={handleNotificationClose}
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'center',
+                                            }}
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'center',
+                                            }}
+                                        >
+                                            <NotificationMenuList/>
+                                        </Popover>
+                                    </div>
                                 ) : null}
                                 {!userId ? (
                                     <Button onClick={() => history.push("/login")}>
@@ -242,18 +273,18 @@ export default function HBHeader(props) {
                                 ) : (
                                     <div>
                                         <IconButton
-                                            aria-describedby={id}
-                                            onClick={handleClick}
+                                            aria-describedby={avatarId}
+                                            onClick={handleAvatarClick}
                                         >
                                             <Avatar alt="user avatar"
                                                     src={imagePath ? BASE_URL + "/" + imagePath : DefaultAvatar}/>
                                         </IconButton>
 
                                         <Popover
-                                            id={id}
-                                            open={open}
-                                            anchorEl={anchorEl}
-                                            onClose={handleClose}
+                                            id={avatarId}
+                                            open={avatarOpen}
+                                            anchorEl={anchorUserAvatar}
+                                            onClose={handleAvatarClose}
                                             anchorOrigin={{
                                                 vertical: 'bottom',
                                                 horizontal: 'center',

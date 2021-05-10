@@ -80,8 +80,10 @@
     "react-toastify": "^7.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "sockjs-client": "^1.5.1",
     "styled-components": "^5.2.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "webstomp-client": "^1.2.6"
   },
   "scripts": {
     "start": "craco start",
