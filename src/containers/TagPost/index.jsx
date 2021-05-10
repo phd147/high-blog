@@ -13,7 +13,7 @@ function TagPost(props) {
     <Container>
       <Grid container spacing={3} direction="row">
         <Grid item xs={false} md={2}>
-          <Menu />
+          <Menu tags />
         </Grid>
         <Grid item xs={12} md={7}>
           <Posts

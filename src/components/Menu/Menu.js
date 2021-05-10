@@ -17,29 +17,30 @@ import ImportContactsOutlinedIcon from "@material-ui/icons/ImportContactsOutline
 import { Link, useLocation } from "react-router-dom";
 
 export default function Menu(props) {
+  const { home, favorites, questions, tags, followings } = props;
   const location = useLocation();
   console.log(location.pathname);
   return (
     <div className={classnames.hb_menu}>
-      <Paper variant = 'outlined'>
+      <Paper variant="outlined">
         <MenuList>
-          <MenuItem>
-            <Link to="/" activeClassName={classnames.selected}>
+          <MenuItem style={{ backgroundColor: home ? "darkgray" : "" }}>
+            <Link to="/">
               <ListItemIcon>
                 <HomeOutlinedIcon fontSize="small" />
               </ListItemIcon>
               <Typography variant="inherit">Home</Typography>
             </Link>
           </MenuItem>
-          <MenuItem>
-            <Link to="/favorites" activeClassName={classnames.selected}>
+          <MenuItem style={{ backgroundColor: favorites ? "darkgray" : "" }}>
+            <Link to="/favorites">
               <ListItemIcon>
                 <FavoriteBorderOutlinedIcon fontSize="small" />
               </ListItemIcon>
               <Typography variant="inherit">Favorite</Typography>
             </Link>
           </MenuItem>
-          <MenuItem>
+          <MenuItem style={{ backgroundColor: questions ? "darkgray" : "" }}>
             <Link to="/questions">
               <ListItemIcon>
                 <QuestionAnswerOutlinedIcon fontSize="small" />
@@ -47,7 +48,7 @@ export default function Menu(props) {
               <Typography variant="inherit">Question</Typography>
             </Link>
           </MenuItem>
-          <MenuItem>
+          <MenuItem style={{ backgroundColor: tags ? "darkgray" : "" }}>
             <Link to="/tags">
               <ListItemIcon>
                 <LabelOutlinedIcon fontSize="small" />
@@ -55,7 +56,7 @@ export default function Menu(props) {
               <Typography variant="inherit">Tags</Typography>
             </Link>
           </MenuItem>
-          <MenuItem>
+          <MenuItem style={{ backgroundColor: followings ? "darkgray" : "" }}>
             <Link to="/followings">
               <ListItemIcon>
                 <ImportContactsOutlinedIcon fontSize="small" />

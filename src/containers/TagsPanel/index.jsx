@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./TagsPanel.module.css";
-import {Button, Card, CardContent, Container, Grid, Typography} from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TagsService from "./TagsPanel.service";
 import Menu from "../../components/Menu/Menu";
@@ -26,13 +33,23 @@ function TagsPanel(props) {
     <Container>
       <Grid container spacing={3} className={styles.container} direction="row">
         <Grid item xs={false} md={2}>
-          <Menu />
+          <Menu tags />
         </Grid>
         <Grid item xs={12} md={10}>
-          <Typography variant="h4" align="center">Tags</Typography>
-          <div className={styles.inner} style={{marginTop: 10}}>
+          <Typography variant="h4" align="center">
+            Tags
+          </Typography>
+          <div className={styles.inner} style={{ marginTop: 10 }}>
             {tags.map((tag) => (
-              <Card style={{display: "flex", justifyContent: "center", alignItems: "center"}} key={tag.id} className={styles.card}>
+              <Card
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                key={tag.id}
+                className={styles.card}
+              >
                 <CardContent>
                   <Link to={`/t/${tag.id}/${tag.name}`}>
                     <h3>{tag.name}</h3>

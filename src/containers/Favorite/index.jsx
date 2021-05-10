@@ -12,7 +12,7 @@ function Favorite(props) {
     <Container>
       <Grid container spacing={3} className={styles.container} direction="row">
         <Grid item xs={false} md={2}>
-          <Menu />
+          <Menu favorites />
         </Grid>
         <Grid item xs={12} md={7}>
           <Posts
