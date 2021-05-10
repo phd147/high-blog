@@ -1,4 +1,4 @@
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useParams } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
@@ -16,7 +16,10 @@ function TagPost(props) {
           <Menu tags />
         </Grid>
         <Grid item xs={12} md={7}>
-          <Posts
+          <Typography variant = "h4" style = {{marginBottom: 5}}>
+              # {props.match.params.tagName}
+          </Typography>
+            <Posts
             type={PostType.TAG_TYPE}
             initialParams={{ tagId: tagId, page: 1, pageSize: 10 }}
           />
