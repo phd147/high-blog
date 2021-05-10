@@ -71,7 +71,7 @@ function FollowingPost(props) {
             direction="row"
           >
             <Grid item xs={false} md={2}>
-              <Menu />
+              <Menu followings />
             </Grid>
             <Grid item xs={12} sm={9} md={7}>
               <Posts
