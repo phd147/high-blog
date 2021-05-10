@@ -35,12 +35,17 @@ import QuestionPost from "./containers/QuestionPost";
 import TagPost from "./containers/TagPost";
 import Personal from "./containers/Personal";
 import Wallets from "./containers/Wallets/Wallets";
+import WebsocketConfig from "./components/Notification/WebsocketConfig";
+import {NOTIFICATION_WEBSOCKET_CONNECT_URL} from "./constant";
+import React from "react";
 
 function App() {
   return (
     <div>
       <HBHeader />
       <ToastContainerConfig />
+      <WebsocketConfig socketUrl={NOTIFICATION_WEBSOCKET_CONNECT_URL}
+                       subcribeUrl={`/user/exchange/amq.direct/notification`}/>
       <Switch>
         <GuardedRoute
           path="/login"
