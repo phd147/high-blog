@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import PropTypes from "prop-types";
 import SockJS from "sockjs-client";
 import webstomp from "webstomp-client";
@@ -12,7 +12,7 @@ WebsocketConfig.propTypes = {
     onMessage: PropTypes.func,
 }
 
-function WebsocketConfig({socketUrl, subcribeUrl, onMessage}) {
+function WebsocketConfig({socketUrl, subcribeUrl, markSentUrl, onMessage}) {
     console.log("RENDER WEBSOCKET CONFIG");
 
     const buildNotification = useCallback((notification) => {
@@ -40,6 +40,11 @@ function WebsocketConfig({socketUrl, subcribeUrl, onMessage}) {
                 if (message.command === "MESSAGE") {
                     let jsonBody = JSON.parse(message.body);
                     toast(buildNotification(jsonBody));
+
+                    stompClient.send(`${markSentUrl}.${jsonBody.id}`)
+                    if(onMessage){
+                        onMessage(jsonBody);
+                    }
                 }
             });
         });
