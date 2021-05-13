@@ -60,4 +60,8 @@ export default class PostDetailsService extends ApiHelper {
     const url = `/api/v1/user/donations`;
     return this.post(url, null, { amount, nickName });
   }
+  static postSwitchNotification(nickName) {
+    const url = `/api/v1/user/subscriptions/users/${nickName}/notified/switch`;
+    return this.put(url);
+  }
 }

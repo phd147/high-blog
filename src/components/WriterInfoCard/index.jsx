@@ -15,6 +15,7 @@ WriterInfoCard.propTypes = {
   userMeta: PropTypes.object,
   onFollowClick: PropTypes.func,
   notiStatus: PropTypes.bool,
+  onNotiClick: PropTypes.func,
   onDonationSubmit: PropTypes.func,
   isDonateLoading: PropTypes.bool,
 };
@@ -30,6 +31,7 @@ WriterInfoCard.defaultProps = {
   },
   onFollowClick: null,
   notiStatus: false,
+  onNotiClick: null,
   onDonationSubmit: null,
   isDonateLoading: false,
 };
@@ -43,9 +45,8 @@ function WriterInfoCard(props) {
     notiStatus,
     onDonationSubmit,
     isDonateLoading,
+    onNotiClick,
   } = props;
-
-  const [noti, setNoti] = useState(false);
 
   const userInfo = useSelector((state) => state.user);
 
@@ -56,8 +57,9 @@ function WriterInfoCard(props) {
       } else onFollowClick(postOwner.nickName, "FOLLOW");
     }
   };
+
   function handleNotiClick() {
-    setNoti(!noti);
+    if (onNotiClick) onNotiClick(postOwner.nickName);
   }
   function handleDonateClick(amount) {
     if (onDonationSubmit) onDonationSubmit(postOwner.nickName, amount);
@@ -67,7 +69,10 @@ function WriterInfoCard(props) {
       <Card className={styles.container}>
         <CardContent className={styles.inner}>
           <div className={styles.post_owner}>
-            <Link to={`/user/personal/${userInfo.nickName}`} style={{ width: "100%" }}>
+            <Link
+              to={`/user/personal/${userInfo.nickName}`}
+              style={{ width: "100%" }}
+            >
               <Avatar alt="user" src={postOwner.avatar} />
               <div style={{ marginLeft: "10px" }}>
                 {postOwner.firstName} {postOwner.lastName}
@@ -99,10 +104,10 @@ function WriterInfoCard(props) {
                   selected={notiStatus}
                   onChange={handleNotiClick}
                 >
-                  {noti ? (
-                    <NotificationsNoneIcon />
+                  {postOwner.notified ? (
+                    <NotificationsActiveIcon color="primary" />
                   ) : (
-                    <NotificationsActiveIcon />
+                    <NotificationsNoneIcon />
                   )}
                 </ToggleButton>
               )}

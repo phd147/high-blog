@@ -173,6 +173,14 @@ function PostDetails(props) {
     }
   };
 
+  const handleSwitchNotification = async (nickName) => {
+    await PostDetailsService.postSwitchNotification(nickName);
+    setPostDetails({
+      ...postDetails,
+      user: { ...postDetails.user, notified: !postDetails.user.notified },
+    });
+  };
+
   async function handleDonationSubmit(nickName, amount) {
     const logged = await handleUserLogged();
     if (logged) {
@@ -271,7 +279,7 @@ function PostDetails(props) {
   }, []);
 
   return (
-    <Container className="post-details__container" style={{marginTop: 25}}>
+    <Container className="post-details__container" style={{ marginTop: 25 }}>
       {isLoading ? (
         <Grid container spacing={2}>
           <Grid item xs={0} sm={1} md={1}></Grid>
@@ -355,6 +363,7 @@ function PostDetails(props) {
               <WriterInfoCard
                 postOwner={postDetails.user}
                 onFollowClick={handleFollowWriter}
+                onNotiClick={handleSwitchNotification}
                 onDonationSubmit={handleDonationSubmit}
                 isDonateLoading={isDonateLoading}
               />
