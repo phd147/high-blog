@@ -10,8 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 //import reportWebVitals from './reportWebVitals';
 
-import Observable from "./utils/Obserable";
-import Observer from "./utils/Observer";
 
 //react-router-guards
 import { GuardProvider } from "react-router-guards";
@@ -64,13 +62,6 @@ const reducer = combineReducers({
 // create redux store
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
-
-
-const observable = Observable.getObservable();
-const observer = Observer.getObserver();
-observer.store = store ;
-
-observable.setObservers(observer);
 
 const requireLogin = async (to, from, next) => {
 

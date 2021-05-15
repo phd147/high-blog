@@ -18,11 +18,15 @@ import moment from "moment";
 Personal.propTypes = {}
 
 function Personal(props) {
+
     let DefaultAvatar = "/default/default_user_avatar.png";
     let nickName = props.match.params.nickName;
     let dispatch = useDispatch();
     let [userData, setUserData] = useState({});
     let history = useHistory();
+
+    //const personalNickName = useSelector(state => state.userReducer.nickName)
+
 
     useEffect(() => {
         console.log("Get user data");
@@ -101,7 +105,7 @@ function Personal(props) {
     }
 
     return (
-        <div>
+        <div style={{marginTop : '-70px'}}>
             <div className="personal__header"
                  style={{
                      backgroundImage: `url("${userData.backgroundPath ? BASE_URL + "/" + userData.backgroundPath : DefaultAvatar}")`,
@@ -163,6 +167,7 @@ function Personal(props) {
                                         {userData.location}
                                     </TypographyIcon>
                                 }
+                                {isCurrentLoginedUser && <Button style={{float : 'right', marginBottom:'10px'}}  variant={"outlined"} color="primary" onClick={() => history.push('/edit-profile') }>Edit profile</Button>}
                             </CardContent>
                         </Card>
                     </Grid>

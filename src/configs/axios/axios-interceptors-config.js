@@ -45,8 +45,8 @@ instance.interceptors.response.use(
               }
           }
           console.log(originalRequest);
-            instance(originalRequest);
-
+            const resUser = await instance(originalRequest);
+            const resData = resUser.data ;
 
       } catch (error) {
         console.log(error);

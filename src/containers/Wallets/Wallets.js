@@ -159,7 +159,7 @@ export default function Wallets(props){
                               item
 
                               md={12}
-                              xl={9}
+                              xl={12}
                               xs={12}
                           >
                               <TableContainer component={Paper}>
