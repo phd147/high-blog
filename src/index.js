@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 //import reportWebVitals from './reportWebVitals';
 
+
 //react-router-guards
 import { GuardProvider } from "react-router-guards";
 
@@ -61,11 +62,18 @@ const reducer = combineReducers({
 // create redux store
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
+
 const requireLogin = async (to, from, next) => {
+
+
+
   // call api to get user infor
   try {
     const res = await getUserInfor();
     const data = res.data;
+
+
+
     store.dispatch({
       type: actionTypes.INIT_USER_INFOR,
       firstName: data.firstName,

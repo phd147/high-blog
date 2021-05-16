@@ -107,6 +107,7 @@ export default function Posts(props) {
             loadMore={loadmoreFunction}
             hasMore={hasMoreItem}
             loader={<PostLoading />}
+            threshold={300}
           >
             {items}
           </InfiniteScroll>

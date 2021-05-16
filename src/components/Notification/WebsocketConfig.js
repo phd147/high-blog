@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import PropTypes from "prop-types";
 import SockJS from "sockjs-client";
-import webstomp from "webstomp-client";
+import webstomp from 'webstomp-client';
 import {checkToken} from "../../services/user.service";
 import {toast} from "react-toastify";
 import {Typography} from "@material-ui/core";

@@ -116,33 +116,6 @@ export default function Post(props) {
             <div></div>
           )}
 
-          <div className={cs(classnames.post_item_save)}>
-            {variant === "favorite" ? (
-              <Button
-                onClick={() => unSaveHandler(data.id)}
-                color="primary"
-                variant="contained"
-              >
-                Archive
-              </Button>
-            ) : !isLove ? (
-              <Button
-                onClick={() => saveHandler(data.id)}
-                color="primary"
-                variant="contained"
-              >
-                Save
-              </Button>
-            ) : (
-              <Button
-                onClick={() => unSaveHandler(data.id)}
-                color="secondary"
-                variant="contained"
-              >
-                Unsave
-              </Button>
-            )}
-          </div>
         </div>
       </div>
     </Card>
