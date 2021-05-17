@@ -13,7 +13,8 @@ import {
   LanguageOutlined,
   LocationOnOutlined,
 } from "@material-ui/icons";
-import { Container, ToggleButton } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import ToggleButton from '@material-ui/lab/ToggleButton';
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import TypographyIcon from "../../components/TypographyIcon/TypographyIcon";
@@ -25,6 +26,8 @@ import HttpStatus from "../../constants/HttpStatus";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import MaleIcon from '@material-ui/icons/Male';
+import FemaleIcon from '@material-ui/icons/Female';
 
 Personal.propTypes = {};
 
@@ -141,16 +144,11 @@ function Personal(props) {
   const handleFollowWriter = async (nickName, type) => {
     const logged = await handleUserLogged();
     if (logged) {
-      console.log("Vao 1");
       if (type === "FOLLOW") {
-        console.log("Vao 2");
         let result = await PostDetailsService.postFollow(nickName);
-       
         if(result.status === HttpStatus.CREATED)
             setUserData({...userData, followed: true});
-
       } else if (type === "UNFOLLOW") {
-        console.log("Vao 3");
         let result = await PostDetailsService.deleteFollow(nickName);
         
         if(result.status === HttpStatus.NO_CONTENT)
@@ -158,6 +156,15 @@ function Personal(props) {
       }
     }
   };
+  const handleSwitchNotification = async (nickName) => {
+    await PostDetailsService.postSwitchNotification(nickName);
+    setUserData({...userData, notified: !userData.notified});
+  };
+  {new Date(userData.createdDate).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })}
   return (
     <div>
       <div
@@ -193,10 +200,7 @@ function Personal(props) {
         <Typography variant="h4" align="center">
           {userData.firstName + " " + userData.lastName}
         </Typography>
-        <TypographyIcon iconComponent={<CakeOutlined />} justify="center">
-          Joined on {moment(userData.createdDate).format("YYYY-MM-DD")}
-        </TypographyIcon>
-        {!isCurrentLoginedUser ? (
+        {!isCurrentLoginedUser && currentUserProfile.userId ? (
           <div style={{textAlign: "center", marginBottom: 10}}>
             <Button
               variant={userData.followed ? "contained" : "outlined"}
@@ -213,6 +217,25 @@ function Personal(props) {
             >
               {userData.followed ? "Unfollow" : "Follow me"}
             </Button>
+            {userData.followed && (
+                <ToggleButton
+                  style={{
+                    height: "100%",
+                    border: "none",
+                    borderRadius: "50%",
+                    marginLeft:3,
+                  }}
+                  value="notification"
+                  selected={userData.notified}
+                  onChange={()=>{handleSwitchNotification(userData.nickName)}}
+                >
+                  {userData.notified ? (
+                    <NotificationsActiveIcon color="primary" />
+                  ) : (
+                    <NotificationsNoneIcon />
+                  )}
+                </ToggleButton>
+              )}
           </div>
         ) : (
           <></>
@@ -246,7 +269,18 @@ function Personal(props) {
                     {userData.location}
                   </TypographyIcon>
                 )}
-                {console.log("So luot theo" + userData.numberOfFollowers)}
+                {userData.genderType && (
+                  userData.genderType === "MALE" ? (
+                  <TypographyIcon iconComponent={<MaleIcon/>}>
+                    Male
+                  </TypographyIcon>
+                ):(<TypographyIcon iconComponent={<FemaleIcon/>}>
+                    Female
+              </TypographyIcon>)
+                )}
+                <TypographyIcon iconComponent={<CakeOutlined />}>
+                  Joined on {moment(userData.createdDate).format("YYYY-MM-DD")}
+                </TypographyIcon>
                 {userData.numberOfFollowers > 0 && (
                   <TypographyIcon iconComponent={<GroupAddIcon/>}>
                     Follower {userData.numberOfFollowers}
