@@ -360,6 +360,7 @@ function PostDetails(props) {
             style={{ overflow: "hidden " }}
           >
             <div className="fixed post-details__writer-info">
+              {console.log("tuanthanh" + JSON.stringify(props.match))}
               <WriterInfoCard
                 postOwner={postDetails.user}
                 onFollowClick={handleFollowWriter}
