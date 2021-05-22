@@ -14,6 +14,7 @@ import { FormControl, InputAdornment } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Fab } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
+import { toast } from "react-toastify";
 DonationButton.propTypes = {
   onDonateClick: PropTypes.func,
   isDonateLoading: PropTypes.bool,
@@ -35,10 +36,11 @@ function DonationButton(props) {
 
   const handleClose = () => {
     setOpen(false);
+    toast.error('Cancel Donate');
   };
   function handleDonateClick() {
     if (onDonateClick) onDonateClick(amountRef.current.value);
-    if (!isDonateLoading) handleClose();
+    if (!isDonateLoading) setOpen(false);
   }
 
   return (

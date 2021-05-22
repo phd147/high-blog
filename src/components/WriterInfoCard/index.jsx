@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardContent } from "@material-ui/core";
+import { Avatar, Button, Card, CardContent, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -8,6 +8,12 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import styles from "./WriterInfoCard.module.css";
 import DonationButton from "../DonationButton";
+import moment from "moment";
+import TypographyIcon from "../../components/TypographyIcon/TypographyIcon";
+import { CakeOutlined, LanguageOutlined, LocationOnOutlined } from "@material-ui/icons";
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import MaleIcon from '@material-ui/icons/Male';
+import FemaleIcon from '@material-ui/icons/Female';
 
 WriterInfoCard.propTypes = {
   followed: PropTypes.bool,
@@ -73,16 +79,16 @@ function WriterInfoCard(props) {
               to={`/user/personal/${userInfo.nickName}`}
               style={{ width: "100%" }}
             >
-              <Avatar alt="user" src={postOwner.avatar} />
+              <Avatar alt="user" src= {postOwner.imagePath ? ("https://highblog.codes/" + postOwner.imagePath): ("")}/>
               <div style={{ marginLeft: "10px" }}>
                 {postOwner.firstName} {postOwner.lastName}
               </div>
             </Link>
           </div>
+          {postOwner.bio && (
           <div className={styles.bio}>
-            I am founder/CEO of DEVERO Corporation. Entrepreneur, developer,
-            programmer, hacker, designer and blogger from Czechia.
-          </div>
+            {postOwner.bio}
+          </div>)}
           {userInfo.userId !== postOwner.id ? (
             <div className={styles.btn_group}>
               <Button
@@ -121,7 +127,7 @@ function WriterInfoCard(props) {
             <></>
           )}
 
-          <div className="user-meta">
+          {/* <div className="user-meta">
             <ul>
               {Object.keys(userMeta).map((key) => (
                 <li key={key}>
@@ -130,7 +136,34 @@ function WriterInfoCard(props) {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+                {postOwner.websiteUrl && (
+                  <TypographyIcon iconComponent={<LanguageOutlined />}>
+                    <a href={postOwner.websiteUrl}>{postOwner.websiteUrl}</a>
+                  </TypographyIcon>
+                )}
+                {postOwner.location && (
+                  <TypographyIcon iconComponent={<LocationOnOutlined />}>
+                    {postOwner.location}
+                  </TypographyIcon>
+                )}
+                {postOwner.genderType && (
+                  postOwner.genderType === "MALE" ? (
+                  <TypographyIcon iconComponent={<MaleIcon/>}>
+                    Male
+                  </TypographyIcon>
+                ):(<TypographyIcon iconComponent={<FemaleIcon/>}>
+                    Female
+              </TypographyIcon>)
+                )}
+                <TypographyIcon iconComponent={<CakeOutlined />}>
+                  Joined on {moment(postOwner.createdDate).format("YYYY-MM-DD")}
+                </TypographyIcon>
+                {postOwner.numberOfFollowers > 0 && (
+                  <TypographyIcon iconComponent={<GroupAddIcon/>}>
+                    Follower {postOwner.numberOfFollowers}
+                  </TypographyIcon>
+                )}
         </CardContent>
       </Card>
     </div>

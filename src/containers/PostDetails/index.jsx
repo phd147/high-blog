@@ -13,6 +13,7 @@ import SocialButtons from "../../components/SocialButtons";
 import Vote from "../../components/Vote";
 import WriterInfoCard from "../../components/WriterInfoCard";
 import { BASE_URL } from "../../constant.js";
+import HttpStatus from "../../constants/HttpStatus";
 import "./PostDetails.css";
 import PostDetailsService from "./PostDetails.service";
 
@@ -185,7 +186,12 @@ function PostDetails(props) {
     const logged = await handleUserLogged();
     if (logged) {
       setIsDonateLoading(true);
-      await PostDetailsService.postDonation(nickName, amount);
+      let result = await PostDetailsService.postDonation(nickName, amount);
+      if(result.status === HttpStatus.NO_CONTENT && amount > 0){
+        toast.success('Donate Successful');
+      }else{
+        toast.error('Donate Unsuccessful')
+      }
       setIsDonateLoading(false);
     }
   }

@@ -61,7 +61,7 @@ function PostPreview(props) {
       </div>
       <div className={styles.post_owner}>
         <Link to="#">
-          <Avatar alt="user" src={postOwner.avatar} />
+          <Avatar alt="user" src= {postOwner.imagePath ? ("https://highblog.codes/" + postOwner.imagePath): ("")} />
           <div style={{ marginLeft: "10px" }}>
             {postOwner.firstName} {postOwner.lastName}
           </div>

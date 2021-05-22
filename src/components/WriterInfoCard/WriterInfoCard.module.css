@@ -21,7 +21,7 @@
 }
 .bio {
   color: rgb(119, 119, 119);
-  margin: 20px 0;
+  margin: 17px 0;
   position: relative;
 }
 .bio::before {
@@ -43,6 +43,7 @@
   margin-bottom: 0;
 }
 .btn_group {
+  margin-top: 3px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
