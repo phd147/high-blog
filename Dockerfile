@@ -12,7 +12,7 @@ COPY . .
 RUN npm install && npm run build
 
 # nginx state for serving content
-FROM nginx:alpine
+FROM nginx:latest
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 
@@ -25,6 +25,8 @@ COPY nginx.conf /etc/nginx/conf.d
 
 # Copy static assets from builder stage
 COPY --from=builder /app/build .
+
+VOLUME D://myvol:/.
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 

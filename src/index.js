@@ -15,7 +15,7 @@ import App from "./App";
 import { GuardProvider } from "react-router-guards";
 
 //react router dom
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter} from "react-router-dom";
 
 //user service
 import { getUserInfor } from "./services/user.service";
@@ -98,11 +98,11 @@ const requireLogin = async (to, from, next) => {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <GuardProvider guards={[requireLogin]}>
           <App />
         </GuardProvider>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
