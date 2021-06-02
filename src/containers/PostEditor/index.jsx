@@ -146,15 +146,17 @@ function PostEditor(props) {
   }, []);
 
   useEffect(() => {
-    let draft = {
-      title: title,
-      summary: summary,
-      content: content,
-      tags: tags,
-      category: category,
-      coverImagePath: coverImagePath,
-    };
-    localStorage.setItem("highblog/new", JSON.stringify(draft));
+    if (!isEdit) {
+      let draft = {
+        title: title,
+        summary: summary,
+        content: content,
+        tags: tags,
+        category: category,
+        coverImagePath: coverImagePath,
+      };
+      localStorage.setItem("highblog/new", JSON.stringify(draft));
+    }
   }, [title, summary, content, tags, category, coverImagePath]);
 
   const handleContentChange = (data) => {
@@ -176,6 +178,14 @@ function PostEditor(props) {
     }
   };
 
+  // VALIDATION
+  const isUnvalidPost = () => {
+    console.log("Title: ", title);
+    console.log("Content: ", content);
+    if (title.trim() === "" || content.trim() === "") return true;
+    return false;
+  };
+
   const handlePostClick = async (postType) => {
     const postObj = {
       categoryId: category,
@@ -184,17 +194,30 @@ function PostEditor(props) {
       postType: postType,
       summary: summary,
       tags: tags,
-      title: title,
+      title: title.trim(),
     };
-    console.log(postObj);
-    const titleUrl = title.toLowerCase().replaceAll(" ", "-");
+    if (isUnvalidPost()) {
+      toast.error("Title and content cannot be empty");
+      return;
+    }
+    const titleUrl = title.trim().toLowerCase().replaceAll(" ", "-");
+    const location = {
+      pathname: `p/${postId}/${titleUrl}`,
+    };
     if (isEdit) {
       await PostEditorService.updatePost(postId, postObj);
-      history.push(`/${postId}/${titleUrl}`);
+      window.location.replace(`/p/${postId}/${titleUrl}`);
     } else {
       const { data } = await PostEditorService.postPost(postObj);
-      history.push(`/${data}/${titleUrl}`);
+      history.replace(`p/${data}/${titleUrl}`);
     }
+    localStorage.removeItem("highblog/new");
+  };
+
+  const handleDiscardClick = () => {
+    // window.location.replace(`/p/${postId}/${titleUrl}`);
+    history.goBack();
+    localStorage.removeItem("highblog/new");
   };
 
   const handleAddImageFromLibrary = (imageUrl) => {
@@ -217,7 +240,9 @@ function PostEditor(props) {
               sm={10}
               style={{ position: "relative", width: "100%" }}
             >
-              <h2 style={{ color: "black" }}>#New</h2>
+              <h2 style={{ color: "black" }}>
+                {isEdit ? "Edit your post" : "New post"}
+              </h2>
 
               <div className={styles.view_type}>
                 <ThemeProvider theme={toggleTheme}>
@@ -370,15 +395,25 @@ function PostEditor(props) {
                     color="primary"
                     onClick={() => handlePostClick("NORMAL")}
                   >
-                    {isEdit ? "Edit" : "Publish"}
+                    {isEdit ? "Update" : "Publish"}
                   </Button>
-                  <Button
-                    className={styles.btn}
-                    variant="contained"
-                    onClick={() => handlePostClick("DRAFT")}
-                  >
-                    Save
-                  </Button>
+                  {isEdit ? (
+                    <Button
+                      className={styles.btn}
+                      variant="contained"
+                      onClick={handleDiscardClick}
+                    >
+                      Discard
+                    </Button>
+                  ) : (
+                    <Button
+                      className={styles.btn}
+                      variant="contained"
+                      onClick={() => handlePostClick("DRAFT")}
+                    >
+                      Save
+                    </Button>
+                  )}
                 </div>
               </Grid>
               {contentFocus && !isPreview && (
