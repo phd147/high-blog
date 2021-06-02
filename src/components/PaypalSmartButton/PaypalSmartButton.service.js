@@ -14,7 +14,9 @@ const createOrder = async (data, actions, amount) => {
 }
 
 const onApprove = async (data, actions,onApproveCallback) => {
-    console.log("Data : " + data + "\n\n" + actions)
+    console.log({
+        data , actions
+    })
     await ApiHelper
         .post("/api/v1/user/deposit/paypal/execute", null, {paymentId: data.orderID})
         .then(res => {
