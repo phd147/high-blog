@@ -43,6 +43,7 @@ export const withDrawalAction = data => {
         try {
             const res = await WalletService.withDrawal(data);
             dispatch(getWallet());
+            dispatch(getUserTransaction())
             toast.success('Success');
         }
         catch(err){

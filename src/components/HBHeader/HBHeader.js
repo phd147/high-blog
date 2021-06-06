@@ -167,7 +167,7 @@ function HBHeader(props) {
                         open={drawerState}
                         onClose={toggleDrawer}
                     >
-                        <SideBar/>
+                        <SideBar toggleDrawer={toggleDrawer}/>
                     </Drawer>
 
                     <Container className={classnames.hb_header_container}>
