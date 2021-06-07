@@ -34,6 +34,10 @@ export default class PostService extends ApiHelper {
     const url = `/api/v1/posts?page=${data.page}&pageSize=${data.pageSize}&categoryId=1&tagId=${data.tagId}`;
     return this.get(url);
   }
+  static getTagQuestions(data) {
+    const url = `/api/v1/posts?page=${data.page}&pageSize=${data.pageSize}&categoryId=2&tagId=${data.tagId}`;
+    return this.get(url);
+  }
   static getPersonalPost(data){
     const url = `/api/v1/posts?nickName=${data.nickName}&page=${data.page}&pageSize=${data.pageSize}&categoryId=1`;
     return this.get(url);

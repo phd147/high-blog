@@ -59,6 +59,10 @@ export default function Posts(props) {
       fetchListPost = PostService.getPersonalQuestion;
       variant = "post";
       break;
+    case PostsType.TAG_QUESTION_TYPE:
+      fetchListPost = PostService.getTagQuestions;
+      variant = "post";
+      break;
     default:
       console.log("default ");
   }
