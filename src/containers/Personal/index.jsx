@@ -309,14 +309,12 @@ function Personal(props) {
                 initialParams={{ page: 1, pageSize: 10, nickName }}
               />
             </TabPanel>
-            {/* <TabPanel value = {value} index = {2}>Item 3</TabPanel> */}
             <TabPanel value = {value} index = {1}>
               <Posts
                 type={PostType.PERSONAL_QUESTION_TYPE}
                 initialParams={{ page: 1, pageSize: 10, nickName }}
               />
             </TabPanel>
-            
           </Grid>
         </Grid>
       </Container>
