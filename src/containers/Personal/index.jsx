@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Card, CardContent, Grid } from "@material-ui/core";
+import { AppBar, Box, Button, Card, CardContent, Grid, Tab, Tabs } from "@material-ui/core";
 import "./Personal.css";
 import { getUserDataByNickName, uploadImage } from "./Personal.service";
 import EditIcon from "@material-ui/icons/Edit";
@@ -29,7 +29,10 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import MaleIcon from '@material-ui/icons/Male';
 import FemaleIcon from '@material-ui/icons/Female';
 
+
 Personal.propTypes = {};
+
+
 
 function Personal(props) {
 
@@ -38,6 +41,10 @@ function Personal(props) {
     let dispatch = useDispatch();
     let [userData, setUserData] = useState({});
     let history = useHistory();
+    let [value,setValue] = useState(0)
+    const handleTabs = (e,val)=>{
+      setValue(val);
+    }
 
     //const personalNickName = useSelector(state => state.userReducer.nickName)
 
@@ -290,15 +297,45 @@ function Personal(props) {
             </Card>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <Posts
-              type={PostType.PERSONAL_TYPE}
-              initialParams={{ page: 1, pageSize: 10, nickName }}
-            />
+          <AppBar position="static" color = "black"  style={{ background: '#ffffff', boxShadow: 'none'}}>
+            <Tabs value = {value} onChange = {handleTabs} TabIndicatorProps={{style: {background:'blue'}}}>
+              <Tab label = "Post"/>
+              <Tab label = "Question"/>
+            </Tabs>
+          </AppBar>
+            <TabPanel value = {value} index = {0}>
+              <Posts
+                type={PostType.PERSONAL_TYPE}
+                initialParams={{ page: 1, pageSize: 10, nickName }}
+              />
+            </TabPanel>
+            <TabPanel value = {value} index = {1}>
+              <Posts
+                type={PostType.PERSONAL_QUESTION_TYPE}
+                initialParams={{ page: 1, pageSize: 10, nickName }}
+              />
+            </TabPanel>
           </Grid>
         </Grid>
       </Container>
     </div>
   );
+}
+
+function TabPanel(props){
+  const {children, value, index} = props;
+  return (
+    <>
+      {
+        value === index && (
+          <Typography> 
+            <Box pt = {1}/>
+           {children} 
+          </Typography>
+        )
+      }
+    </>
+  )
 }
 
 export default Personal;

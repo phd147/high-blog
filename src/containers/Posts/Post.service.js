@@ -38,4 +38,8 @@ export default class PostService extends ApiHelper {
     const url = `/api/v1/posts?nickName=${data.nickName}&page=${data.page}&pageSize=${data.pageSize}&categoryId=1`;
     return this.get(url);
   }
+  static getPersonalQuestion(data){
+    const url = `/api/v1/posts?nickName=${data.nickName}&page=${data.page}&pageSize=${data.pageSize}&categoryId=2`;
+    return this.get(url);
+  }
 }
