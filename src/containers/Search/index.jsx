@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
+import MetaTag from "../../components/MetaTag";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import styles from "./Search.module.css";
@@ -47,6 +48,7 @@ function SearchScreen(props) {
           </Grid>
         </Grid>
       )}
+      <MetaTag>Search Results</MetaTag>
     </Container>
   );
 }

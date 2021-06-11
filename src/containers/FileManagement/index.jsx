@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactSimpleImageViewer from "react-simple-image-viewer";
 import { BASE_URL } from "../../constant";
 import "./FileManagement.css";
+import MetaTag from "../../components/MetaTag";
 import FileManagementService from "./FileManagement.service";
 
 FileManagement.propTypes = {};
@@ -183,6 +184,7 @@ function FileManagement(props) {
           </IconButton>
         </div>
       </Grid>
+      <MetaTag>My images</MetaTag>
     </Grid>
   );
 }

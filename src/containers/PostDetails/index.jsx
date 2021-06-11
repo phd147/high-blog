@@ -16,6 +16,8 @@ import { BASE_URL } from "../../constant.js";
 import HttpStatus from "../../constants/HttpStatus";
 import "./PostDetails.css";
 import PostDetailsService from "./PostDetails.service";
+import { Helmet } from "react-helmet";
+import MetaTag from "../../components/MetaTag";
 
 PostDetails.propTypes = {};
 
@@ -187,10 +189,10 @@ function PostDetails(props) {
     if (logged) {
       setIsDonateLoading(true);
       let result = await PostDetailsService.postDonation(nickName, amount);
-      if(result.status === HttpStatus.NO_CONTENT && amount > 0){
-        toast.success('Donate Successful');
-      }else{
-        toast.error('Donate Unsuccessful')
+      if (result.status === HttpStatus.NO_CONTENT && amount > 0) {
+        toast.success("Donate Successful");
+      } else {
+        toast.error("Donate Unsuccessful");
       }
       setIsDonateLoading(false);
     }
@@ -376,6 +378,7 @@ function PostDetails(props) {
               />
             </div>
           </Grid>
+          <MetaTag>{postDetails.title}</MetaTag>
         </Grid>
       )}
     </Container>

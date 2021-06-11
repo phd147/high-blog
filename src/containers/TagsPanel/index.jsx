@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import TagsService from "./TagsPanel.service";
 import Menu from "../../components/Menu/Menu";
+import MetaTag from "../../components/MetaTag";
 
 TagsPanel.propTypes = {};
 
@@ -72,6 +73,7 @@ function TagsPanel(props) {
           </div>
         </Grid>
       </Grid>
+      <MetaTag>Tags</MetaTag>
     </Container>
   );
 }
