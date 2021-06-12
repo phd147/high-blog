@@ -1,5 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AppBar, Box, Button, Card, CardContent, Grid, Tab, Tabs } from "@material-ui/core";
+import {
+  AppBar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Tab,
+  Tabs,
+} from "@material-ui/core";
 import "./Personal.css";
 import { getUserDataByNickName, uploadImage } from "./Personal.service";
 import EditIcon from "@material-ui/icons/Edit";
@@ -14,7 +23,7 @@ import {
   LocationOnOutlined,
 } from "@material-ui/icons";
 import { Container } from "react-bootstrap";
-import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButton from "@material-ui/lab/ToggleButton";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import TypographyIcon from "../../components/TypographyIcon/TypographyIcon";
@@ -25,32 +34,28 @@ import { toast } from "react-toastify";
 import HttpStatus from "../../constants/HttpStatus";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import MaleIcon from '@material-ui/icons/Male';
-import FemaleIcon from '@material-ui/icons/Female';
-
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import MaleIcon from "@material-ui/icons/Male";
+import FemaleIcon from "@material-ui/icons/Female";
+import MetaTag from "../../components/MetaTag";
 
 Personal.propTypes = {};
 
-
-
 function Personal(props) {
+  let DefaultAvatar = "/default/default_user_avatar.png";
+  let nickName = props.match.params.nickName;
+  let dispatch = useDispatch();
+  let [userData, setUserData] = useState({});
+  let history = useHistory();
+  let [value, setValue] = useState(0);
+  const handleTabs = (e, val) => {
+    setValue(val);
+  };
 
-    let DefaultAvatar = "/default/default_user_avatar.png";
-    let nickName = props.match.params.nickName;
-    let dispatch = useDispatch();
-    let [userData, setUserData] = useState({});
-    let history = useHistory();
-    let [value,setValue] = useState(0)
-    const handleTabs = (e,val)=>{
-      setValue(val);
-    }
+  //const personalNickName = useSelector(state => state.userReducer.nickName)
 
-    //const personalNickName = useSelector(state => state.userReducer.nickName)
-
-
-    useEffect(() => {
-        console.log("Get user data");
+  useEffect(() => {
+    console.log("Get user data");
 
     async function fetchData() {
       let userData = await getUserDataByNickName(nickName);
@@ -118,7 +123,7 @@ function Personal(props) {
             backgroundInputRef.current.click();
           }}
           style={{
-              backgroundColor: "rgba(255,255,255,0.8)"
+            backgroundColor: "rgba(255,255,255,0.8)",
           }}
         >
           <EditIcon style={{ paddingRight: 5 }} />
@@ -153,25 +158,27 @@ function Personal(props) {
     if (logged) {
       if (type === "FOLLOW") {
         let result = await PostDetailsService.postFollow(nickName);
-        if(result.status === HttpStatus.CREATED)
-            setUserData({...userData, followed: true});
+        if (result.status === HttpStatus.CREATED)
+          setUserData({ ...userData, followed: true });
       } else if (type === "UNFOLLOW") {
         let result = await PostDetailsService.deleteFollow(nickName);
-        
-        if(result.status === HttpStatus.NO_CONTENT)
-            setUserData({...userData, followed: false});
+
+        if (result.status === HttpStatus.NO_CONTENT)
+          setUserData({ ...userData, followed: false });
       }
     }
   };
   const handleSwitchNotification = async (nickName) => {
     await PostDetailsService.postSwitchNotification(nickName);
-    setUserData({...userData, notified: !userData.notified});
+    setUserData({ ...userData, notified: !userData.notified });
   };
-  {new Date(userData.createdDate).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })}
+  {
+    new Date(userData.createdDate).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
   return (
     <div>
       <div
@@ -208,7 +215,7 @@ function Personal(props) {
           {userData.firstName + " " + userData.lastName}
         </Typography>
         {!isCurrentLoginedUser && currentUserProfile.userId ? (
-          <div style={{textAlign: "center", marginBottom: 10}}>
+          <div style={{ textAlign: "center", marginBottom: 10 }}>
             <Button
               variant={userData.followed ? "contained" : "outlined"}
               color="primary"
@@ -225,24 +232,26 @@ function Personal(props) {
               {userData.followed ? "Unfollow" : "Follow me"}
             </Button>
             {userData.followed && (
-                <ToggleButton
-                  style={{
-                    height: "100%",
-                    border: "none",
-                    borderRadius: "50%",
-                    marginLeft:3,
-                  }}
-                  value="notification"
-                  selected={userData.notified}
-                  onChange={()=>{handleSwitchNotification(userData.nickName)}}
-                >
-                  {userData.notified ? (
-                    <NotificationsActiveIcon color="primary" />
-                  ) : (
-                    <NotificationsNoneIcon />
-                  )}
-                </ToggleButton>
-              )}
+              <ToggleButton
+                style={{
+                  height: "100%",
+                  border: "none",
+                  borderRadius: "50%",
+                  marginLeft: 3,
+                }}
+                value="notification"
+                selected={userData.notified}
+                onChange={() => {
+                  handleSwitchNotification(userData.nickName);
+                }}
+              >
+                {userData.notified ? (
+                  <NotificationsActiveIcon color="primary" />
+                ) : (
+                  <NotificationsNoneIcon />
+                )}
+              </ToggleButton>
+            )}
           </div>
         ) : (
           <></>
@@ -276,20 +285,21 @@ function Personal(props) {
                     {userData.location}
                   </TypographyIcon>
                 )}
-                {userData.genderType && (
-                  userData.genderType === "MALE" ? (
-                  <TypographyIcon iconComponent={<MaleIcon/>}>
-                    Male
-                  </TypographyIcon>
-                ):(<TypographyIcon iconComponent={<FemaleIcon/>}>
-                    Female
-              </TypographyIcon>)
-                )}
+                {userData.genderType &&
+                  (userData.genderType === "MALE" ? (
+                    <TypographyIcon iconComponent={<MaleIcon />}>
+                      Male
+                    </TypographyIcon>
+                  ) : (
+                    <TypographyIcon iconComponent={<FemaleIcon />}>
+                      Female
+                    </TypographyIcon>
+                  ))}
                 <TypographyIcon iconComponent={<CakeOutlined />}>
                   Joined on {moment(userData.createdDate).format("YYYY-MM-DD")}
                 </TypographyIcon>
                 {userData.numberOfFollowers > 0 && (
-                  <TypographyIcon iconComponent={<GroupAddIcon/>}>
+                  <TypographyIcon iconComponent={<GroupAddIcon />}>
                     Follower {userData.numberOfFollowers}
                   </TypographyIcon>
                 )}
@@ -297,19 +307,27 @@ function Personal(props) {
             </Card>
           </Grid>
           <Grid item xs={12} sm={8}>
-          <AppBar position="static" color = "black"  style={{ background: '#ffffff', boxShadow: 'none'}}>
-            <Tabs value = {value} onChange = {handleTabs} TabIndicatorProps={{style: {background:'blue'}}}>
-              <Tab label = "Post"/>
-              <Tab label = "Question"/>
-            </Tabs>
-          </AppBar>
-            <TabPanel value = {value} index = {0}>
+            <AppBar
+              position="static"
+              color="black"
+              style={{ background: "#ffffff", boxShadow: "none" }}
+            >
+              <Tabs
+                value={value}
+                onChange={handleTabs}
+                TabIndicatorProps={{ style: { background: "blue" } }}
+              >
+                <Tab label="Post" />
+                <Tab label="Question" />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
               <Posts
                 type={PostType.PERSONAL_TYPE}
                 initialParams={{ page: 1, pageSize: 10, nickName }}
               />
             </TabPanel>
-            <TabPanel value = {value} index = {1}>
+            <TabPanel value={value} index={1}>
               <Posts
                 type={PostType.PERSONAL_QUESTION_TYPE}
                 initialParams={{ page: 1, pageSize: 10, nickName }}
@@ -318,24 +336,23 @@ function Personal(props) {
           </Grid>
         </Grid>
       </Container>
+      <MetaTag>{`${userData.firstName} ${userData.lastName}`}</MetaTag>
     </div>
   );
 }
 
-function TabPanel(props){
-  const {children, value, index} = props;
+function TabPanel(props) {
+  const { children, value, index } = props;
   return (
     <>
-      {
-        value === index && (
-          <Typography> 
-            <Box pt = {1}/>
-           {children} 
-          </Typography>
-        )
-      }
+      {value === index && (
+        <Typography>
+          <Box pt={1} />
+          {children}
+        </Typography>
+      )}
     </>
-  )
+  );
 }
 
 export default Personal;

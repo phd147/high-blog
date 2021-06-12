@@ -3,6 +3,7 @@ import React from "react";
 import Menu from "../../components/Menu/Menu";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
+import MetaTag from "../../components/MetaTag";
 import styles from "./Favorite.module.css";
 
 Favorite.propTypes = {};
@@ -21,6 +22,7 @@ function Favorite(props) {
           />
         </Grid>
       </Grid>
+      <MetaTag>Favorites</MetaTag>
     </Container>
   );
 }

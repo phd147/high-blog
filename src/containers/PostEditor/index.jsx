@@ -16,6 +16,7 @@ import { CKConfig } from "./CK-Helper.js";
 import styles from "./PostEditor.module.css";
 import PostEditorService from "./PostEditor.service";
 import PropTypes from "prop-types";
+import MetaTag from "../../components/MetaTag";
 const toggleTheme = createMuiTheme({
   overrides: {
     MuiToggleButton: {
@@ -423,6 +424,7 @@ function PostEditor(props) {
               )}
             </Grid>
           </Grid>
+          <MetaTag>{isEdit ? `Edit Post` : "New Post"}</MetaTag>
         </Container>
       )}
     </ThemeProvider>

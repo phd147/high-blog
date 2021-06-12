@@ -13,6 +13,7 @@ import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import styles from "./FollowingPost.module.css";
 import FollowingPostService from "./FollowingPost.service";
+import MetaTag from "../../components/MetaTag";
 
 let theme = createMuiTheme({});
 
@@ -106,6 +107,7 @@ function FollowingPost(props) {
           </Grid>
         )}
       </Container>
+      <MetaTag>Following</MetaTag>
     </ThemeProvider>
   );
 }

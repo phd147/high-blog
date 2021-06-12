@@ -5,6 +5,7 @@ import Menu from "../../components/Menu/Menu";
 import Posts from "../Posts/Posts";
 import * as PostType from "../Posts/TypeOfPost";
 import classnames from "./Home.module.css";
+import MetaTag from "../../components/MetaTag";
 
 export default function Home(props) {
   return (
@@ -30,6 +31,7 @@ export default function Home(props) {
           />
         </Grid>
       </Grid>
+      <MetaTag>Home</MetaTag>
     </Container>
   );
 }

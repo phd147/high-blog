@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import LoginService from "./login.service";
+import MetaTag from "../../components/MetaTag";
 
 // action toast
 
@@ -108,7 +109,13 @@ export default function SignInSide() {
   }, []);
 
   return (
-    <Grid style={{marginTop : '-70px'}} container component="main" className={classes.root}>
+    <Grid
+      style={{ marginTop: "-70px" }}
+      container
+      component="main"
+      className={classes.root}
+    >
+      <MetaTag>Login</MetaTag>
       <CssBaseline />
       <Grid item xs={12} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

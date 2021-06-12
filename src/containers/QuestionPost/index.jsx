@@ -2,6 +2,7 @@ import { Container, Grid } from "@material-ui/core";
 import React from "react";
 import Menu from "../../components/Menu/Menu";
 import Posts from "../Posts/Posts";
+import MetaTag from "../../components/MetaTag";
 import * as PostType from "../Posts/TypeOfPost";
 
 QuestionPost.propTypes = {};
@@ -20,6 +21,7 @@ function QuestionPost(props) {
           />
         </Grid>
       </Grid>
+      <MetaTag>Questions</MetaTag>
     </Container>
   );
 }
