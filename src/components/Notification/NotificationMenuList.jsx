@@ -36,7 +36,7 @@ function NotificationMenuList(props) {
                 break;
         }
 
-        let onItemClick = ()=>{
+        let onItemClick = () => {
             props.onItemClick();
             history.push(redirectUrl);
         }
@@ -44,7 +44,7 @@ function NotificationMenuList(props) {
         let imagePath = notification.sender.imagePath;
 
         return (
-            <MenuItem key={notification.id} style={{padding: 0}} onClick={onItemClick}>
+            <MenuItem key={notification.id} style={{padding: 0, marginBottom: '10px'}} onClick={onItemClick}>
                 <Grid container
                       direction="row"
                       justify="space-between"
