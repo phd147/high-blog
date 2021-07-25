@@ -28,6 +28,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 imagePath: action.imagePath,
             };
+
+        case actionTypes.UPDATE_USER_NICKNAME :
+            return {
+                ...state,
+                nickName: action.nickname
+            }
         default :
             return state
 
