@@ -38,6 +38,7 @@ import Wallets from "./containers/Wallets/Wallets";
 import WebsocketConfig from "./components/Notification/WebsocketConfig";
 import {NOTIFICATION_WEBSOCKET_CONNECT_URL} from "./constant";
 import React from "react";
+import VerifyRegister from "./containers/VerifyRegister/VerifyRegister";
 
 function App() {
     return (
@@ -157,6 +158,12 @@ function App() {
                     exact
                     component={Wallets}
                     meta={{auth: true}}
+                />
+
+                <GuardedRoute
+                    path="/verify-register/:id"
+                    component={VerifyRegister}
+                    meta={{auth: false}}
                 />
 
                 <GuardedRoute

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {useLocation,useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 
 import VerifyRegisterService from './VerifyRegister.service';
 
@@ -16,7 +16,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 };
 
-export default function VerifyRegister(props){
+export default function VerifyRegister(props) {
 
 
     const history = useHistory();
@@ -24,11 +24,7 @@ export default function VerifyRegister(props){
     let query = useQuery();
     let {id} = useParams();
 
-    const verifyRegisterService = new VerifyRegisterService();
-
-
     const codeQuery = query.get('code');
-
 
 
     console.log({id});
@@ -36,19 +32,21 @@ export default function VerifyRegister(props){
 
     useEffect(async () => {
         try {
-            const res = await verifyRegisterService.verify(id,codeQuery);
+            const res = await VerifyRegisterService.verify(id, codeQuery);
             console.log(res);
-            toast.success(res.data.message);
+            toast.success("Verify email success");
             setTimeout(() => {
                 history.replace('/login');
-            },3000)
-        }
-        catch(err){
+            }, 3000)
+        } catch (err) {
             console.log(err);
             toast.error(err.response.data.message);
+            setTimeout(() => {
+                history.replace('/login');
+            }, 2000)
 
         }
-    },[])
+    }, [])
 
     return (
         <div>

@@ -92,7 +92,7 @@ export default function SignUp() {
             email: emailRef.current.value,
             username: usernameRef.current.value,
             password: passwordRef.current.value,
-            returnUrl: 'http://localhost:3000/verfigy-register/code',
+            returnUrl: 'http://localhost:3000/verify-register',
             nickName: nicknameRef.current.value,
             genderType: genderType
         };
