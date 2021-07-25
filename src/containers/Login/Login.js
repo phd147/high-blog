@@ -104,6 +104,7 @@ export default function SignInSide() {
             toast.success("LOGIN SUCCESSFUL");
         } catch (err) {
             console.log(err);
+            toast.error('LOGIN FAILED')
             //toast.error(err.response.data.message);
         }
     }, []);
