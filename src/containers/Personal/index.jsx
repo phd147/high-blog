@@ -164,7 +164,7 @@ function Personal(props) {
         let result = await PostDetailsService.deleteFollow(nickName);
 
         if (result.status === HttpStatus.NO_CONTENT)
-          setUserData({ ...userData, followed: false });
+          setUserData({ ...userData, followed: false, notified: false });
       }
     }
   };
@@ -229,7 +229,7 @@ function Personal(props) {
                     }
               }
             >
-              {userData.followed ? "Unfollow" : "Follow me"}
+              {userData.followed ? "Unfollow" : "Follow"}
             </Button>
             {userData.followed && (
               <ToggleButton
