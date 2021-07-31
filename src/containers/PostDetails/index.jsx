@@ -188,11 +188,15 @@ function PostDetails(props) {
     const logged = await handleUserLogged();
     if (logged) {
       setIsDonateLoading(true);
-      let result = await PostDetailsService.postDonation(nickName, amount);
-      if (result.status === HttpStatus.NO_CONTENT && amount > 0) {
-        toast.success("Donate Successful");
-      } else {
-        toast.error("Donate Unsuccessful");
+      try {
+        const result = await PostDetailsService.postDonation(nickName, amount);
+        if (result.status === HttpStatus.NO_CONTENT && amount > 0) {
+          toast.success("Donate Successful");
+        }
+      } catch (error) {
+        if (error.response.status === HttpStatus.INSUFFICIENT) {
+          toast.error("Insufficient account balance");
+        } else toast.error("Donate unsuccessful");
       }
       setIsDonateLoading(false);
     }
