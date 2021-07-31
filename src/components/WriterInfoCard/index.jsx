@@ -76,7 +76,7 @@ function WriterInfoCard(props) {
         <CardContent className={styles.inner}>
           <div className={styles.post_owner}>
             <Link
-              to={`/user/personal/${userInfo.nickName}`}
+              to={`/user/personal/${postOwner.nickName}`}
               style={{ width: "100%" }}
             >
               <Avatar alt="user" src= {postOwner.imagePath ? ("https://highblog.codes/" + postOwner.imagePath): ("")}/>
