@@ -34,6 +34,7 @@ import {toast} from "react-toastify";
 import MetaTag from "../../../components/MetaTag";
 
 import {updateUserNickName} from '../../../store/action/userAction';
+import UserProfileApi from "../user-profile.service";
 
 const initialUserDetailInfor = {
     firstName: "",
@@ -69,6 +70,22 @@ const UserProfile = (props) => {
     const locationRef = useRef();
     const bioRef = useRef();
     const nickNameRef = useRef();
+
+    const newPasswordRef = useRef();
+    const oldPasswordRef = useRef();
+
+    const changePasswordHandler = async () => {
+        console.log({newPasswordValue: newPasswordRef.current.value, oldPasswordValue: oldPasswordRef.current.value});
+        try {
+            const res = await UserProfileApi.changePassword({
+                newPassword: newPasswordRef.current.value,
+                oldPassword: oldPasswordRef.current.value
+            });
+            toast.success("Change password successfully")
+        } catch (err) {
+            toast.error(err.response.data.message);
+        }
+    }
 
     const nickName = useSelector((state) => state.user.nickName);
 
@@ -239,6 +256,40 @@ const UserProfile = (props) => {
                                             </CardActions>
                                         </Card>
                                     </form>
+                                    <Card>
+                                        <CardHeader
+                                            subheader="The information can be edited"
+                                            title="Change password"
+                                        />
+                                        <Grid container>
+                                            <Grid item md={4}>
+                                                <TextField
+                                                    fullWidth
+                                                    label="New password"
+                                                    name="password"
+                                                    required
+                                                    variant="outlined"
+                                                    type="text"
+                                                    style={{"marginBottom": "10px"}}
+                                                    inputRef={newPasswordRef}
+                                                />
+                                                <TextField
+                                                    fullWidth
+                                                    label="Old password"
+                                                    name="old-password"
+                                                    required
+                                                    variant="outlined"
+                                                    type="password"
+                                                    style={{"marginBottom": "10px"}}
+                                                    inputRef={oldPasswordRef}
+                                                />
+                                                <Button onClick={changePasswordHandler} variant="contained"
+                                                        color="primary">Change
+                                                    password</Button>
+                                            </Grid>
+                                        </Grid>
+
+                                    </Card>
                                 </Grid>
                             </Grid>
                         </Container>
