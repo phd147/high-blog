@@ -1,15 +1,21 @@
 //TODO: wait userInfo de setVisible cho edit, remove button
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./Comment.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
-import {Avatar, Button, IconButton, TextareaAutosize,} from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  TextareaAutosize,
+} from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import { BASE_URL } from "../../constant";
 
 Comment.propTypes = {
   parentId: PropTypes.number,
@@ -65,25 +71,25 @@ function Comment(props) {
     setIsReply(false);
   };
   const handleDelete = () => {
-    console.log("delete comment id: ", id);
     if (onDelete) onDelete(parentId, id);
   };
   const handleEdit = () => {
-    console.log("edit comment id: ", id);
     if (onEdit) onEdit(parentId, id, editText);
     setIsEdit(false);
   };
-  console.log("COMMENT RENDER");
   return (
     <div className="comment__container">
-      <Link to="#">
-        <Avatar alt="user" src="" />
+      <Link to={`/user/personal/${owner.nickName}`}>
+        <Avatar
+          alt="user"
+          src={`${BASE_URL}/${owner.imagePath || userInfo.imagePath}`}
+        />
       </Link>
       <div className="comment__inner">
         <div className="comment__card">
           <div className="comment__card-header">
             <div>
-              <Link to="#">
+              <Link to={`/user/personal/${owner.nickName}`}>
                 <span className="comment__owner">
                   {owner.firstName} {owner.lastName}
                 </span>
@@ -139,12 +145,6 @@ function Comment(props) {
         </div>
 
         <div className="comment__reaction">
-          <div className="comment__reaction-favorite">
-            <IconButton>
-              <FavoriteBorderOutlinedIcon />
-              <span className="comment__reaction-count">{numberOfVotes}</span>
-            </IconButton>
-          </div>
           {onReplySubmit ? (
             <div className="comment__reaction-reply">
               <IconButton onClick={() => setIsReply(!isReply)}>
@@ -168,15 +168,11 @@ function Comment(props) {
                   rowsMax={5}
                   rowsMin={2}
                   placeholder="Reply this comment ..."
-                  defaultValue={`@${owner.firstName} ${owner.lastName} `}
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                 />
                 <div className="buffer"></div>
                 <div className="reply__toolbar">
-                  <IconButton className="img-upload-btn" aria-label="image">
-                    <ImageRoundedIcon />
-                  </IconButton>
                   <Button onClick={handleSubmitClick}>Submit</Button>
                 </div>
               </div>

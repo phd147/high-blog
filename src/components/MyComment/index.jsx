@@ -7,6 +7,7 @@ import { Avatar, Button, IconButton } from "@material-ui/core";
 import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import cssAction from "./MyCommentHelper.js";
 import { useSelector } from "react-redux";
+import { BASE_URL } from "../../constant";
 
 MyComment.propTypes = {
   currentUser: PropTypes.object,
@@ -43,8 +44,7 @@ function MyComment(props) {
 
   return (
     <div className="mycomment__container">
-      {/* <img className="mycomment__avatar" src={currentUser.avatar} alt="" /> */}
-      <Avatar alt="user" src="" />
+      <Avatar alt="user" src={`${BASE_URL}/${userInfo.imagePath}`} />
       <div className="mycomment__inner">
         <div className="mycomment__card">
           <TextareaAutosize
@@ -60,9 +60,6 @@ function MyComment(props) {
           />
           <div className="buffer"></div>
           <div className="mycomment__toolbar">
-            <IconButton className="img-upload-btn" aria-label="image">
-              <ImageRoundedIcon />
-            </IconButton>
             <Button onClick={handleSubmitClick}>Submit</Button>
           </div>
         </div>
