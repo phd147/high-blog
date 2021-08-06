@@ -105,7 +105,7 @@ export default function Post(props) {
                     {variant === "post" ? (
                         <div className={cs(classnames.post_item_reactions)}>
                             <Button style={{textTransform: "initial"}}>
-                                {` ${data.numberOfFavorites} reactions`}
+                                {` ${data.numberOfFavorites} favorites`}
                             </Button>
                             <Button style={{textTransform: "initial"}}>
                                 {data.numberOfComments

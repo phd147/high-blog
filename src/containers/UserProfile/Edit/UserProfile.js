@@ -258,7 +258,6 @@ const UserProfile = (props) => {
                                     </form>
                                     <Card>
                                         <CardHeader
-                                            subheader="The information can be edited"
                                             title="Change password"
                                         />
                                         <Grid container>
@@ -269,7 +268,7 @@ const UserProfile = (props) => {
                                                     name="password"
                                                     required
                                                     variant="outlined"
-                                                    type="text"
+                                                    type="password"
                                                     style={{"marginBottom": "10px"}}
                                                     inputRef={newPasswordRef}
                                                 />
