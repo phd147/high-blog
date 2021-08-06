@@ -38,6 +38,9 @@ function NotificationMenuList(props) {
 
         let onItemClick = () => {
             props.onItemClick();
+            if (notification.type === 'ADMIN') {
+                return;
+            }
             history.push(redirectUrl);
         }
 
@@ -47,7 +50,7 @@ function NotificationMenuList(props) {
             <MenuItem key={notification.id} style={{padding: 0, marginBottom: '10px'}} onClick={onItemClick}>
                 <Grid container
                       direction="row"
-                      justify="space-between"
+                      justify="flex-start"
                       alignItems="center"
                       wrap="nowrap"
                       spacing={2}
