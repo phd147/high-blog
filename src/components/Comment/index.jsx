@@ -16,6 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import { BASE_URL } from "../../constant";
+import { toast } from "react-toastify";
 
 Comment.propTypes = {
   parentId: PropTypes.number,
@@ -66,6 +67,10 @@ function Comment(props) {
   const userInfo = useSelector((state) => state.user);
 
   const handleSubmitClick = () => {
+    if (replyText.trim().length === 0) {
+      toast.error("Fill out reply before submitting");
+      return;
+    }
     if (onReplySubmit) onReplySubmit(id, replyText);
     setReplyText("");
     setIsReply(false);
@@ -74,6 +79,10 @@ function Comment(props) {
     if (onDelete) onDelete(parentId, id);
   };
   const handleEdit = () => {
+    if (editText.trim().length === 0) {
+      toast.error("Fill out before submitting");
+      return;
+    }
     if (onEdit) onEdit(parentId, id, editText);
     setIsEdit(false);
   };
