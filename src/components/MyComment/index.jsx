@@ -8,6 +8,7 @@ import ImageRoundedIcon from "@material-ui/icons/ImageRounded";
 import cssAction from "./MyCommentHelper.js";
 import { useSelector } from "react-redux";
 import { BASE_URL } from "../../constant";
+import { toast } from "react-toastify";
 
 MyComment.propTypes = {
   currentUser: PropTypes.object,
@@ -29,6 +30,10 @@ function MyComment(props) {
   const [commentText, setCommentText] = useState("");
   console.log("RENDER MY COMMENT");
   const handleSubmitClick = () => {
+    if (commentText.trim().length === 0) {
+      toast.error("Fill out comment before submitting");
+      return;
+    }
     if (onCommentSubmit) onCommentSubmit(commentText);
     setCommentText("");
   };
