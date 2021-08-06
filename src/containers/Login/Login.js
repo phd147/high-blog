@@ -26,7 +26,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://fb.com/bk.bop19">
+            <Link color="inherit" href="#">
                 DUT TEAM
             </Link>{" "}
             {new Date().getFullYear()}
@@ -152,20 +152,7 @@ export default function SignInSide() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={checked}
-                                    onChange={(e) => {
-                                        console.log(e.target.checked);
-                                        setCheck(e.target.checked);
-                                    }}
-                                    value="remember"
-                                    color="primary"
-                                />
-                            }
-                            label="Remember me"
-                        />
+
                         <Button
                             type="submit"
                             fullWidth
