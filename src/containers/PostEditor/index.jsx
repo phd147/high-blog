@@ -408,7 +408,7 @@ function PostEditor(props) {
                     </Button>
                   ) : (
                     <Button
-                      className={styles.btn}
+                      style={{ display: "none" }}
                       variant="contained"
                       onClick={() => handlePostClick("DRAFT")}
                     >
