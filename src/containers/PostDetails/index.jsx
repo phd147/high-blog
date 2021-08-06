@@ -323,7 +323,7 @@ function PostDetails(props) {
                 onClick={handleBookmarkClick}
               />
               <SocialButtons
-                url={`${BASE_URL}/${props.location.pathname}`}
+                url={`http://fe-highblog.codes/${props.location.pathname}`}
                 text={postDetails.summary}
               />
             </div>
